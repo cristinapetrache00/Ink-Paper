@@ -1,0 +1,9 @@
+id,nume,prenume,nr_telefon,adresa,localitate,judet
+,Popescu,Maria,0744055645,"Bd. Iuliu Maniu, Nr. 54",Bucuresti,Bucuresti
+,Ionescu,Robert Andrei,0755357795,"Calea Sever Bocu, Nr. 15",Timisoara,Timis
+,Lungu,Simona,0722315349,"Str. Horea, Nr. 20",Cluj-Napoca,Cluj
+,Cristea,Daniel Mihai,0723452861,"Bd. Decebal, Nr. 34",Oradea,Bihor
+,Aldea,Eliza,0744997175,"Str. Stefan cel Mare, Nr. 6",Sibiu,Sibiu
+,Petre,Madalina Bianca,0742637324,"Bd. Alexandru Lapusneanu, Nr. 175",Constanta,Constanta
+,Sileanu,Alexandru,0758754882,"Str. Progresului, Nr. 5",Baia Mare,Maramures
+,Sima,Elena,0742893413,"Calea Bucuresti, Nr. 238",Brasov,Brasov

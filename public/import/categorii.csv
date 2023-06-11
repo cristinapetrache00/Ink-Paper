@@ -1,0 +1,26 @@
+id,nume,parent_id
+,Beletristica,0
+,Carti de aventura,Beletristica
+,Romane inspirate de Holocaust,Beletristica
+,Romane mitologice si istorice,Beletristica
+,Romane de dragoste,Beletristica
+,Poezie,Beletristica
+,SF & Fantasy,Beletristica
+,Literatura clasica,Beletristica
+,Literatura contemporana,Beletristica
+,Literatura universala,Beletristica
+,Literatura romana,Beletristica
+,Carti pentru adolescenti,Beletristica
+,Cultura Generala,0
+,Atlase & Enciclopedii,Cultura Generala
+,Cultura generala,Cultura Generala
+,Civilizatii & Mitologie,Cultura Generala
+,Dezvoltare personala,0
+,Psihologia relatiilor,Dezvoltare personala
+,Psihologia practica,Dezvoltare personala
+,"Economie, Business, Finante",0
+,Dezvoltare profesionala,"Economie, Business, Finante"
+,Dezvoltarea afacerilor,"Economie, Business, Finante"
+,"Biografii, Memorii, Jurnale",0
+,Biografii,"Biografii, Memorii, Jurnale"
+,Memorii & Jurnale,"Biografii, Memorii, Jurnale"

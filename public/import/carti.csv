@@ -1,0 +1,114 @@
+﻿id,titlu,autor,imagine,isbn,editura,categorie_id,pret,an_aparitie,nr_pg,tip_coperta,limba,dimensiune,cantitate
+,Puterea intentiei,Wayne W. Dyer,,978-606-44-0226-4,CURTEA VECHE,Psihologia practica,49.00,2019,320,Necartonata,Romana,200 x 130 x 20 mm,20
+,Arta subtila a nepasarii,Mark Manson,,978-606-789-109-6,LIFESTYLE,Psihologia practica,49.00,2017,238,Necartonata,Romana,200 x 130 x 20 mm,30
+,Secretele succesului,Dale Carnegie,,978-606-44-0073-4,CURTEA VECHE,Psihologia practica,47.00,2018,296,Necartonata,Romana,210 x 150 x 20 mm,26
+,Despre somn,Emilia Vasiliu,,978-606-980-040-9,VELLANT,Psihologia practica,49.90,2018,440,Necartonata,Romana,200 x 130 mm,15
+,Din cer au cazut trei mere,Narine Abgarian,,978-606-779-856-2,HUMANITAS,Literatura universala,32.00,2022,264,Necartonata,Romana,200 x 130 x 13 mm,18
+,Cascada ingerilor,Kristin Hannah,,978-606-33-8383-0,LITERA,Romane de dragoste,49.90,2022,304,Necartonata,Romana,200 x 135 x 20 mm,13
+,Invitatia la vals,Mihail Drumes,,978-606-710-869-9,GRUPUL EDITORIAL ART,"Romane de dragoste, Literatura romana",38.00,2022,344,Necartonata,Romana,200 x 140 x 29 mm,23
+,De veghe in lanul de secara,J.D. Salinger,,978-973-46-2031-9,POLIROM,"Literatura universala, Carti pentru adolescenti",34.95,2011,280,Necartonata,Romana,180 x 110 mm,22
+,Cantec de leagan de la Auschwitz,Mario Escobar,,978-606-006-458-9,RAO,"Literatura universala, Romane inspirate de Holocaust, Romane mitologice si istorice",35.99,2021,240,Necartonata,Romana,200 x 130 x 16 mm,40
+,Maitreyi,Mircea Eliade,,978-606-8391-40-3,AGORA,"Carti pentru adolescenti, Literatura clasica",17.90,2021,210,Necartonata,Romana,200 x 130 mm,33
+,Romanul adolescentului miop,Mircea Eliade,,978-973-87111-7-7,TANA,"Literatura clasica, Literatura romana",35.00,2019,368,Necartonata,Romana, 200 x 130 x 20 mm,23
+,Nunta in cer,Mircea Eliade,,978-973-88323-2-9,TANA,"Literatura romana, Literatura clasica",22.00,2018,160,Necartonata,Romana,200 x 130 x 9 mm,45
+,Imperiul Celtic,"Clive Clussler, Dirk Cussler",,978-606-006-544-9,RAO,"Literatura universala, Carti de aventura",52.00,2021,416,Cartonata,Romana,210 x 135 x 32 mm,22
+,Fata care a imblanzit vantul,Meg Medina,,978-606-609-553-2,RAO,Carti de aventura,29.99,2014,228,Cartonata,Romana,200 x 130 mm,32
+,Poezii,Mihai Eminescu,,978-606-33-1840-5,LITERA,"Poezie, Literatura romana",14.90,2020,192,Necartonata,Romana,200 x 130 x 11 mm,43
+,"Cuvintelor, necuvintelor",Nichita Stanescu,,978-9975-86-589-0,CARTIER,"Poezie, Literatura romana",49.00,2022,256,Cartonata,Romana,200 x 140 x 30 mm,24
+,Tu ai un fel de paradic al tau,Nichita Stanescu,,978-9975-3420-9-4,BESTSELLER,"Poezie, Literatura romana",59.00,2021,112,Necartonata,Romana,200 x 130 x 19 mm,13
+,Patul lui Procust,Camil Petrescu,,978-606-8391-11-3,AGORA,"Literatura clasica, Literatura romana",34.00,2012,336,Necartonata,Romana,200 x 130 x 20 mm,28
+,Poeme,Valeriu Anania,,978-973-46-1598-8,POLIROM,Poezie,49.95,2010,304,Cartonata,Romana,235 x 160 x 18 mm,34
+,Toate panzele sus!,Radu Tudoran,,978-606-086-725-8,GRUPUL EDITORIAL ART,"Carti pentru adolescenti, Literatura romana",58.58,2022,646,Cartonata,Romana,230 x 170 x 40 mm,37
+,Atlas de anatomie,Adolfo Cassan,,978-973-8459-27-3,STEAUA NORDULUI,Atlase & Enciclopedii,39.95,2014,96,Cartonata,Romana,280 x 210 x 9 mm,29
+,Marele roman al matematicii,Mickael Launay,,978-606-40-0625-7,TREI,Cultura generala,49.00,2021,304,Necartonata,Romana,200 x 130 mm,41
+,Legile lui Zamolxe,Remer Ra,,978-973-9466-36-3,DECENEU,Civilizatii & Mitologie,25.20,2019,272,Necartonata,Romana,200 x 130 X 15 mm,0
+,Dictionar de simboluri,"Jean Chevalier, Alain Gheerbrant",,978-973-46-1286-4,POLIROM,Atlase & Enciclopedii,149.00,2009,1072,Cartonata,Romana,235 x 160 mm,12
+,Miturile Greciei antice,Robert Graves,,978-973-46-3946-5,POLIROM,Civilizatii & Mitologie,89.00,2018,655,Cartonata,Romana,240 x 170 mm,3
+,Acasa. O istorie a vietii private,Bill Bryson,,978-973-46-9390-0,POLIROM,Cultura generala,55.00,2023,448,Necartonata,Romana,225 x 150 x 25 mm,7
+,Atlasul lumii,Constantin Furtuna,,978-606-587-542-5,ALL,Atlase & Enciclopedii,119.90,2020,144,Necartonata,Romana,295 x 215 mm,19
+,Cartea mica a ideilor mari,Daniel Smith,,978-606-38-0475-5,NICULESCU,Cultura generala,34.90,2020,304,Necartonata,Romana,200 x 130 x 14 mm,23
+,Legendele si miturile Greciei antice,Nicolai Albertovici Kun,,978-973-7363-88-6,ORIZONTURI,Civilizatii & Mitologie,25.00,2018,544,Necartonata,Romana,200 x 130 x 31 mm,11
+,Atlas zoologic,Tudor Cozari,,978-9975-67-874-2,STIINTA,Atlase & Enciclopedii,150.00,2013,126,Cartonata,Romana,300 x 250 x 18 mm,25
+,Mica istorie a religiei,Richard Holloway,,978-606-33-7313-8,LITERA,Cultura generala,29.90,2021,368,Necartonata,Romana,165 x 110 mm,49
+,Legendele Olimpului. Zeii,Gheorghe Popa-Lisseanu,,978-606-8894-72-0,LIBREX,Civilizatii & Mitologie,49.00,2022,320,Necartonata,Romana,200 x 130 x 23 mm,33
+,Curiozitati medicale,J.C. McKeown,,978-606-587-576-0,ALL,Civilizatii & Mitologie,49.90,2022,304,Necartonata,Romana,200 x 130 x 18,12
+,Ce este arta. Notiuni fundamentale,Sarah Hull,,978-606-33-7448-7,LITERA,Cultura generala,49.90,2021,96,Cartonata,Romana,260 x 205 x 6,28
+,Atlasul corpului uman,Peter Abrahams,,978-973-135-590-0,CORINT,Atlase & Enciclopedii,123.90,2011,256,Necartonata,Romana,300 x 230 mm,46
+,185 days in Irak,Visarion Neagoe,,978-973-32-0827-3,MILITARA,Memorii & Jurnale,29.75,2010,386,Necartonata,Engleza,200 x 135 x 16 mm,34
+,Dinu Lipatti. La douleur de ma vie,Anna Lipatti,,978-606-747-054-3,GRAFOART,Memorii & Jurnale,25.00,2017,84,Necartonata,Franceza,205 x 145 x 6 mm,35
+,Rezerva,Printul Harry,,978-606-43-1450-5,NEMIRA,Memorii & Jurnale,99.00,2023,456,Cartonata,Romana,245 x 175 x 40 mm,43
+,Omul in cautarea sensului vietii,Viktoc E. Frankl,,978-606-9800-50-8,VELLANT,Memorii & Jurnale,35.00,2018,176,Necartonata,Romana,200 x 130 mm,45
+,Dostoievski,Henri Troyat,,978-973-46-9196-8,POLIROM,Biografii,49.95,2022,488,Necartonata,Romana,200 x 130 x 31 mm,29
+,Shakespeare. Lumea ca o scena,Bill Bryson,,978-973-46-9305-4,POLIROM,Biografii,39.95,2023,248,Necartonata,Romana,200 x 130 x 15 mm,35
+,Mari personalitati. Constantin Brancusi,Sanda Miller,,978-606-33-9163-7,LITERA,Biografii,44.00,2022,208,Necartonata,Romana,200 x 130 x 13 mm,33
+,Coco Chanel. Viata intima,Lisa Chaney,,978-606-33-9020-3,LITERA,Biografii,59.99,2022,512,Necartonata,Romana,200 x 140 x 33 mm,0
+,Cehov,Henri Troyat,,978-973-46-8298-0,POLIROM,Biografii,44.95,2021,424,Necartonata,Romana,200 x 130 mm,3
+,Nicolae al II-lea. Ultimul tar,Henri Troyat,,978-973-46-8600-1,POLIROM,Biografii,39.96,2021,472,Necartonata,Romana,200 x 130 x 29,12
+,Cele cinci limbaje ale iubirii,Gary Chapman,,978-606-44-0253-0,CURTEA VECHE,"Psihologia relatiilor, Psihologia practica",42.00,2019,208,Necartonata,Romana,200 x 130 x 14 mm,56
+,Suflete de sticla,Gaspar Gyorgy,,978-606-94945-2-3,PAGINA DE Psihologia,"Psihologia relatiilor, Psihologia practica",54.00,2020,208,Necartonata,Romana,200 x 130 x 14 mm,7
+,De ce se cearta cuplurile?,Mira Kirshenbaum,,978-606-029-432-0,EDITURA CREATOR,Psihologia relatiilor,58.00,2022,354,Necartonata,Romana,220 x 140 x 25,0
+,Regandirea infidelitatii,Esther Perel,,978-606-44-0048-2,CURTEA VECHE,Psihologia relatiilor,55.00,2018,400,Necartonata,Romana,200 x 130 x 24 mm,34
+,Atunci cand iubim,Osho,,978-606-33-6257-6,LITERA,Psihologia relatiilor,39.99,2020,304,Necartonata,Romana,200 x 130 x 24 mm,34
+,Arta de a iubi,Erich Fromm,,978-606-40-0751-3,TREI,Psihologia relatiilor,39.00,2016,184,Necartonata,Romana,200 x 130 mm,2
+,Stiinta increderii,John Gottman,,978-606-44-0189-2,CURTEA VECHE,"Psihologia relatiilor, Psihologia practica",70.00,2021,512,Necartonata,Romana,225 x 150 x 31,32
+,Iubirea ca un mod de viata,Gary Chapman,,978-606-44-0176-2,CURTEA VECHE,Psihologia relatiilor,45.00,2018,352,Necartonata,Romana,200 x 130 mm,44
+,Cum sa vorbim in public,Dale Carnegie,,978-606-44-0054-3,CURTEA VECHE,Psihologia practica,45.00,2018,272,Necartonata,Romana,205 x 145 x 18 mm,55
+,Cum sa devii remarcabil,Dale Carnegie,,978-606-44-0042-0,CURTEA VECHE,Psihologia practica,45.00,2018,288,Necartonata,Romana,200 x 150 mm,37
+,Cel mai bogat om din Babilon,George S. Clason,,978-606-33-9587-1,LITERA,Dezvoltare profesionala,49.99,2022,208,Necartonata,Romana,200 x 140 x 12,56
+,Excelenta personala pentru manageri,Michael Karl Schroeder,,978-606-44-0270-7,CURTEA VECHE,Dezvoltare profesionala,45.00,2019,232,Necartonata,Romana,200 x 130 x 20 mm,0
+,Cele 7 deprinderi ale persoanelor eficace,Stephen R. Covey,,978-606-783-031-6,ALL,Dezvoltare profesionala,89.90,2016,296,Necartonata,Romana,230 x 160 mm,49
+,Stiinta de a deveni bogat,Wallace D. Wattles,,978-606-95252-8-9,CARTE INSPIRATA,Dezvoltare profesionala,18.90,2023,80,Necartonata,Romana,200 x 130 x 6 mm,0
+,Tehnici de a vinde,Dale Carnegie,,978-606-44-0480-0,CURTEA VECHE,Dezvoltare profesionala,48.00,2020,368,Necartonata,Romana,205 x 145 x 22 mm,80
+,Principiile succesului,Dale Carnegie,,978-606-33-4379-7,LITERA,Dezvoltare profesionala,39.90,2019,216,Necartonata,Romana,200 x 140 x 18 mm,66
+,Excelenta in afaceri,Jim Collins,,978-606-44-0033-8,CURTEA VECHE,Dezvoltare profesionala,52.00,2017,348,Necartonata,Romana,210 x 150 mm,48
+,Curs de vanzari,Zig Ziglar,,978-606-44-0177-9,CURTEA VECHE,Dezvoltarea afacerilor,38.00,2018,104,Necartonata,Romana,200 x 130 mm,16
+,Calea spre succes,Napoleon Hill,,978-606-44-0243-1,CURTEA VECHE,Dezvoltarea afacerilor,37.00,2019,216,Necartonata,Romana,200 x 130 x 18 mm,12
+,Haihui pe Wall Street,Burton G. Malkiel,,978-630-303-119-4,ACT SI POLITON,"Dezvoltarea afacerilor, Psihologia practica",67.00,2023,576,Necartonata,Romana,200 x 130 x 32 mm,4
+,Principiile prosperitatii,Daniel Crosby,,978-606-44-1377-2,CURTEA VECHE,Dezvoltarea afacerilor,55.00,2023,296,Necartonata,Romana,205 x 145 x 19 mm,77
+,Stiinta de a vinde,Napoleon Hill,,978-606-44-1069-6,CURTEA VECHE,Dezvoltarea afacerilor,42.00,2021,136,Necartonata,Romana,200 x 130 x 8,67
+,Privighetoarea,Kristin Hannah,,978-606-33-1167-3,LITERA,"Romane inspirate de Holocaust, Literatura universala",49.90,2016,476,Necartonata,Romana,200 x 140,0
+,Fata in rochie vargata,Ellie Midwood,,978-606-33-9807-0,LITERA,"Romane de dragoste, Literatura universala, Romane inspirate de Holocaust",59.99,2023,352,Necartonata,Romana,200 x 130 x 22 mm,43
+,Copilul lui Noe,Eric-Emmanuel Schmitt,,978-606-779-580-6,HUMANITAS,"Romane inspirate de Holocaust, Literatura universala",27.00,2019,184,Necartonata,Romana,200 x 130 x 9 mm,26
+,Paradisuri pierdute,Eric-Emmanuel Schmitt,,978-606-779-972-9,HUMANITAS,"Literatura universala, Romane mitologice si istorice",52.00,2022,210,Necartonata,Romana,200 x 130,22
+,Ultimul trandafir din Shanghai,Weina Dai Randel,,978-606-43-1417-8,NEMIRA,"Literatura universala, Romane mitologice si istorice",59.99,2022,512,Necartonata,Romana,200 x 130 x 30 mm,0
+,O mie de corabii,Natalie Haynes,,978-606-978-597-3,PANDORA,"Literatura universala, Romane mitologice si istorice",49.00,2023,352,Necartonata,Romana,200 x 130 x 29 mm,11
+,A Deauville. Poems,Stela Iorga,,978-606-001-240-5,ELITERATURA,Poezie,25.00,2019,126,Necartonata,Engleza,210 x 150 x 7 mm,33
+,Ultima printesa,Connie Glynn,,978-606-33-8999-3,LITERA,Carti pentru adolescenti,49.99,2022,304,Necartonata,Romana,200 x 135 x 19 mm,67
+,Coraline,Neil Gaiman,,978-606-086-705-0,GRUPUL EDITORIAL ART,"Literatura universala, Carti pentru adolescenti",38.38,2022,176,Cartonata,Romana,210 x 145 x 19 mm,45
+,Ursul si privighetoarea,Katherine Arden,,978-606-8811-63-5,GRUPUL EDITORIAL ART,Carti pentru adolescenti,44.00,2018,400,Cartonata,Romana,210 x 150 mm,32
+,Lectia pinguinului,Tom Michell,,978-606-8811-04-8,GRUPUL EDITORIAL ART,Carti pentru adolescenti,38.00,2016,226,Cartonata,Romana,210x140,54
+,Orizontul albastru,Wilbur Smith,,978-606-006-073-4,RAO,"Carti de aventura, Literatura universala",45.99,2018,784,Necartonata,Romana,180 x 110 mm,0
+,Vulpea aurie,Wilbur Smith,,978-606-609-006-3,RAO,Carti de aventura,34.99,2011,576,Necartonata,Romana,180 x 110 mm,32
+,Piratii Marilor Rosii,Scott Lynch,,978-606-609-239-5,RAO,Carti de aventura,59.99,2012,726,Cartonata,Romana,210 x 130 mm,76
+,Mormantul pasarii de aur,Elizabeth Peters,,978-606-8255-45-3,RAO,Carti de aventura,27.99,2011,473,Necartonata,Romana,180 x 110 mm,56
+,Alborada,Riotta Gianni,,978-973-103-695-3,RAO,Carti de aventura,22.14,2008,256,Cartonata,Romana,180 x 110 mm,43
+,Motanul care voia sa salveze cartile,Sosuke Natsukawa,,978-606-33-9519-2,LITERA,"SF & Fantasy, Literatura universala, Carti pentru adolescenti",59.90,2022,256,Necartonata,Romana,200 x 130 x 15 mm,22
+,Baiatul de pe pod,M.R. Carey,,978-606-4302-82-3,NEMIRA,"SF & Fantasy, Literatura universala",39.99,2018,416,Necartonata,Romana,200 x 130 mm,44
+,Fundatia,Isaac Asimov,,978-606-96-1131-9,PALADIN,"SF & Fantasy, Literatura universala",44.00,2022,272,Cartonata,Romana,220 x 145 x 27 mm,3
+,Sub usa care  sopteste,TJ Klune,,978-606-9072-90-5,STORIA BOOKS,"SF & Fantasy, Literatura universala",59.00,2022,480,Necartonata,Romana,200 x 135 x 31 mm,6
+,Oceanul de la capatul aleii,Neil Gaiman,,978-606-961-128-9,PALADIN,"SF & Fantasy, Literatura universala",44.00,2019,312,Necartonata,Romana,215 x 145 x 30 mm,39
+,Soarele gol,Isaac Asimov,,978-606-9000-93-9,PALADIN,"SF & Fantasy, Literatura universala",48.00,2021,280,Cartonata,Romana,220 x 150 x 28 mm,22
+,Bratarile doliului,Brandon Sanderson,,978-606-40-1324-8,TREI,"SF & Fantasy, Literatura universala",55.00,2022,480,Necartonata,Romana,200 x 130 x 30 mm,54
+,Persuasiune,Jane Austin,,978-606-006-784-9,RAO,"Literatura clasica, Literatura universala, Romane de dragoste",35.99,2023,320,Cartonata,Romana,185 x 110 x 23 mm,23
+,Nopti albe,F.M. Dostoievski,,978-606-710-859-0,GRUPUL EDITORIAL ART,"Literatura clasica, Literatura universala",38.00,2022,122,Cartonata,Romana,210 x 140 x 15 mm,54
+,Odiseea,Homer,,978-973-642-354-3,SAECULUM I.O.,Literatura clasica,34.65,2016,301,Necartonata,Romana,200 x 130 mm,12
+,Rosu si negru,Stendhal,,978-606-091-061-9,CARTEX,"Literatura clasica, Literatura universala",35.00,2022,456,Necartonata,Romana,200 x 130 x 26 mm,48
+,Destin,Zeruya Shavel,,978-606-097-197-9,HUMANITAS,"Literatura contemporana, Literatura universala, Romane de dragoste",45.00,2023,352,Necartonata,Romana,200 x 130 x 17 mm,27
+,Secretul ciocarliei,Fiona Valpy,,978-606-9639-92-4,BOOKZONE,"Literatura contemporana, Literatura universala, Romane de dragoste, Romane mitologice si istorice",49.00,2022,352,Necartonata,Romana,200 x 130 x 23 mm,44
+,Inimile noastre ratacite,Celeste Ng,,978-606-33-9607-6,LITERA,"Literatura contemporana, Literatura universala",59.90,2022,352,Necartonata,Romana,200 x 130 x 21 mm,7
+,O prietenie ,Silvia Avallone,,978-606-43-1418-5,NEMIRA,"Literatura contemporana, Literatura universala, Romane de dragoste, Carti pentru adolescenti",69.99,2022,432,Necartonata,Romana,230 x 160 x 26 mm,79
+,Groapa marianelor,Jasmin Schreiber,,978-606-006-708-5,RAO,"Literatura contemporana, Literatura universala",35.99,2023,200,Necartonata,Romana,200 x 125 x 15 mm,45
+,Nu mi-e frica,Laura Kneidl,,978-606-006-588-3,RAO,"Literatura contemporana, Literatura universala, Romane de dragoste",42.00,2021,368,Necartonata,Romana,200 x 130 x 23 mm,0
+,Stiutorii. Trei povestiri din Orbitor,Mircea Carturescu,,978-973-50-5906-4,HUMANITAS,Literatura romana,37.00,2017,176,Cartonata,Romana,215 x 150 x 20 mm,4
+,Baiatul cu pijamale in dungi,John Boyne,,978-606-776-184-9,RAO,"Literatura universala, Romane inspirate de Holocaust",35.00,2016,224,Necartonata,Romana,200 x 130 x 15 mm,34
+,Baltagul,Mihail Sadoveanu,,978-606-93355-0-5,MIHAIL SADOVEANU,Literatura romana,33.00,2016,210,Necartonata,Romana,210 x 150 mm,23
+,Italia sub clar de luna,Jennifer Anton,,978-606-029-500-6,EDITURA CREATOR,"Literatura universala, Romane mitologice si istorice",55.00,2022,396,Necartonata,Romana,220 x 140 x 25 mm,0
+,Mitologia nordica,Neil Gaiman,,978-606-086-740-1,GRUPUL EDITORIAL ART,"Literatura universala, SF & Fantasy, Romane mitologice si istorice",44.44,2022,256,Cartonata,Romana,215 x 150 x 25 mm,44
+,Electra,Jennifer Saint,,978-606-33-9740-0,LITERA,"Literatura universala, SF & Fantasy, Romane mitologice si istorice",59.99,2023,384,Necartonata,Romana,220 x 140 x 25 mm,3
+,Unda verde,Matthew McConaughey,,978-606-006-634-7,RAO,Memorii & Jurnale,69.00,2021,352,Cartonata,Romana,210 x 135 x 27 mm,45
+,Darul,Edith Eva Eger,,978-606-978-412-9,TREI,"Memorii & Jurnale, Psihologia practica, Romane inspirate de Holocaust",49.00,2021,224,Necartonata,Romana,200 x 130 x 19 mm,34
+,Poezii si vorbe-n vant,Horatiu Malaele,,978-606-9748-80-0,BOOKZONE,"Literatura romana, Poezie",39.00,2022,160,Necartonata,Romana,190 x 140 x 9 mm,0
+,Vremea poemului inalt,Magda Carneci,,978-9975-866-48-4,CARTIER,Poezie,35.00,2022,256,Cartonata,Romana,205 x 140 x 24 mm,65
+,Misterele istoriei,Graeme Donald,,978-606-048-255-0,DIDACTICA PUBLISHING HOUSE,Atlase & Enciclopedii,38.00,2020,256,Necartonata,Romana,200 x 130 x 22 mm,32
+,Calatoria civilizatiei umane,Oded Galor,,978-606-33-8786-9,LITERA,Civilizatii & Mitologie,59.90,2022,240,Necartonata,Romana,230 x 150 x 16 mm,20
+,Mari enigme ale lumii,"Nikolai Nepomniasci, Andrei Nizovski",,978-973-1727-65-3,EUROPRESS,Cultura generala,73.50,2009,614,Cartonata,Romana,210 x 150 mm,28

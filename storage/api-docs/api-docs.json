@@ -1,0 +1,1759 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Librarie API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/carti-comanda": {
+            "get": {
+                "tags": [
+                    "Carti-comanda"
+                ],
+                "summary": "Returneaza toate cartile comenzii",
+                "description": "Returneaza toate cartile comenzii",
+                "operationId": "5d0f4ede214fe8260fb9c5fa790fb1ee",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Carti-comanda"
+                ],
+                "summary": "Update cartea comenzii cu id-ul dat",
+                "description": "Update cartea comenzii cu id-ul dat",
+                "operationId": "47616788bf27de2fba42fffb17d9f7dc",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_carte": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_comanda": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "cantitate": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "subtotal": {
+                                        "description": "",
+                                        "type": "float",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Carti-comanda"
+                ],
+                "summary": "Adauga cartea comenzii",
+                "description": "Adauga cartea comenzii",
+                "operationId": "582c0116bb883f91549d831fbcecdc2a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_carte": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_comanda": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "cantitate": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "subtotal": {
+                                        "description": "",
+                                        "type": "float",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/carti-comanda/{id}": {
+            "get": {
+                "tags": [
+                    "Carti-comanda"
+                ],
+                "summary": "Returneaza cartea comenzii cu id-ul dat",
+                "description": "Returneaza cartea comenzii cu id-ul dat",
+                "operationId": "a9f31ae072ab093fc03eb9e73075d6b2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul cartii comenzii dorite",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Carti-comanda"
+                ],
+                "summary": "Sterge cartea comenzii cu id-ul dat",
+                "description": "Sterge cartea comenzii cu id-ul dat",
+                "operationId": "2e5d09713548516bab46b6a795944ff4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul cartii comenzii dorite",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/carti": {
+            "get": {
+                "tags": [
+                    "Carti"
+                ],
+                "summary": "Returneaza toate cartile",
+                "description": "Returneaza toate cartile",
+                "operationId": "4e78798be6b1bac63221ec7cc4cdaefb",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Carti"
+                ],
+                "summary": "Update cartea cu id-ul dat",
+                "description": "Update cartea cu id-ul dat",
+                "operationId": "f0b1a389e2ae435bc9d566a2aec3abba",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "titlu": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "autor": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "imagine": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "isbn": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "editura": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "pret": {
+                                        "description": "",
+                                        "type": "float",
+                                        "example": 1
+                                    },
+                                    "an_aparitie": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "nr_pg": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "tip_coperta": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "limba": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "dimensiune": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "cantitate": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Carti"
+                ],
+                "summary": "Adauga cartea",
+                "description": "Adauga cartea",
+                "operationId": "71a08f3c6c1b5ac8d7b87dc5fa0fdadd",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "titlu": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "autor": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "imagine": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "isbn": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "editura": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "pret": {
+                                        "description": "",
+                                        "type": "float",
+                                        "example": 1
+                                    },
+                                    "an_aparitie": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "nr_pg": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "tip_coperta": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "limba": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "dimensiune": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "cantitate": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/carti/{id}": {
+            "get": {
+                "tags": [
+                    "Carti"
+                ],
+                "summary": "Returneaza cartea cu id-ul dat",
+                "description": "Returneaza cartea cu id-ul dat",
+                "operationId": "b1cfd8a9a1405163e190d1798baa0ae5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul cartii dorite",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Carti"
+                ],
+                "summary": "Sterge cartea cu id-ul dat",
+                "description": "Sterge cartea cu id-ul dat",
+                "operationId": "0eb0381ef598023ed1f8d4c65b33b511",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul cartii dorite",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/carti/categorii/{id}": {
+            "get": {
+                "tags": [
+                    "Carti"
+                ],
+                "summary": "Returneaza categoriile cartii cu id-ul dat",
+                "description": "Returneaza categoriile cartii cu id-ul dat",
+                "operationId": "d9b64a7c0baf975f7a9707dabef0cca8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul cartii dorite",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/carti/reviewuri/{id}": {
+            "get": {
+                "tags": [
+                    "Carti"
+                ],
+                "summary": "Returneaza reviewurile cartii cu id-ul dat",
+                "description": "Returneaza reviewurile cartii cu id-ul dat",
+                "operationId": "0d3b78ca8c122436a2addf13cba43b8f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul cartii dorite",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/cos": {
+            "put": {
+                "tags": [
+                    "CarteCos"
+                ],
+                "summary": "Update cantitatea cartii din cos",
+                "description": "Update cantitatea cartii din cos",
+                "operationId": "9ac2df0fd4d7f21b6bdc6273bd56bf47",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "cantitate": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "CarteCos"
+                ],
+                "summary": "Adauga o carte in cos",
+                "description": "Adauga o carte in cos",
+                "operationId": "78a08161d32a482bbbe098eb1047d691",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_carte": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "cantitate": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "subtotal": {
+                                        "description": "",
+                                        "type": "float",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/cos/{id}": {
+            "delete": {
+                "tags": [
+                    "CarteCos"
+                ],
+                "summary": "Sterge carte cu id-ul dat din cos",
+                "description": "Sterge carte cu id-ul dat din cos",
+                "operationId": "6f17c086657c5be8b3e6164d133c146c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul cartii dorite",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/categorii": {
+            "get": {
+                "tags": [
+                    "Categorii"
+                ],
+                "summary": "Returneaza toate categoriile",
+                "description": "Returneaza toate categoriile",
+                "operationId": "19335a1add68897ebbc80ec81c51677f",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Categorii"
+                ],
+                "summary": "Update categoria cu id-ul dat",
+                "description": "Update categorii cu id-ul dat",
+                "operationId": "05b5cc2560fcc84885911e63faa017b0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "nume": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Categorii"
+                ],
+                "summary": "Adauga categoria",
+                "description": "Adauga categorii",
+                "operationId": "d7d9db6d591138bb42aee88ee8af6dae",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nume": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/categorii/{id}": {
+            "get": {
+                "tags": [
+                    "Categorii"
+                ],
+                "summary": "Returneaza categoria cu id-ul dat",
+                "description": "Returneaza categoria cu id-ul dat",
+                "operationId": "0784657f7848dd1fc0349ba9dc5282fd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul categoriei dorite",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Categorii"
+                ],
+                "summary": "Sterge categoria cu id-ul dat",
+                "description": "Sterge categoria cu id-ul dat",
+                "operationId": "56b5d019b573b1c56a7a4b1fee3e7ff7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul categoriei dorite",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/categorie/carti/{id}": {
+            "get": {
+                "tags": [
+                    "Categorii"
+                ],
+                "summary": "Returneaza cartile din categoria cu id-ul dat",
+                "description": "Returneaza cartile din categoria cu id-ul dat",
+                "operationId": "a6404f099827f7570183e2a81a4be205",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul categoriei dorite",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/clienti": {
+            "get": {
+                "tags": [
+                    "Clienti"
+                ],
+                "summary": "Returneaza toti clientii",
+                "description": "Returneaza toti clientii",
+                "operationId": "1649e86b74af2c06f91fd92bf6e168a5",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Clienti"
+                ],
+                "summary": "Update clientul cu id-ul dat",
+                "description": "Update clientul cu id-ul dat",
+                "operationId": "9964293bc3eb922172f89f144436de11",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "nume": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Petrache"
+                                    },
+                                    "prenume": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Cristina"
+                                    },
+                                    "nr_telefon": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "0755158838"
+                                    },
+                                    "adresa": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Str. Padurii, Nr. 85"
+                                    },
+                                    "oras": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Sabareni"
+                                    },
+                                    "judet": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Giurgiu"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Clienti"
+                ],
+                "summary": "Adauga clientul",
+                "description": "Adauga clientul",
+                "operationId": "3739227e52437c5676011fcc46a3f6d7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nume": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Petrache"
+                                    },
+                                    "prenume": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Cristina"
+                                    },
+                                    "nr_telefon": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "0755158838"
+                                    },
+                                    "adresa": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Str. Padurii, Nr. 85"
+                                    },
+                                    "oras": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Sabareni"
+                                    },
+                                    "judet": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Giurgiu"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/clienti/{id}": {
+            "get": {
+                "tags": [
+                    "Clienti"
+                ],
+                "summary": "Returneaza clientul cu id-ul dat",
+                "description": "Returneaza clientul cu id-ul dat",
+                "operationId": "781265d2e3333ddf6dd01fcd8f78a3b0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul clientului dorit",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Clienti"
+                ],
+                "summary": "Sterge clientul cu id-ul dat",
+                "description": "Sterge clientul cu id-ul dat",
+                "operationId": "e80705797027dc8808498bacc0a65aa3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul clientului dorit",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/client-autentificat": {
+            "get": {
+                "tags": [
+                    "Clienti"
+                ],
+                "summary": "Returneaza clientul autentificat",
+                "description": "Returneaza clientul autentificat",
+                "operationId": "3fda81254393c84d3d387b2811583a99",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/clienti/comenzi/{id}": {
+            "get": {
+                "tags": [
+                    "Clienti"
+                ],
+                "summary": "Returneaza comenzile clientului cu id-ul dat",
+                "description": "Returneaza comenzile clientului cu id-ul dat",
+                "operationId": "5762f3d411a4b904ecd02d52925b29ad",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul clientului dorit",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/clienti/favorite/{id}": {
+            "get": {
+                "tags": [
+                    "Clienti"
+                ],
+                "summary": "Returneaza cartile favorite ale clientului cu id-ul dat",
+                "description": "Returneaza cartile favorite ale clientului cu id-ul dat",
+                "operationId": "36b6eb042266b59089666b18d695332f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul clientului dorit",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/clienti/cos/{id}": {
+            "get": {
+                "tags": [
+                    "Clienti"
+                ],
+                "summary": "Returneaza cartile din cos ale clientului cu id-ul dat",
+                "description": "Returneaza cartile din cos ale clientului cu id-ul dat",
+                "operationId": "b464d1e6962547e3998c17368b91cb2b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul clientului dorit",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/clienti/user/{id}": {
+            "get": {
+                "tags": [
+                    "Clienti"
+                ],
+                "summary": "Returneaza datele clientului autentificat",
+                "description": "Returneaza datele clientului autentificat",
+                "operationId": "e28474907786b6428ff252a6c8463d2c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul clientului dorit",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/comenzi": {
+            "get": {
+                "tags": [
+                    "Clienti"
+                ],
+                "summary": "Returneaza toate comenzile",
+                "description": "Returneaza toate comenzile",
+                "operationId": "010e694330eac5f26909fd0b052361af",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Comenzi"
+                ],
+                "summary": "Update comanda cu id-ul dat",
+                "description": "Update comanda cu id-ul dat",
+                "operationId": "7b98fd3837fb117914ed54883a669390",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_client": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "tip": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": 1
+                                    },
+                                    "data_plasare": {
+                                        "description": "",
+                                        "type": "date",
+                                        "example": ""
+                                    },
+                                    "data_livrare": {
+                                        "description": "",
+                                        "type": "date",
+                                        "example": ""
+                                    },
+                                    "data_predare": {
+                                        "description": "",
+                                        "type": "date",
+                                        "example": ""
+                                    },
+                                    "pret_comanda": {
+                                        "description": "",
+                                        "type": "float",
+                                        "example": 1
+                                    },
+                                    "adresa_livrare": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "oras_livrare": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "judet_livrare": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "status": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "metoda_plata": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Comenzi"
+                ],
+                "summary": "Adauga comanda",
+                "description": "Adauga comanda",
+                "operationId": "57da07a4f00a8cca24d2ecfcbd7be33d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_client": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "tip": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": 1
+                                    },
+                                    "data_plasare": {
+                                        "description": "",
+                                        "type": "date",
+                                        "example": ""
+                                    },
+                                    "data_livrare": {
+                                        "description": "",
+                                        "type": "date",
+                                        "example": ""
+                                    },
+                                    "data_predare": {
+                                        "description": "",
+                                        "type": "date",
+                                        "example": ""
+                                    },
+                                    "pret_comanda": {
+                                        "description": "",
+                                        "type": "float",
+                                        "example": 1
+                                    },
+                                    "adresa_livrare": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "oras_livrare": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "judet_livrare": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "status": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "metoda_plata": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/comenzi/{id}": {
+            "get": {
+                "tags": [
+                    "Comenzi"
+                ],
+                "summary": "Returneaza comanda cu id-ul dat",
+                "description": "Returneaza comanda cu id-ul dat",
+                "operationId": "bc86ab67218152c5ac8191f4d82e93f7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul comenzii dorite",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Comenzi"
+                ],
+                "summary": "Sterge comanda cu id-ul dat",
+                "description": "Sterge comanda cu id-ul dat",
+                "operationId": "ef597c6bfece9ef0e39549de31b1bff7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul comenzii dorite",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/comenzi/carti/{id}": {
+            "get": {
+                "tags": [
+                    "Comenzi"
+                ],
+                "summary": "Returneaza cartile din comanda cu id-ul dat",
+                "description": "Returneaza cartile din comanda cu id-ul dat",
+                "operationId": "ec4d527148aeff561e41b3d901f56b7d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul comenzii dorite",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/donatii": {
+            "post": {
+                "tags": [
+                    "Donatii"
+                ],
+                "summary": "Adauga donatia",
+                "description": "Adauga donatia",
+                "operationId": "7e5f1873dcafd1de62c630c35e52ad90",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nume": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Petrache"
+                                    },
+                                    "prenume": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Cristina"
+                                    },
+                                    "email": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "cristina.petrache@hotmail.com"
+                                    },
+                                    "nr_telefon": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "0755158838"
+                                    },
+                                    "titlu": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "autor": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "isbn": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "adresa_ridicare": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Str. Padurii, Nr. 85"
+                                    },
+                                    "oras_ridicare": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Sabareni"
+                                    },
+                                    "judet_ridicare": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Giurgiu"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/favorite": {
+            "post": {
+                "tags": [
+                    "Favorite"
+                ],
+                "summary": "Adauga cartea favorita",
+                "description": "Adauga cartea favorita",
+                "operationId": "85b39a7bd9c11ce67e327aadce136a3e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_client": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_carte": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/returnari": {
+            "post": {
+                "tags": [
+                    "Returnari"
+                ],
+                "summary": "Adauga returnarea",
+                "description": "Adauga returnarea",
+                "operationId": "77d3edad33feb36adefa70c0500e596e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_carte": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_comanda": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "cantitate": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "subtotal": {
+                                        "description": "",
+                                        "type": "float",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/review-uri": {
+            "get": {
+                "tags": [
+                    "Review-uri"
+                ],
+                "summary": "Returneaza toate review-urile",
+                "description": "Returneaza toate review-urile",
+                "operationId": "ea29be3e22c62ce83efd387cdbb5ef3a",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Review-uri"
+                ],
+                "summary": "Update review-ul cu id-ul dat",
+                "description": "Update review-ul cu id-ul dat",
+                "operationId": "bf2b436ec5639ab219d65680abdef610",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_client": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_carte": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "comentariu": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "rating": {
+                                        "description": "",
+                                        "type": "float",
+                                        "example": 1
+                                    },
+                                    "data_review": {
+                                        "description": "",
+                                        "type": "date",
+                                        "example": ""
+                                    },
+                                    "titlu": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Review-uri"
+                ],
+                "summary": "Adauga review-ul",
+                "description": "Adauga review-ul",
+                "operationId": "81a428ef11bc5de1045c2dfe6031b2eb",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_client": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_carte": {
+                                        "description": "",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "comentariu": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "rating": {
+                                        "description": "",
+                                        "type": "float",
+                                        "example": 1
+                                    },
+                                    "data_review": {
+                                        "description": "",
+                                        "type": "date",
+                                        "example": ""
+                                    },
+                                    "titlu": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/review-uri/{id}": {
+            "get": {
+                "tags": [
+                    "Review-uri"
+                ],
+                "summary": "Returneaza review-ul cu id-ul dat",
+                "description": "Returneaza review-ul cu id-ul dat",
+                "operationId": "fe638ec885f1e0e414c6d20ccb229dc0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul review-ului dorit",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Review-uri"
+                ],
+                "summary": "Sterge review-ul cu id-ul dat",
+                "description": "Sterge review-ul cu id-ul dat",
+                "operationId": "e79979aec78376a84eb9f6acebfd088b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id-ul review-ului dorit",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/user": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update email-ul user-ului autentificat",
+                "description": "Update email-ul user-ului autentificat",
+                "operationId": "c1f4bf30328d3929c1d0563d017d5710",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Adauga clientul",
+                "description": "Adauga clientul",
+                "operationId": "ce3cf31668a69eb39e5e98738715afa1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nume": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Petrache"
+                                    },
+                                    "prenume": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Cristina"
+                                    },
+                                    "email": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "cristina.petrache@hotmail.com"
+                                    },
+                                    "parola": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "asd123"
+                                    },
+                                    "nr_telefon": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "0755158838"
+                                    },
+                                    "adresa": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Str. Padurii, Nr. 85"
+                                    },
+                                    "oras": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Sabareni"
+                                    },
+                                    "judet": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": "Giurgiu"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/user/parola": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update parola user-ului autentificat",
+                "description": "Update parola user-ului autentificat",
+                "operationId": "dfb204f027786e31d4072e6d3908e170",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "parola": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
