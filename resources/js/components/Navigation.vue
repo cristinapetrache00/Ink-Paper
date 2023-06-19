@@ -4,10 +4,8 @@
             <a href="/pagina-principala">
                 <img v-bind:src="'/icons/logo.png'" width="210" height="44" alt="logo">
             </a>
-            <form action="">
-            <div class="search-container">
-                <input type="search" class="search" placeholder="Search">
-            </div>
+            <form @submit.prevent="search()" class="search-container">
+                <input type="search" class="search" v-model="titlu" placeholder="Search">
             </form>
         </div>
         <div class="right-section">
@@ -24,7 +22,25 @@
 
 <script>
 export default {
-    name: "Navigation"
+    name: "Navigation",
+    data() {
+        return {
+            titlu: null
+        }
+    },
+    methods: {
+        search() {
+            axios.post('/search', {
+                titlu: this.titlu
+            })
+                .then(response => {
+                    window.location.href = response.data;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    }
 }
 </script>
 
@@ -55,8 +71,9 @@ export default {
 .right-section ul {
     font-family: "Lora",serif;
     display: flex;
-    gap: 10px;
-    padding-right: 40px;
+    /*gap: 10px;*/
+    gap: 7px;
+    padding-right: 125px;
 }
 
 .right-section ul li {
@@ -64,7 +81,8 @@ export default {
 }
 
 .right-section ul li a {
-    font-size: 18px;
+    /*font-size: 18px;*/
+    font-size: 17px;
     font-weight: 700;
     text-decoration: none;
     color: #FAFAFA;
@@ -86,12 +104,12 @@ export default {
     position: absolute;
     top: 0;
     left: 100%;
-    margin-left: 160px;
+    margin-left: -2px;
 }
 
 .search {
     height: 40px;
-    width: 400px;
+    width: 510px;
     background-color: #FAFAFA;
     font-family: "Lora", serif;
     font-size: 14px;

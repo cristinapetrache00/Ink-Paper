@@ -40,6 +40,12 @@ Route::get('/pagina-donare', function () {
     return view('pagina-donare');
 });
 
+Route::get('/pagina-cautare', [CarteController::class, 'paginaCautare'])->name('search');
+
+Route::get('/filtre', [CarteController::class, 'getFilters']);
+Route::post('/filtre', [CarteController::class, 'queryBuilder']);
+
+Route::post('/search', [CarteController::class, 'search']);
 
 Route::group(['middleware' => 'auth'], function () {
 

@@ -5313,26 +5313,118 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-// export default {
-//     name: "BookFilter"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "BookFilter",
   data: function data() {
     return {
-      categories: [{
-        id: 1,
-        name: 'Category 1'
-      }, {
-        id: 2,
-        name: 'Category 2'
-      }, {
-        id: 3,
-        name: 'Category 3'
-      }
-      // Add more categories here
-      ],
-
-      selectedCategories: []
+      prices: null,
+      categories: null,
+      authors: null,
+      publishing: null,
+      languages: null,
+      orders: null,
+      categoriesExpanded: false,
+      authorsExpanded: false,
+      publishingExpanded: false,
+      languageExpanded: false,
+      priceExpanded: false,
+      selectedOrder: [],
+      selectedCategories: [],
+      selectedAuthors: [],
+      selectedPublishing: [],
+      selectedLanguages: [],
+      selectedPrice: []
     };
+  },
+  mounted: function mounted() {
+    this.prices = [{
+      id: 1,
+      interval: '0 - 50',
+      pret: [0, 50]
+    }, {
+      id: 2,
+      interval: '50 - 100',
+      pret: [50, 100]
+    }, {
+      id: 3,
+      interval: '100 - 150',
+      pret: [100, 150]
+    }];
+    this.orders = [{
+      id: 1,
+      name: 'Pret crescator',
+      order: 'pret_creascator'
+    }, {
+      id: 2,
+      name: 'Pret descrescator',
+      order: 'pret_descrescator'
+    }, {
+      id: 3,
+      name: 'Alfabetic crescator',
+      oreder: 'alfabetic_crescator'
+    }, {
+      id: 4,
+      name: 'Alfabetic descrescator',
+      order: 'alfabetic_descrescator'
+    }];
+    this.getFilters();
+  },
+  methods: {
+    getFilters: function getFilters() {
+      var _this = this;
+      axios.get('/filtre').then(function (response) {
+        _this.categories = response.data.categorii;
+        _this.authors = response.data.autori;
+        _this.publishing = response.data.edituri;
+        _this.languages = response.data.limbi;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    applyFilters: function applyFilters() {
+      axios.post('/filtre', {
+        autor: this.selectedAuthors,
+        categorie: this.selectedCategories,
+        editura: this.selectedPublishing,
+        limba: this.selectedLanguages,
+        pret: this.selectedPrice,
+        ordine: this.selectedOrder
+      }).then(function (response) {
+        console.log(response.data);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    expandCategory: function expandCategory() {
+      this.categoriesExpanded = true;
+    },
+    shrinkCategory: function shrinkCategory() {
+      this.categoriesExpanded = false;
+    },
+    expandAuthor: function expandAuthor() {
+      this.authorsExpanded = true;
+    },
+    shrinkAuthor: function shrinkAuthor() {
+      this.authorsExpanded = false;
+    },
+    expandPublishing: function expandPublishing() {
+      this.publishingExpanded = true;
+    },
+    shrinkPublishing: function shrinkPublishing() {
+      this.publishingExpanded = false;
+    },
+    expandLanguage: function expandLanguage() {
+      this.languageExpanded = true;
+    },
+    shrinkLanguage: function shrinkLanguage() {
+      this.languageExpanded = false;
+    },
+    expandPrice: function expandPrice() {
+      this.priceExpanded = true;
+    },
+    shrinkPrice: function shrinkPrice() {
+      this.priceExpanded = false;
+    }
   }
 });
 
@@ -5350,7 +5442,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "BookList"
+  name: "BookList",
+  props: ['books'],
+  mounted: function mounted() {
+    this.test();
+  },
+  methods: {
+    test: function test() {
+      console.log("AAAA", this.books);
+    }
+  }
 });
 
 /***/ }),
@@ -5451,7 +5552,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "Navigation"
+  name: "Navigation",
+  data: function data() {
+    return {
+      titlu: null
+    };
+  },
+  methods: {
+    search: function search() {
+      axios.post('/search', {
+        titlu: this.titlu
+      }).then(function (response) {
+        window.location.href = response.data;
+      })["catch"](function (error) {
+        console.error(error);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -5490,10 +5607,157 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "book-filter"
-  }, [_c("h2", [_vm._v("Categories")]), _vm._v(" "), _vm._l(_vm.categories, function (category) {
+  }, [_vm._m(0), _vm._v(" "), _vm._l(_vm.orders, function (order) {
     return _c("div", {
-      key: category.id,
-      staticClass: "category"
+      staticClass: "items"
+    }, [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.selectedOrder,
+        expression: "selectedOrder"
+      }],
+      attrs: {
+        type: "checkbox"
+      },
+      domProps: {
+        value: order.order,
+        checked: Array.isArray(_vm.selectedOrder) ? _vm._i(_vm.selectedOrder, order.order) > -1 : _vm.selectedOrder
+      },
+      on: {
+        change: [function ($event) {
+          var $$a = _vm.selectedOrder,
+            $$el = $event.target,
+            $$c = $$el.checked ? true : false;
+          if (Array.isArray($$a)) {
+            var $$v = order.order,
+              $$i = _vm._i($$a, $$v);
+            if ($$el.checked) {
+              $$i < 0 && (_vm.selectedOrder = $$a.concat([$$v]));
+            } else {
+              $$i > -1 && (_vm.selectedOrder = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.selectedOrder = $$c;
+          }
+        }, _vm.applyFilters]
+      }
+    }), _vm._v(" "), _c("label", {
+      attrs: {
+        "for": order.id
+      }
+    }, [_vm._v(_vm._s(order.name))])]);
+  }), _vm._v(" "), _c("div", {
+    staticClass: "category-title d-flex justify-content-between align-items-center"
+  }, [_c("span", [_vm._v("Pret")]), _vm._v(" "), _c("svg", {
+    staticClass: "bi bi-caret-up-fill",
+    attrs: {
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      fill: "currentColor",
+      viewBox: "0 0 16 16"
+    },
+    on: {
+      click: _vm.shrinkPrice
+    }
+  }, [_c("path", {
+    attrs: {
+      d: "m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
+    }
+  })]), _vm._v(" "), _c("svg", {
+    staticClass: "bi bi-caret-down-fill",
+    attrs: {
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      fill: "currentColor",
+      viewBox: "0 0 16 16"
+    },
+    on: {
+      click: _vm.expandPrice
+    }
+  }, [_c("path", {
+    attrs: {
+      d: "M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
+    }
+  })])]), _vm._v(" "), _vm._l(_vm.prices, function (price) {
+    return _vm.priceExpanded ? _c("div", {
+      staticClass: "items"
+    }, [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.selectedPrice,
+        expression: "selectedPrice"
+      }],
+      attrs: {
+        type: "checkbox"
+      },
+      domProps: {
+        value: price.pret,
+        checked: Array.isArray(_vm.selectedPrice) ? _vm._i(_vm.selectedPrice, price.pret) > -1 : _vm.selectedPrice
+      },
+      on: {
+        change: [function ($event) {
+          var $$a = _vm.selectedPrice,
+            $$el = $event.target,
+            $$c = $$el.checked ? true : false;
+          if (Array.isArray($$a)) {
+            var $$v = price.pret,
+              $$i = _vm._i($$a, $$v);
+            if ($$el.checked) {
+              $$i < 0 && (_vm.selectedPrice = $$a.concat([$$v]));
+            } else {
+              $$i > -1 && (_vm.selectedPrice = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.selectedPrice = $$c;
+          }
+        }, _vm.applyFilters]
+      }
+    }), _vm._v(" "), _c("label", {
+      attrs: {
+        "for": price.id
+      }
+    }, [_vm._v(_vm._s(price.interval))])]) : _vm._e();
+  }), _vm._v(" "), _c("div", {
+    staticClass: "category-title d-flex justify-content-between align-items-center"
+  }, [_c("span", [_vm._v("Categorii")]), _vm._v(" "), _c("svg", {
+    staticClass: "bi bi-caret-up-fill",
+    attrs: {
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      fill: "currentColor",
+      viewBox: "0 0 16 16"
+    },
+    on: {
+      click: _vm.shrinkCategory
+    }
+  }, [_c("path", {
+    attrs: {
+      d: "m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
+    }
+  })]), _vm._v(" "), _c("svg", {
+    staticClass: "bi bi-caret-down-fill",
+    attrs: {
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      fill: "currentColor",
+      viewBox: "0 0 16 16"
+    },
+    on: {
+      click: _vm.expandCategory
+    }
+  }, [_c("path", {
+    attrs: {
+      d: "M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
+    }
+  })])]), _vm._v(" "), _vm._l(_vm.categories, function (category) {
+    return _vm.categoriesExpanded ? _c("div", {
+      staticClass: "items"
     }, [_c("input", {
       directives: [{
         name: "model",
@@ -5502,20 +5766,19 @@ var render = function render() {
         expression: "selectedCategories"
       }],
       attrs: {
-        type: "checkbox",
-        id: category.id
+        type: "checkbox"
       },
       domProps: {
-        value: category.id,
-        checked: Array.isArray(_vm.selectedCategories) ? _vm._i(_vm.selectedCategories, category.id) > -1 : _vm.selectedCategories
+        value: category.nume,
+        checked: Array.isArray(_vm.selectedCategories) ? _vm._i(_vm.selectedCategories, category.nume) > -1 : _vm.selectedCategories
       },
       on: {
-        change: function change($event) {
+        change: [function ($event) {
           var $$a = _vm.selectedCategories,
             $$el = $event.target,
             $$c = $$el.checked ? true : false;
           if (Array.isArray($$a)) {
-            var $$v = category.id,
+            var $$v = category.nume,
               $$i = _vm._i($$a, $$v);
             if ($$el.checked) {
               $$i < 0 && (_vm.selectedCategories = $$a.concat([$$v]));
@@ -5525,16 +5788,244 @@ var render = function render() {
           } else {
             _vm.selectedCategories = $$c;
           }
-        }
+        }, _vm.applyFilters]
       }
     }), _vm._v(" "), _c("label", {
       attrs: {
         "for": category.id
       }
-    }, [_vm._v(_vm._s(category.name))])]);
+    }, [_vm._v(_vm._s(category.nume))])]) : _vm._e();
+  }), _vm._v(" "), _c("div", {
+    staticClass: "category-title d-flex justify-content-between align-items-center"
+  }, [_c("span", [_vm._v("Autori")]), _vm._v(" "), _c("svg", {
+    staticClass: "bi bi-caret-up-fill",
+    attrs: {
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      fill: "currentColor",
+      viewBox: "0 0 16 16"
+    },
+    on: {
+      click: _vm.shrinkAuthor
+    }
+  }, [_c("path", {
+    attrs: {
+      d: "m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
+    }
+  })]), _vm._v(" "), _c("svg", {
+    staticClass: "bi bi-caret-down-fill",
+    attrs: {
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      fill: "currentColor",
+      viewBox: "0 0 16 16"
+    },
+    on: {
+      click: _vm.expandAuthor
+    }
+  }, [_c("path", {
+    attrs: {
+      d: "M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
+    }
+  })])]), _vm._v(" "), _vm._l(_vm.authors, function (author) {
+    return _vm.authorsExpanded ? _c("div", {
+      staticClass: "items"
+    }, [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.selectedAuthors,
+        expression: "selectedAuthors"
+      }],
+      attrs: {
+        type: "checkbox"
+      },
+      domProps: {
+        value: author.autor,
+        checked: Array.isArray(_vm.selectedAuthors) ? _vm._i(_vm.selectedAuthors, author.autor) > -1 : _vm.selectedAuthors
+      },
+      on: {
+        change: [function ($event) {
+          var $$a = _vm.selectedAuthors,
+            $$el = $event.target,
+            $$c = $$el.checked ? true : false;
+          if (Array.isArray($$a)) {
+            var $$v = author.autor,
+              $$i = _vm._i($$a, $$v);
+            if ($$el.checked) {
+              $$i < 0 && (_vm.selectedAuthors = $$a.concat([$$v]));
+            } else {
+              $$i > -1 && (_vm.selectedAuthors = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.selectedAuthors = $$c;
+          }
+        }, _vm.applyFilters]
+      }
+    }), _vm._v(" "), _c("label", {
+      attrs: {
+        "for": author.id
+      }
+    }, [_vm._v(_vm._s(author.autor))])]) : _vm._e();
+  }), _vm._v(" "), _c("div", {
+    staticClass: "category-title d-flex justify-content-between align-items-center"
+  }, [_c("span", [_vm._v("Edituri")]), _vm._v(" "), _c("svg", {
+    staticClass: "bi bi-caret-up-fill",
+    attrs: {
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      fill: "currentColor",
+      viewBox: "0 0 16 16"
+    },
+    on: {
+      click: _vm.shrinkPublishing
+    }
+  }, [_c("path", {
+    attrs: {
+      d: "m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
+    }
+  })]), _vm._v(" "), _c("svg", {
+    staticClass: "bi bi-caret-down-fill",
+    attrs: {
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      fill: "currentColor",
+      viewBox: "0 0 16 16"
+    },
+    on: {
+      click: _vm.expandPublishing
+    }
+  }, [_c("path", {
+    attrs: {
+      d: "M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
+    }
+  })])]), _vm._v(" "), _vm._l(_vm.publishing, function (publish) {
+    return _vm.publishingExpanded ? _c("div", {
+      staticClass: "items"
+    }, [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.selectedPublishing,
+        expression: "selectedPublishing"
+      }],
+      attrs: {
+        type: "checkbox"
+      },
+      domProps: {
+        value: publish.editura,
+        checked: Array.isArray(_vm.selectedPublishing) ? _vm._i(_vm.selectedPublishing, publish.editura) > -1 : _vm.selectedPublishing
+      },
+      on: {
+        change: [function ($event) {
+          var $$a = _vm.selectedPublishing,
+            $$el = $event.target,
+            $$c = $$el.checked ? true : false;
+          if (Array.isArray($$a)) {
+            var $$v = publish.editura,
+              $$i = _vm._i($$a, $$v);
+            if ($$el.checked) {
+              $$i < 0 && (_vm.selectedPublishing = $$a.concat([$$v]));
+            } else {
+              $$i > -1 && (_vm.selectedPublishing = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.selectedPublishing = $$c;
+          }
+        }, _vm.applyFilters]
+      }
+    }), _vm._v(" "), _c("label", {
+      attrs: {
+        "for": publish.id
+      }
+    }, [_vm._v(_vm._s(publish.editura))])]) : _vm._e();
+  }), _vm._v(" "), _c("div", {
+    staticClass: "category-title d-flex justify-content-between align-items-center"
+  }, [_c("span", [_vm._v("Limbi")]), _vm._v(" "), _c("svg", {
+    staticClass: "bi bi-caret-up-fill",
+    attrs: {
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      fill: "currentColor",
+      viewBox: "0 0 16 16"
+    },
+    on: {
+      click: _vm.shrinkLanguage
+    }
+  }, [_c("path", {
+    attrs: {
+      d: "m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
+    }
+  })]), _vm._v(" "), _c("svg", {
+    staticClass: "bi bi-caret-down-fill",
+    attrs: {
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      fill: "currentColor",
+      viewBox: "0 0 16 16"
+    },
+    on: {
+      click: _vm.expandLanguage
+    }
+  }, [_c("path", {
+    attrs: {
+      d: "M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
+    }
+  })])]), _vm._v(" "), _vm._l(_vm.languages, function (language) {
+    return _vm.languageExpanded ? _c("div", {
+      staticClass: "items"
+    }, [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.selectedLanguages,
+        expression: "selectedLanguages"
+      }],
+      attrs: {
+        type: "checkbox"
+      },
+      domProps: {
+        value: language.limba,
+        checked: Array.isArray(_vm.selectedLanguages) ? _vm._i(_vm.selectedLanguages, language.limba) > -1 : _vm.selectedLanguages
+      },
+      on: {
+        change: [function ($event) {
+          var $$a = _vm.selectedLanguages,
+            $$el = $event.target,
+            $$c = $$el.checked ? true : false;
+          if (Array.isArray($$a)) {
+            var $$v = language.limba,
+              $$i = _vm._i($$a, $$v);
+            if ($$el.checked) {
+              $$i < 0 && (_vm.selectedLanguages = $$a.concat([$$v]));
+            } else {
+              $$i > -1 && (_vm.selectedLanguages = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.selectedLanguages = $$c;
+          }
+        }, _vm.applyFilters]
+      }
+    }), _vm._v(" "), _c("label", {
+      attrs: {
+        "for": language.id
+      }
+    }, [_vm._v(_vm._s(language.limba))])]) : _vm._e();
   })], 2);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "category-title d-flex justify-content-between align-items-center"
+  }, [_c("span", [_vm._v("Sorteaza")])]);
+}];
 render._withStripped = true;
 
 
@@ -5557,7 +6048,33 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "book-list"
-  });
+  }, [_c("div", [_c("div", {
+    staticClass: "row"
+  }, _vm._l(_vm.books, function (book) {
+    return _c("div", {
+      key: book.id,
+      staticClass: "col-md-4"
+    }, [_c("div", {
+      staticClass: "card mb-3"
+    }, [_c("img", {
+      staticClass: "card-img-top",
+      attrs: {
+        src: "",
+        alt: "Card image cap"
+      }
+    }), _vm._v(" "), _c("div", {
+      staticClass: "card-body"
+    }, [_c("h5", {
+      staticClass: "card-title"
+    }, [_vm._v(_vm._s(book.titlu))]), _vm._v(" "), _c("p", {
+      staticClass: "card-text"
+    }, [_vm._v(_vm._s(book.autor))]), _vm._v(" "), _c("a", {
+      staticClass: "btn btn-primary",
+      attrs: {
+        href: "#"
+      }
+    }, [_vm._v("Cumpara acum")])])])]);
+  }), 0)])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -5897,25 +6414,38 @@ var render = function render() {
       height: "44",
       alt: "logo"
     }
-  })]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _vm._m(1)]);
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("form", {
-    attrs: {
-      action: ""
+  })]), _vm._v(" "), _c("form", {
+    staticClass: "search-container",
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.search();
+      }
     }
-  }, [_c("div", {
-    staticClass: "search-container"
   }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.titlu,
+      expression: "titlu"
+    }],
     staticClass: "search",
     attrs: {
       type: "search",
       placeholder: "Search"
+    },
+    domProps: {
+      value: _vm.titlu
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.titlu = $event.target.value;
+      }
     }
-  })])]);
-}, function () {
+  })])]), _vm._v(" "), _vm._m(0)]);
+};
+var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
@@ -11398,7 +11928,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.book-filter[data-v-193643ec] {\n    position: fixed;\n    top: 70px;\n    left: 0;\n    bottom: 0;\n    width: 280px;\n    background-color: #FAFAFA;\n    padding: 20px;\n}\n.category[data-v-193643ec] {\n    display: flex;\n    align-items: center;\n    padding: 10px;\n    border-bottom: 1px solid #E0E0E0;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n@font-face {\n    font-family: 'Lora';\n    src: url('/Fonts/static/Lora-Regular.ttf');\n}\n.items[data-v-193643ec] {\n    font-family: \"Lora\",serif;\n    display: flex;\n    font-size: 14px;\n    padding-top: 8px;\n}\n.book-filter[data-v-193643ec] {\n    overflow: auto;\n    position: fixed;\n    font-size: 16px;\n    /*font-weight: bold;*/\n    top: 70px;\n    bottom: 0;\n    width: 380px;\n    background-color: #FAFAFA;\n    /*background-color: red;*/\n    padding-top: 20px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n.category-title[data-v-193643ec] {\n    font-family: \"Lora\",serif;\n    font-size: 16px;\n    font-weight: bold;\n    /*margin-bottom: 0px;*/\n    margin-left: -23px;\n}\n.category[data-v-193643ec] {\n    font-family: \"Lora\",serif;\n    display: flex;\n    font-size: 14px;\n    margin-left: -23px;\n    padding-top: 8px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -11494,7 +12024,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n@font-face {\n    font-family: 'Lora';\n    src: url('/Fonts/static/Lora-Regular.ttf');\n}\n.navigation[data-v-d456e682] {\n    /*background-color: #048399;*/\n    background-color: #008b7a;\n    height: 70px;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.left-section[data-v-d456e682] {\n    position: relative;\n    /*height: 70px;*/\n    width: 480px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.right-section ul[data-v-d456e682] {\n    font-family: \"Lora\",serif;\n    display: flex;\n    gap: 10px;\n    padding-right: 40px;\n}\n.right-section ul li[data-v-d456e682] {\n    list-style: none;\n}\n.right-section ul li a[data-v-d456e682] {\n    font-size: 18px;\n    font-weight: 700;\n    text-decoration: none;\n    color: #FAFAFA;\n    padding: 10px;\n    transition: 0.5s ease;\n}\n.right-section ul:hover li a[data-v-d456e682] {\n    color: #FAFAFA;\n}\n.right-section ul:hover li a[data-v-d456e682]:not(:hover) {\n    color:white;\n    opacity: 0.4;\n    filter: blur(1px);\n}\n.search-container[data-v-d456e682]{\n    position: absolute;\n    top: 0;\n    left: 100%;\n    margin-left: 160px;\n}\n.search[data-v-d456e682] {\n    height: 40px;\n    width: 400px;\n    background-color: #FAFAFA;\n    font-family: \"Lora\", serif;\n    font-size: 14px;\n    border: none;\n    border-radius: 8px;\n    padding-left: 40px;\n    background-image: url(\"/icons/magnifying-glass-solid.svg\");\n    background-size: 16px 16px;\n    background-position-y: center;\n    background-position-x: 12px;\n    background-repeat: no-repeat;\n    outline: none;\n    box-shadow: 0 0 0 2px #008b7a;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n@font-face {\n    font-family: 'Lora';\n    src: url('/Fonts/static/Lora-Regular.ttf');\n}\n.navigation[data-v-d456e682] {\n    /*background-color: #048399;*/\n    background-color: #008b7a;\n    height: 70px;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.left-section[data-v-d456e682] {\n    position: relative;\n    /*height: 70px;*/\n    width: 480px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.right-section ul[data-v-d456e682] {\n    font-family: \"Lora\",serif;\n    display: flex;\n    /*gap: 10px;*/\n    gap: 7px;\n    padding-right: 125px;\n}\n.right-section ul li[data-v-d456e682] {\n    list-style: none;\n}\n.right-section ul li a[data-v-d456e682] {\n    /*font-size: 18px;*/\n    font-size: 17px;\n    font-weight: 700;\n    text-decoration: none;\n    color: #FAFAFA;\n    padding: 10px;\n    transition: 0.5s ease;\n}\n.right-section ul:hover li a[data-v-d456e682] {\n    color: #FAFAFA;\n}\n.right-section ul:hover li a[data-v-d456e682]:not(:hover) {\n    color:white;\n    opacity: 0.4;\n    filter: blur(1px);\n}\n.search-container[data-v-d456e682]{\n    position: absolute;\n    top: 0;\n    left: 100%;\n    margin-left: -2px;\n}\n.search[data-v-d456e682] {\n    height: 40px;\n    width: 510px;\n    background-color: #FAFAFA;\n    font-family: \"Lora\", serif;\n    font-size: 14px;\n    border: none;\n    border-radius: 8px;\n    padding-left: 40px;\n    background-image: url(\"/icons/magnifying-glass-solid.svg\");\n    background-size: 16px 16px;\n    background-position-y: center;\n    background-position-x: 12px;\n    background-repeat: no-repeat;\n    outline: none;\n    box-shadow: 0 0 0 2px #008b7a;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

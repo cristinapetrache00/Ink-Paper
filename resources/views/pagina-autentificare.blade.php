@@ -16,3 +16,6 @@
         background: #EDF6F6;
     }
 </style>
+
+<title> Log In </title>
+

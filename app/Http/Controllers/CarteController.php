@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Carte;
 use App\Services\CarteService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class CarteController extends Controller
 {
@@ -352,6 +356,116 @@ class CarteController extends Controller
     {
         $data = Carte::where('id', '=', $id)->firstOrFail();
         $data = $data->reviewuri()->get();
+
+        return response()->json($data, Response::HTTP_OK);
+    }
+
+    public function search(Request $request)
+    {
+        $validatedData = $request->validate([
+            'titlu' => 'required',
+        ]);
+        $carti = Carte::where('titlu', 'like', '%' . $validatedData['titlu'] . '%')->get();
+
+        $data = [];
+        foreach ($carti as $carte) {
+            $data[] = [
+                'titlu' => $carte->titlu,
+                'autor' => $carte->autor,
+            ];
+        }
+        $data = json_encode($data);
+        return route('search', ['data' => $data]);
+    }
+
+    /**
+     * @param Request $request
+     * @return Application|Factory|View
+     */
+    public function paginaCautare(Request $request)
+    {
+        $data = $request->input('data');
+        return view('pagina-cautare', compact('data'));
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function queryBuilder(Request $request): JsonResponse
+    {
+        $validatedData = $request->validate([
+            'autor' => 'nullable',
+            'editura' => 'nullable',
+            'categorie' => 'nullable',
+            'pret' => 'nullable',
+            'limba' => 'nullable',
+            'ordine' => 'nullable',
+        ]);
+
+        $query = DB::table('carte');
+
+        if ($validatedData['autor'] != null) {
+            $query->whereIn('autor', $validatedData['autor']);
+        }
+
+        if ($validatedData['pret'] != null) {
+            $query->whereBetween('pret', $validatedData['pret']);
+        }
+
+        if ($validatedData['limba'] != null) {
+            $query->whereIn('limba', $validatedData['limba']);
+        }
+
+        if ($validatedData['editura'] != null) {
+            $query->whereIn('editura', $validatedData['editura']);
+        }
+
+        if ($validatedData['categorie'] != null) {
+            $query->join('carte_categorie', 'carte.id', '=', 'carte_categorie.id_carte')
+                ->join('categorie', 'carte_categorie.id_categorie', '=', 'categorie.id')
+                ->whereIn('categorie.nume', $validatedData['categorie']);
+        }
+
+        if ($validatedData['ordine'] != null) {
+            if ($validatedData['ordine'] === 'pret_crescator') {
+                $query->orderBy('pret', 'asc');
+            } else {
+                if ($validatedData['ordine'] === 'pret_descrescator') {
+                    $query->orderBy('pret', 'desc');
+                } else {
+                    if ($validatedData['ordine'] === 'alfabetic_crescator') {
+                        $query->orderBy('nume', 'asc');
+                    } else {
+                        if ($validatedData['ordine'] === 'alfabetic_descrescator') {
+                            $query->orderBy('nume', 'desc');
+                        }
+                    }
+                }
+            }
+        }
+
+        $results = $query->get();
+
+        return response()->json($results, Response::HTTP_OK);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function getFilters()
+    {
+        $autori = DB::table('carte')->select('autor')->distinct()->get();
+        $edituri = DB::table('carte')->select('editura')->distinct()->get();
+        $categorii = DB::table('categorie')->select('nume')->distinct()->get();
+        $limbi = DB::table('carte')->select('limba')->distinct()->get();
+
+        $data = [
+            'autori' => $autori,
+            'edituri' => $edituri,
+            'categorii' => $categorii,
+            'limbi' => $limbi,
+        ];
 
         return response()->json($data, Response::HTTP_OK);
     }
