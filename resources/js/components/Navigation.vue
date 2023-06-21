@@ -60,12 +60,12 @@ export default {
 }
 
 .left-section {
-    position: relative;
+    /*position: relative;*/
     /*height: 70px;*/
     width: 480px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
 }
 
 .right-section ul {
@@ -73,7 +73,7 @@ export default {
     display: flex;
     /*gap: 10px;*/
     gap: 7px;
-    padding-right: 125px;
+    /*padding-right: 125px;*/
 }
 
 .right-section ul li {
@@ -101,10 +101,9 @@ export default {
 }
 
 .search-container{
-    position: absolute;
+    position: fixed;
     top: 0;
-    left: 100%;
-    margin-left: -2px;
+    left: 30%;
 }
 
 .search {

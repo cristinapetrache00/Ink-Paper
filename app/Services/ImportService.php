@@ -44,8 +44,11 @@ class ImportService
                               ->orWhere('email', 'like', '%' . $client->prenume . '%')
                     )->first();
 
-                    $user->client()->associate($client);
                     $client->user()->associate($user);
+                    $client->save();
+
+                    $user->client()->associate($client);
+                    $user->save();
 
                     break;
 

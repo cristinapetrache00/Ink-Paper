@@ -2,13 +2,13 @@
     <div class="log-in-container">
         <div class="log-in">
             <h2>Autentificare</h2>
-            <form action="">
+            <form @submit.prevent="login()">
                 <div class="log-in-input">
-                    <input type="email" name="" required="">
+                    <input type="email" v-model="email" required="">
                     <label>Email</label>
                 </div>
                 <div class="log-in-input">
-                    <input type="password" name="" required="">
+                    <input type="password" v-model="password" required="">
                     <label>Parola</label>
                 </div>
                 <span class="forget-password-switch">
@@ -24,8 +24,36 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
-    name: "LogIn"
+    name: "LogIn",
+    data() {
+        return {
+            email: null,
+            password: null
+        }
+    },
+    methods: {
+        login() {
+            axios.post('/login', {
+                email: this.email,
+                password: this.password
+            })
+                .then(response => {
+                console.log(response.data)
+                    const token = response.data.token;
+
+                    this.$store.commit('setToken', token);
+                    localStorage.setItem('token', token);
+
+                    window.location.href = '/pagina-cautare';
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    }
 }
 </script>
 

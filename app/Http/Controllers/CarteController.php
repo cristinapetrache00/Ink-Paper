@@ -371,7 +371,12 @@ class CarteController extends Controller
         foreach ($carti as $carte) {
             $data[] = [
                 'titlu' => $carte->titlu,
+                'imagine' => $carte->imagine,
                 'autor' => $carte->autor,
+                'pret' => $carte->pret,
+                'id' => $carte->id,
+                'nr_reviewuri' => $carte->nr_reviewuri,
+                'rating' => $carte->rating,
             ];
         }
         $data = json_encode($data);
@@ -385,6 +390,11 @@ class CarteController extends Controller
     public function paginaCautare(Request $request)
     {
         $data = $request->input('data');
+
+        if (empty($data)) {
+            $data = Carte::all();
+        }
+
         return view('pagina-cautare', compact('data'));
     }
 
@@ -424,8 +434,10 @@ class CarteController extends Controller
         if ($validatedData['categorie'] != null) {
             $query->join('carte_categorie', 'carte.id', '=', 'carte_categorie.id_carte')
                 ->join('categorie', 'carte_categorie.id_categorie', '=', 'categorie.id')
-                ->whereIn('categorie.nume', $validatedData['categorie']);
+                ->whereIn('categorie.nume', $validatedData['categorie'])
+                ->select('carte.*');
         }
+
 
         if ($validatedData['ordine'] != null) {
             if ($validatedData['ordine'] === 'pret_crescator') {
@@ -435,17 +447,59 @@ class CarteController extends Controller
                     $query->orderBy('pret', 'desc');
                 } else {
                     if ($validatedData['ordine'] === 'alfabetic_crescator') {
-                        $query->orderBy('nume', 'asc');
+                        $query->orderBy('titlu', 'asc');
                     } else {
                         if ($validatedData['ordine'] === 'alfabetic_descrescator') {
-                            $query->orderBy('nume', 'desc');
+                            $query->orderBy('titlu', 'desc');
                         }
                     }
                 }
             }
         }
 
-        $results = $query->get();
+        $results = $query->distinct()->get();
+        $carte_ids = [];
+
+        if (!empty($results)) {
+            foreach ($results as $carte) {
+
+                if (empty($carte_ids)) {
+                    $carte_ids[] = $carte->id;
+                } else {
+                    if (array_search($carte->id, $carte_ids)) {
+                        $results->forget($carte);
+                        continue;
+                    }
+                }
+
+//                $carte->autor = strtoupper($carte->autor);
+
+                $reviews = DB::table('review')->where('id_carte', '=', $carte->id)->get();
+                if (!empty($reviews)) {
+                    $carte->nr_reviewuri = count($reviews);
+
+                    foreach ($reviews as $review) {
+                        $carte->rating += $review->rating;
+                    }
+
+                    if ($carte->nr_reviewuri != 0) {
+                        $carte->rating = $carte->rating / $carte->nr_reviewuri;
+                    } else {
+                        $carte->rating = 0.00;
+                    }
+                } else {
+                    $carte->nr_reviewuri = 0;
+                    $carte->rating = 0.00;
+                }
+
+                DB::table('carte')
+                    ->where('id', $carte->id)
+                    ->update([
+                        'nr_reviewuri' => $carte->nr_reviewuri,
+                        'rating' => $carte->rating,
+                    ]);
+            }
+        }
 
         return response()->json($results, Response::HTTP_OK);
     }

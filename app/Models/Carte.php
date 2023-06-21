@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $limba
  * @property string $dimensiune
  * @property string $cantitate
+ * @property int $nr_reviewuri
+ * @property float $rating
  */
 
 class Carte extends Model

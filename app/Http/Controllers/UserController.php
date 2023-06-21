@@ -212,6 +212,7 @@ class UserController
             $token = JWTAuth::fromUser($user);
 
             return response()->json([
+                'user' => $user,
                 'token' => $token,
             ]);
         }

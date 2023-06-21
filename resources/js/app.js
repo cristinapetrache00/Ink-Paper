@@ -6,6 +6,8 @@
 
 require('./bootstrap');
 
+import store from './store';
+
 window.Vue = require('vue').default;
 
 /**
@@ -27,6 +29,7 @@ Vue.component('book-list', require('./components/BookList.vue').default);
 Vue.component('sign-up', require('./components/SignUp.vue').default);
 Vue.component('log-in', require('./components/LogIn.vue').default);
 Vue.component('donation', require('./components/DonationForm.vue').default);
+Vue.component('books', require('./components/Books.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -36,4 +39,5 @@ Vue.component('donation', require('./components/DonationForm.vue').default);
 
 const app = new Vue({
     el: '#app',
+    store,
 });
