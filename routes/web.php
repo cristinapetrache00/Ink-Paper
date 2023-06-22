@@ -46,9 +46,9 @@ Route::get('/profil', function () {
     return view('pagina-profil');
 });
 
-Route::get('/cautare',
-    [CarteController::class, 'paginaCautare']
-)->name('search');
+Route::get('/carte/{isbn}', [CarteController::class, 'getBookByIsbn']);
+
+Route::get('/cautare', [CarteController::class, 'paginaCautare'])->name('search');
 
 
 Route::post('/mail', [UserController::class, 'sendMail']);

@@ -1,7 +1,7 @@
 <template>
     <nav class="navigation background" >
         <div class="left-section">
-            <a href="/pagina-principala">
+            <a href="/principala">
                 <img v-bind:src="'/icons/logo.png'" width="210" height="44" alt="logo">
             </a>
             <form @submit.prevent="search()" class="search-container">

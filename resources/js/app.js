@@ -31,6 +31,7 @@ Vue.component('books', require('./components/Books.vue').default);
 Vue.component('profile', require('./components/Profile.vue').default);
 Vue.component('profile-navigation', require('./components/ProfileNavigation.vue').default);
 Vue.component('my-profile', require('./components/MyProfile.vue').default);
+Vue.component('book-details', require('./components/BookDetails.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
