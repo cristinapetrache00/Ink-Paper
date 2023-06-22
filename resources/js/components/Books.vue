@@ -13,7 +13,12 @@
 import BookList from "./BookList.vue";
 import BookFilter from "./BookFilter.vue";
 import { mapGetters } from 'vuex';
-
+import axios from 'axios';
+const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-CSRF-TOKEN': csrfToken
+};
 export default {
     name: "Books",
     props: ['books'],
@@ -51,14 +56,5 @@ export default {
 </script>
 
 <style>
-/*.left-column {*/
-/*    float: left;*/
-/*    width: 20%;*/
-/*}*/
 
-/*.right-column {*/
-/*    margin-left: this.windowWidth;*/
-/*    margin-right: auto;*/
-/*    width: 1000px;*/
-/*}*/
 </style>

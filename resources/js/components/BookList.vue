@@ -30,6 +30,12 @@
 </template>
 
 <script>
+import axios from 'axios';
+const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-CSRF-TOKEN': csrfToken
+};
 export default {
     name: "BookList",
     props: ['books', 'token'],
@@ -51,6 +57,7 @@ export default {
                 this.cardWidth = this.cardElement.offsetWidth;}
         },
         getFavorite() {
+            if (this.token === null) return;
             axios.get('/favorite', {
                     headers: {
                         'Authorization': 'Bearer ' + this.token
@@ -75,7 +82,7 @@ export default {
         },
         addFavorite(carte) {
             if (this.token === null) {
-                window.location.href = '/pagina-autentificare';
+                window.location.href = '/autentificare';
             }
             axios.post('/favorite',
                 {
