@@ -14,7 +14,7 @@
                 <li><a href="#">Favorite</a></li>
                 <li><a href="#">Cos</a></li>
                 <li><a href="/pagina-donare">Doneaza</a></li>
-                <li><a href="#">Inchiriaza</a></li>
+<!--                <li><a href="#">Inchiriaza</a></li>-->
             </ul>
         </div>
     </nav>
@@ -88,6 +88,7 @@ export default {
     color: #FAFAFA;
     padding: 10px;
     transition: 0.5s ease;
+
 }
 
 .right-section ul:hover li a {
