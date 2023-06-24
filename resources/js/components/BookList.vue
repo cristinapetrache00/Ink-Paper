@@ -2,7 +2,7 @@
     <div class="book-list">
         <div class="row" style="margin-left: 10px">
             <div class="col" v-for="book in books" :key="book.id">
-                <div class="card-wrapper">
+                <div class="card-wrapper" @click="redirectBook(book)">
                     <div ref="card" class="card mb-2">
                         <img class="card-img-top" :src="'/carti/' + book.imagine" alt="Card image cap">
                         <div class="card-body">
@@ -30,6 +30,12 @@
 </template>
 
 <script>
+import axios from 'axios';
+const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-CSRF-TOKEN': csrfToken
+};
 export default {
     name: "BookList",
     props: ['books', 'token'],
@@ -51,6 +57,7 @@ export default {
                 this.cardWidth = this.cardElement.offsetWidth;}
         },
         getFavorite() {
+            if (this.token === null) return;
             axios.get('/favorite', {
                     headers: {
                         'Authorization': 'Bearer ' + this.token
@@ -75,7 +82,7 @@ export default {
         },
         addFavorite(carte) {
             if (this.token === null) {
-                window.location.href = '/pagina-autentificare';
+                window.location.href = '/autentificare';
             }
             axios.post('/favorite',
                 {
@@ -93,6 +100,9 @@ export default {
                     console.log(error);
                 });
         },
+        redirectBook(carte) {
+            window.location.href = '/carte/' + carte.isbn;
+        }
     },
 }
 </script>
@@ -141,17 +151,6 @@ export default {
     padding-top: 5px;
     font-family: "Lora",serif;
     color: #333333;
-}
-
-.card-author {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    font-size: 16px;
-    height: 3rem;
-    overflow: hidden;
-    font-family: "Lora",serif;
-    color: rgba(51, 51, 51, 0.6);
 }
 
 .card-price {

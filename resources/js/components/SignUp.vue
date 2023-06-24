@@ -1,57 +1,106 @@
 <template>
 <div class="sign-up-container">
-<div class="sign-up">
-    <h2>Creeaza cont</h2>
-    <form action="">
-        <div class="sign-up-input">
-            <input type="text" name="" required title="">
-            <label>Nume</label>
-        </div>
-        <div class="sign-up-input">
-            <input type="text" name="" required="">
-            <label>Prenume</label>
-        </div>
-        <div class="sign-up-input">
-            <input type="email" name="" required="">
-            <label>Email</label>
-        </div>
-        <div class="sign-up-input">
-            <input type="tel" name="" required="">
-            <label>Telefon</label>
-        </div>
-        <div class="sign-up-input">
-            <input type="text" name="" required="">
-            <label>Judet</label>
-        </div>
-        <div class="sign-up-input">
-            <input type="text" name="" required="">
-            <label>Oras</label>
-        </div>
-        <div class="sign-up-input">
-            <input type="text" name="" required="">
-            <label>Adresa</label>
-        </div>
-        <div class="sign-up-input">
-            <input type="password" name="" required="">
-            <label>Parola</label>
-        </div>
-        <div class="sign-up-input">
-            <input type="password" name="" required="">
-            <label>Confirmare parola</label>
-        </div>
-        <button type="submit" class="sign-up-button">Inregistrare</button>
-        <span class="sign-up-switch">
-            Ai deja cont? <a href="/pagina-autentificare">Logheaza-te</a>
-        </span>
-    </form>
-</div>
+    <div class="sign-up">
+        <h2>Creeaza cont</h2>
+        <form @submit.prevent="signUp">
+            <div class="sign-up-input">
+                <input type="text" v-model="nume" required title="">
+                <label>Nume</label>
+            </div>
+            <div class="sign-up-input">
+                <input type="text" v-model="prenume" required="">
+                <label>Prenume</label>
+            </div>
+            <div class="sign-up-input">
+                <input type="email" v-model="email" required="">
+                <label>Email</label>
+            </div>
+            <div class="sign-up-input">
+                <input type="tel" v-model="telefon" required="">
+                <label>Telefon</label>
+            </div>
+            <div class="sign-up-input">
+                <input type="text" v-model="judet" required="">
+                <label>Judet</label>
+            </div>
+            <div class="sign-up-input">
+                <input type="text" v-model="oras" required="">
+                <label>Oras</label>
+            </div>
+            <div class="sign-up-input">
+                <input type="text" v-model="adresa" required="">
+                <label>Adresa</label>
+            </div>
+            <div class="sign-up-input">
+                <input type="password" v-model="parola" required="">
+                <label>Parola</label>
+            </div>
+            <div class="sign-up-input">
+                <input type="password" v-model="confirmare_parola" required="">
+                <label>Confirmare parola</label>
+            </div>
+            <button type="submit" class="sign-up-button">Inregistrare</button>
+            <span class="sign-up-switch">
+                Ai deja cont? <a href="/autentificare">Logheaza-te</a>
+            </span>
+        </form>
+    </div>
 </div>
 </template>
 
 
 <script>
+import { mapMutations } from 'vuex';
+import axios from 'axios';
+const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-CSRF-TOKEN': csrfToken
+};
 export default {
-    name: "Signup"
+    name: "Signup",
+    data() {
+        return {
+            nume: null,
+            prenume: null,
+            email: null,
+            telefon: null,
+            judet: null,
+            oras: null,
+            adresa: null,
+            parola: null,
+            confirmare_parola: null,
+        }
+    },
+    methods: {
+        signUp() {
+            if (this.parola !== this.confirmare_parola) {
+                alert('Parolele nu coincid!');
+                return;
+            }
+            console.log("ADS")
+            axios.post('/user', {
+                nume: this.nume,
+                prenume: this.prenume,
+                email: this.email,
+                nr_telefon: this.telefon,
+                judet: this.judet,
+                oras: this.oras,
+                adresa: this.adresa,
+                parola: this.parola,
+            })
+                .then(response => {
+                    const token = response.data.token;
+
+                    this.$store.commit('setToken', token);
+                    localStorage.setItem('token', token);
+                    window.location.href = '/cautare';
+                })
+                .catch(error => {
+                    console.log(error);
+            })
+        }
+    }
 }
 </script>
 

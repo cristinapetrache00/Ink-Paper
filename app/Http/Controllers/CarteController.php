@@ -373,6 +373,7 @@ class CarteController extends Controller
                 'titlu' => $carte->titlu,
                 'imagine' => $carte->imagine,
                 'autor' => $carte->autor,
+                'isbn'  => $carte->isbn,
                 'pret' => $carte->pret,
                 'id' => $carte->id,
                 'nr_reviewuri' => $carte->nr_reviewuri,
@@ -390,10 +391,6 @@ class CarteController extends Controller
     public function paginaCautare(Request $request)
     {
         $data = $request->input('data');
-
-        if (empty($data)) {
-            $data = Carte::all();
-        }
 
         return view('pagina-cautare', compact('data'));
     }
@@ -522,5 +519,12 @@ class CarteController extends Controller
         ];
 
         return response()->json($data, Response::HTTP_OK);
+    }
+
+    public function getBookByIsbn($isbn)
+    {
+        $data = Carte::where('isbn', '=', $isbn)->firstOrFail();
+
+        return view('pagina-carte', compact('data'));
     }
 }

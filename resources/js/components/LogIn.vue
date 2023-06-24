@@ -16,7 +16,7 @@
                 </span>
                 <button type="submit" class="log-in-button">Conectare</button>
                 <span class="log-in-switch">
-            Nu ai cont? <a href="/pagina-inregistrare">Creeaza unul</a>
+            Nu ai cont? <a href="/inregistrare">Creeaza unul</a>
         </span>
             </form>
         </div>
@@ -25,7 +25,12 @@
 
 <script>
 import { mapMutations } from 'vuex';
-
+import axios from 'axios';
+const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-CSRF-TOKEN': csrfToken
+};
 export default {
     name: "LogIn",
     data() {
@@ -41,13 +46,12 @@ export default {
                 password: this.password
             })
                 .then(response => {
-                console.log(response.data)
                     const token = response.data.token;
 
                     this.$store.commit('setToken', token);
                     localStorage.setItem('token', token);
 
-                    window.location.href = '/pagina-cautare';
+                    window.location.href = '/cautare';
                 })
                 .catch(error => {
                     console.error(error);

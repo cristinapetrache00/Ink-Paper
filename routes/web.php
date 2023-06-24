@@ -23,28 +23,41 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect('/pagina-principala');
+    return redirect('/principala');
 });
 
-Route::get('/pagina-inregistrare', function () {
+Route::get('/inregistrare', function () {
     return view('pagina-inregistrare');
 });
 
-Route::get('/pagina-autentificare', function () {
+Route::get('/autentificare', function () {
     return view('pagina-autentificare');
-})->name('login');
+});
 
-Route::get('/pagina-donare', function () {
+Route::get('/donare', function () {
     return view('pagina-donare');
 });
 
-Route::get('/pagina-principala', function () {
+Route::get('/principala', function () {
     return view('pagina-principala');
 });
 
-Route::post('/login', [UserController::class, 'login']);
+Route::get('/profil', function () {
+    return view('pagina-profil');
+});
 
-Route::get('/pagina-cautare', [CarteController::class, 'paginaCautare'])->name('search');
+Route::get('/carte/{isbn}', [CarteController::class, 'getBookByIsbn']);
+
+Route::get('/cautare', [CarteController::class, 'paginaCautare'])->name('search');
+
+
+Route::post('/mail', [UserController::class, 'sendMail']);
+Route::get('/verify/{token}', [UserController::class, 'verifyMail']);
+
+Route::post('/login', [UserController::class, 'login']);
+Route::post('/user', [UserController::class, 'store']);
+
+
 
 Route::prefix('filtre')->group(function () {
     Route::get('/', [CarteController::class, 'getFilters']);
@@ -77,9 +90,11 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete('/{id}', [ReviewController::class, 'destroy']);
     });
 
-    Route::prefix('useri')->group(function () {
-        Route::put('/parola', [CategorieController::class, 'changePassword']);
-        Route::put('/', [CategorieController::class, 'update']);
+    Route::prefix('user')->group(function () {
+        Route::get('/', [UserController::class, 'show']);
+        Route::put('/parola', [UserController::class, 'changePassword']);
+        Route::put('/', [UserController::class, 'update']);
+        Route::post('/logout', [UserController::class, 'logout']);
     });
 
 });
@@ -127,7 +142,6 @@ Route::delete('/categorii/{id}', [CategorieController::class, 'destroy']);
 Route::get('/categorie/carti/{id}', [CategorieController::class, 'carti']);
 
 //User
-Route::post('/user', [CategorieController::class, 'store']);
 
 
 //Returnari

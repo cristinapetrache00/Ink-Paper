@@ -57,9 +57,12 @@
 </template>
 
 <script>
-// export default {
-//     name: "DonationForm"
-// }
+import axios from 'axios';
+const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-CSRF-TOKEN': csrfToken
+};
 export default {
     name: "DonationForm",
     data() {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Mail\AutentificareEmail;
 use App\Models\Client;
 use App\Models\User;
 use App\Services\ClientService;
@@ -11,7 +12,11 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController
@@ -22,6 +27,16 @@ class UserController
     {
         $this->clientService = $clientService;
         $this->userService = $userService;
+    }
+
+    public function show()
+    {
+        $user = Auth::user();
+        $client = $user->client;
+        return response()->json([
+            'user' => $user,
+            'client' => $client
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -107,10 +122,44 @@ class UserController
         $this->clientService->setProperties($data, $request->all());
         $data->save();
 
-        $user->client()->associate($data);
         $data->user()->associate($user);
+        $data->save();
+        $user->client()->associate($data);
+        $user->save();
 
-        return response()->json($data, Response::HTTP_OK);
+        $emailVerificationToken = Str::random(60);
+
+        DB::table('email_verification')->insert([
+            'user_id' => $user->id,
+            'token' => $emailVerificationToken
+        ]);
+
+        $emailVerificationToken = 'http://127.0.0.1:8000/verify/' . $emailVerificationToken;
+
+        Mail::to($user->email)->send(new AutentificareEmail($user, $emailVerificationToken));
+
+        $token = JWTAuth::fromUser($user);
+
+        return response()->json([ 'token' => $token ], Response::HTTP_OK);
+    }
+
+    public function verifyMail(string $token)
+    {
+        $emailVerification = DB::table('email_verification')->where('token', '=', $token)->first();
+        if ($emailVerification) {
+            $user = User::findOrFail($emailVerification->user_id);
+            $user->email_verified_at = now();
+            $user->save();
+            DB::table('email_verification')->where('token', '=', $token)->update(['status' => 'verified']);
+            return response()->json('Email-ul a fost verificat cu succes!', Response::HTTP_OK);
+        }
+        return response()->json('Token-ul nu exista!', Response::HTTP_NOT_FOUND);
+    }
+
+    public function sendMail()
+    {
+        $user = User::where('email', '=', 'teodor.20@hotmail.com')->first();
+        Mail::to($user->email)->send(new AutentificareEmail($user));
     }
 
     /**
@@ -186,7 +235,11 @@ class UserController
         }
 
         $user->email = $request->input('email');
+        $client = $user->client;
 
+        $this->clientService->setProperties($client, $request->all());
+
+        $client->save();
         $user->save();
         return response()->json("Email schimbat!", Response::HTTP_OK);
     }
@@ -221,10 +274,9 @@ class UserController
     }
 
     /**
-     * @param Request $request
      * @return JsonResponse
      */
-    public function logout(Request $request): JsonResponse
+    public function logout(): JsonResponse
     {
         JWTAuth::invalidate(JWTAuth::getToken());
 
