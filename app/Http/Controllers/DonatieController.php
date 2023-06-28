@@ -89,20 +89,25 @@ class DonatieController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $data = new Donatie;
+        foreach ($request->get('books') as $book) {
+            $data = new Donatie;
 
-        $data->nume = $request->get('nume');
-        $data->prenume = $request->get('prenume');
-        $data->email = $request->get('email');
-        $data->nr_telefon = $request->get('nr_telefon');
-        $data->titlu = $request->get('titlu');
-        $data->autor = $request->get('autor');
-        $data->isbn = $request->get('isbn');
-        $data->adresa_ridicare = $request->get('adresa_ridicare');
-        $data->oras_ridicare = $request->get('oras_ridicare');
-        $data->judet_ridicare = $request->get('judet_ridicare');
+            $data->nume = $request->get('nume');
+            $data->prenume = $request->get('prenume');
+            $data->email = $request->get('email');
+            $data->nr_telefon = $request->get('nr_telefon');
 
-        $data->save();
-        return response()->json($data, Response::HTTP_OK);
+            $data->titlu = $book['titlu'];
+            $data->autor = $book['autor'];
+            $data->isbn = $book['isbn'];
+
+            $data->adresa_ridicare = $request->get('adresa_ridicare');
+            $data->oras_ridicare = $request->get('oras_ridicare');
+            $data->judet_ridicare = $request->get('judet_ridicare');
+            $data->save();
+
+        }
+
+        return response()->json("DONE", Response::HTTP_OK);
     }
 }

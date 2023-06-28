@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Mail\AutentificareEmail;
+use App\Mail\ResetareParolaEmail;
 use App\Models\Client;
 use App\Models\User;
 use App\Services\ClientService;
 use App\Services\UserService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -262,6 +264,7 @@ class UserController
         }
 
         if (Hash::check($validatedData['password'], $user->password)) {
+            JWTAuth::factory()->setTTL(60 * 24 * 7);
             $token = JWTAuth::fromUser($user);
 
             return response()->json([
@@ -281,6 +284,65 @@ class UserController
         JWTAuth::invalidate(JWTAuth::getToken());
 
         return response()->json('Te-ai delogat cu succes!', Response::HTTP_OK);
+    }
+
+    /**
+     * @param Request $request
+     * @return void
+     */
+    public function sendPasswordRequest(Request $request)
+    {
+        $user = User::where('email', '=', $request->input('email'))->first();
+        if ($user) {
+            $resetPasswordToken = Str::random(60);
+            DB::table('password_resets')->insert([
+                'email' => $user->email,
+                'token' => $resetPasswordToken
+            ]);
+            $resetPasswordToken = 'http://127.0.0.1:8000/reset/' . $resetPasswordToken;
+            Mail::to($user->email)->send(new ResetareParolaEmail($user, $resetPasswordToken));
+        }
+    }
+
+    /**
+     * @param string $token
+     * @return Application|Factory|View
+     */
+    public function resetPasswordRedirect(string $token)
+    {
+        $passwordReset = DB::table('password_resets')->where('token', '=', $token)->first();
+
+        return view('pagina-resetare', compact('passwordReset'));
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function resetPassword(Request $request): JsonResponse
+    {
+        $user = User::where('email', '=', $request->input('email'))->first();
+
+        if (!empty($this->userService->checkPassword($request->input('parola')))) {
+            return response()->json($this->userService->checkPassword($request->input('parola')), Response::HTTP_NOT_ACCEPTABLE);
+        }
+
+        $user->password = Hash::make($request->input('parola'));
+        $user->save();
+
+        DB::table('password_resets')->where('email', '=', $user->email)->update(['status' => 'verified']);
+
+        return response()->json("Parola schimbata!", Response::HTTP_OK);
+    }
+
+    /**
+     * @param string $ref
+     * @return Application|Factory|View
+     */
+    public function getProfileRef(string $ref)
+    {
+        $ref = json_encode($ref);
+        return view('pagina-profil', compact('ref'));
     }
 }
 

@@ -10,7 +10,7 @@
 <body>
 
     <div id="app">
-        <navigation></navigation>
+        <navigation class="padding-main"></navigation>
         <donation></donation>
     </div>
 
@@ -26,5 +26,36 @@
         font-family: 'Lora',serif;
         /*background: #e8e5df;*/
         background: #EDF6F6;
+    }
+
+    .margin-main {
+        margin-left: calc(50% - 675px);
+        margin-right: calc(50% - 675px);
+    }
+    .padding-main {
+        padding-left: calc(50% - 645px);
+        padding-right: calc(50% - 655px);
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: #F0F1F2;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #00A896;
+        border: 3px solid #00A896;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #00A896;
+    }
+
+    ::-webkit-scrollbar-corner {
+        background-color: #00A896;
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
     }
 </style>

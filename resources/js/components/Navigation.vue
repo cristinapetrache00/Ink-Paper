@@ -10,10 +10,11 @@
         </div>
         <div class="right-section">
             <ul>
-                <li>
+                <li class="item"><a href="/cautare"><img :src="'/icons/bars-solid-1.svg'" alt="Shop SVG"></a></li>
+                <li class="item">
                     <div class="dropdown">
-                        <a class="dropdown-toggle" href="#" role="button" @click="toggleDropdown" :aria-expanded="isDropdownOpen.toString()">
-                            Dropdown
+                        <a style="color: #FAFAFA" class="dropdown-toggle" role="button" @click="toggleDropdown" :aria-expanded="isDropdownOpen.toString()">
+                            <img :src="'/icons/user-solid-2.svg'" alt="Profile SVG">
                         </a>
                         <ul v-if="isLogged" class="dropdown-menu" v-show="isDropdownOpen" @click="closeDropdown">
                             <li><a class="dropdown-item" @click="profile">Profil</a></li>
@@ -25,10 +26,9 @@
                         </ul>
                     </div>
                 </li>
-                <li><a href="#">Favorite</a></li>
-                <li><a href="#">Cos</a></li>
-                <li><a href="/pagina-donare">Doneaza</a></li>
-                <li><a @click="mail">Inchiriaza</a></li>
+                <li class="item"><a href="/profil/produse_favorite"><img :src="'/icons/heart-solid-1.svg'" alt="Favorite SVG"></a></li>
+                <li class="item"><a href="/cart"><img :src="'/icons/cart-shopping-solid-1.svg'" alt="Cos SVG"></a></li>
+                <li class="item-last"><a href="/donare"><img :src="'/icons/book-bookmark-solid-1.svg'" alt="Doneaza SVG"></a></li>
             </ul>
         </div>
     </nav>
@@ -60,7 +60,7 @@ export default {
     methods: {
         search() {
             axios.post('/search', {
-                titlu: this.titlu
+                search: this.titlu,
             })
                 .then(response => {
                     window.location.href = response.data;
@@ -120,7 +120,6 @@ export default {
 }
 
 .navigation {
-    /*background-color: #048399;*/
     background-color: #008b7a;
     height: 70px;
     display: flex;
@@ -129,20 +128,13 @@ export default {
 }
 
 .left-section {
-    /*position: relative;*/
-    /*height: 70px;*/
     width: 480px;
-    /*display: flex;*/
-    /*justify-content: center;*/
-    /*align-items: center;*/
 }
 
 .right-section ul {
     font-family: "Lora",serif;
     display: flex;
-    /*gap: 10px;*/
-    gap: 7px;
-    /*padding-right: 125px;*/
+    padding-top: 10px
 }
 
 .right-section ul li {
@@ -150,7 +142,6 @@ export default {
 }
 
 .right-section ul li a {
-    /*font-size: 18px;*/
     font-size: 17px;
     font-weight: 700;
     text-decoration: none;
@@ -158,20 +149,10 @@ export default {
     transition: 0.5s ease;
 }
 
-/*.right-section ul:hover li a {*/
-/*    color: #FAFAFA;*/
-/*}*/
-
-/*.right-section ul:hover li a:not(:hover) {*/
-/*    color:white;*/
-/*    opacity: 0.4;*/
-/*    filter: blur(1px);*/
-/*}*/
-
 .search-container{
-    position: fixed;
-    top: 0;
-    left: 30%;
+    position: absolute;
+    left: 35%;
+    top: 15px;
 }
 
 .search {
@@ -232,5 +213,16 @@ export default {
 
 .dropdown-item {
     color: #000000;
+}
+
+.item {
+    padding-left: 8px;
+    padding-right: 8px;
+    border-right: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.item-last {
+    padding-left: 8px;
+    padding-right: 8px;
 }
 </style>

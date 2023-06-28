@@ -4,7 +4,7 @@
             <li class="nav-item">
                 <a
                     :class="['nav-link', { active: currentTab === 'date_personale' }]"
-                    href="#"
+                    href="/profil/date_personale"
                     @click="changeTab('date_personale')"
                 >
                     Date personale
@@ -13,7 +13,7 @@
             <li class="nav-item">
                 <a
                     :class="['nav-link', { active: currentTab === 'comenzile_mele' }]"
-                    href="#"
+                    href="/profil/comenzile_mele"
                     @click="changeTab('comenzile_mele')"
                 >
                     Comenzile mele
@@ -22,7 +22,7 @@
             <li class="nav-item">
                 <a
                     :class="['nav-link', { active: currentTab === 'produse_cumparate' }]"
-                    href="#"
+                    href="/profil/produse_cumparate"
                     @click="changeTab('produse_cumparate')"
                 >
                     Produse cumparate
@@ -31,7 +31,7 @@
             <li class="nav-item">
                 <a
                     :class="['nav-link', { active: currentTab === 'produse_favorite' }]"
-                    href="#"
+                    href="/profil/produse_favorite"
                     @click="changeTab('produse_favorite')"
                 >
                     Produse favorite
@@ -44,9 +44,10 @@
 <script>
 export default {
     name: "ProfileNavigation",
+    props: ['accessedTab'],
     data() {
         return {
-            currentTab: 'date_personale',
+            currentTab: null,
         }
     },
     computed: {
@@ -61,6 +62,17 @@ export default {
             }
             return {};
         },
+    },
+    mounted() {
+        setTimeout(() => {
+            console.log(this.accessedTab)
+            if (this.accessedTab !== null) {
+                this.currentTab = this.accessedTab;
+            } else {
+                this.currentTab = 'date_personale';
+            }
+        }, 500);
+
     },
     methods: {
         changeTab(tab) {
@@ -97,13 +109,5 @@ export default {
 
 .nav-link.active {
     font-weight: bold;
-}
-
-.nav-underline-line {
-    position: absolute;
-    bottom: 0;
-    height: 2px;
-    background-color: #000; /* Change this to your desired underline color */
-    transition: all 0.3s ease;
 }
 </style>

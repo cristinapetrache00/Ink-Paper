@@ -19,10 +19,13 @@
 <style>
     body{
         padding: 0;
+        font-family: 'Lora',serif;
+        background: #FAFAFA;
     }
     .margin-main {
         margin-left: calc(50% - 675px);
         margin-right: calc(50% - 675px);
+        margin-top: 100px;
     }
     .padding-main {
         padding-left: calc(50% - 645px);
@@ -30,28 +33,22 @@
     }
 
     ::-webkit-scrollbar-track {
-        background-color: #22223b;
-        /*border-radius: 10px;*/
+        background-color: #F0F1F2;
     }
 
-    /* This styles the scrollbar thumb */
     ::-webkit-scrollbar-thumb {
-        background-color: #aaa;
-        /*border-radius: 10px;*/
-        border: 3px solid #888888;
+        background-color: #00A896;
+        border: 3px solid #00A896;
     }
 
-    /* This styles the scrollbar thumb when it's being hovered over */
     ::-webkit-scrollbar-thumb:hover {
-        background-color: #888888;
+        background-color: #00A896;
     }
 
-    /* This styles the scrollbar corner */
     ::-webkit-scrollbar-corner {
-        background-color: #0a53be;
+        background-color: #00A896;
     }
 
-    /* This styles the scrollbar when it's in a horizontal orientation */
     ::-webkit-scrollbar {
         width: 10px;
         height: 10px;

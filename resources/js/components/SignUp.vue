@@ -13,7 +13,7 @@
             </div>
             <div class="sign-up-input">
                 <input type="email" v-model="email" required="">
-                <label>Email</label>
+                <label>E-mail</label>
             </div>
             <div class="sign-up-input">
                 <input type="tel" v-model="telefon" required="">
@@ -25,14 +25,14 @@
             </div>
             <div class="sign-up-input">
                 <input type="text" v-model="oras" required="">
-                <label>Oras</label>
+                <label>Localitate</label>
             </div>
             <div class="sign-up-input">
                 <input type="text" v-model="adresa" required="">
                 <label>Adresa</label>
             </div>
             <div class="sign-up-input">
-                <input type="password" v-model="parola" required="">
+                <input type="password" v-model="parola" @input="validatePassword" required="">
                 <label>Parola</label>
             </div>
             <div class="sign-up-input">
@@ -70,12 +70,17 @@ export default {
             adresa: null,
             parola: null,
             confirmare_parola: null,
+            parolaValidata: false,
         }
     },
     methods: {
         signUp() {
             if (this.parola !== this.confirmare_parola) {
                 alert('Parolele nu coincid!');
+                return;
+            }
+            if (!this.parolaValidata) {
+                alert('Parola trebuie sa contina cel putin o litera mare, o litera mica, un numar si un caracter special!');
                 return;
             }
             console.log("ADS")
@@ -99,6 +104,18 @@ export default {
                 .catch(error => {
                     console.log(error);
             })
+        },
+        validatePassword() {
+            const uppercaseRegex = /[A-Z]/;
+            const lowercaseRegex = /[a-z]/;
+            const numberRegex = /[0-9]/;
+            const specialCharRegex = /[-!$%^&*()_+|~=`{}[\]:";'<>?,.\/]/;
+
+            this.parolaValidata =
+                uppercaseRegex.test(this.parola) &&
+                lowercaseRegex.test(this.parola) &&
+                numberRegex.test(this.parola) &&
+                specialCharRegex.test(this.parola);
         }
     }
 }

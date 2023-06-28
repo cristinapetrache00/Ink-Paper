@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\Carte;
 use App\Models\Categorie;
 use App\Models\Client;
+use App\Models\Discount;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -91,6 +93,31 @@ class ImportService
 
                     $categorie->save();
 
+                    break;
+
+                case 'review.csv':
+                    $review = new Review();
+
+                    $carte = Carte::find($data['id_carte']);
+                    $client = Client::find($data['id_client']);
+
+                    $review->carte()->associate($carte);
+                    $review->client()->associate($client);
+
+                    $review->comentariu = $data['comentariu'];
+                    $review->rating = $data['rating'];
+                    $review->data_review = $data['data_review'];
+                    $review->titlu = $data['titlu'];
+
+                    $review->save();
+                    break;
+
+                case 'promotii.csv':
+                    $discount = new Discount();
+                    $discount->id_carte = $data['id_carte'];
+                    $discount->promotie = $data['promotie'];
+
+                    $discount->save();
                     break;
             }
         }

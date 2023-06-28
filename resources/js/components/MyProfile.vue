@@ -4,50 +4,53 @@
             <label for="inputNume" class="form-label">Nume</label>
             <input type="text" class="form-control" id="inputNume" v-model="client.nume">
         </div>
+
         <div class="col-md-6">
             <label for="inputPrenume" class="form-label">Prenume</label>
             <input type="text" class="form-control" id="inputPrenume" v-model="client.prenume">
         </div>
+
         <div class="col-md-6">
             <label for="inputEmail" class="form-label">Email</label>
             <input type="email" class="form-control" id="inputEmail" v-model="user.email">
         </div>
+
         <div class="col-md-6">
             <label for="inputPhone" class="form-label">Numar Telefon</label>
             <input type="text" class="form-control" id="inputPhone" v-model="client.nr_telefon">
         </div>
+
         <div class="col-12">
             <label for="inputAddress" class="form-label">Adresa</label>
             <input type="text" class="form-control" id="inputAddress" v-model="client.adresa">
         </div>
+
         <div class="col-md-6">
             <label for="inputCity" class="form-label">Localitate</label>
             <input type="text" class="form-control" id="inputCity" v-model="client.oras">
         </div>
+
         <div class="col-md-4">
             <label for="inputState" class="form-label">Judet</label>
             <input type="text" class="form-control" id="inputState" v-model="client.judet">
-
         </div>
+
         <div class="col-md-2">
             <label for="formular" class="form-label">Schimba parola</label>
             <button id="formular" class="btn btn-primary form-control" type="button" @click="openPopup">Deschide formular</button>
 
-            <!-- Popup window -->
             <div v-if="showPopup" class="popup-container">
                 <div class="popup-content">
                     <form>
-                        <!-- Form fields -->
                         <div class="mb-3">
-                            <label for="firstName" class="form-label">Parola noua</label>
-                            <input type="password" class="form-control" id="firstName" v-model="password">
+                            <label for="pass" class="form-label">Parola noua</label>
+                            <input type="password" class="form-control" id="pass" v-model="password" @input="validatePassword">
                         </div>
                         <div class="mb-3">
-                            <label for="lastName" class="form-label">Confirmare parola</label>
-                            <input type="password" class="form-control" id="lastName" v-model="confirmPassword">
+                            <label for="confPass" class="form-label">Confirmare parola</label>
+                            <input type="password" class="form-control" id="confPass" v-model="confirmPassword">
                         </div>
 
-                        <!-- Submit and close buttons -->
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-primary" @click="submitForm">Submit</button>
                             <button type="button" class="btn btn-secondary" @click="closePopup">Close</button>
@@ -79,6 +82,7 @@ export default {
             showPopup: false,
             password: '',
             confirmPassword: '',
+            isPasswordValid: false,
         }
     },
     computed: {
@@ -138,24 +142,39 @@ export default {
             if (this.password !== this.confirmPassword) {
                 alert('Parolele nu coincid!');
                 return;
-            } else {
-                axios.put('/user/parola',
-                    {
-                        parola: this.password,
-                    },
-                    {
-                        headers: {
-                            'Authorization': 'Bearer ' + this.isAuthenticated
-                        }
-                    })
-                    .then(response => {
-                        this.closePopup();
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
             }
+            if (!this.parolaValidata) {
+                alert('Parola trebuie sa contina cel putin o litera mare, o litera mica, un numar si un caracter special!');
+                return;
+            }
+            axios.put('/user/parola',
+                {
+                    parola: this.password,
+                },
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + this.isAuthenticated
+                    }
+                })
+                .then(response => {
+                    this.closePopup();
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         },
+        validatePassword() {
+            const uppercaseRegex = /[A-Z]/;
+            const lowercaseRegex = /[a-z]/;
+            const numberRegex = /[0-9]/;
+            const specialCharRegex = /[-!$%^&*()_+|~=`{}[\]:";'<>?,.\/]/;
+
+            this.isPasswordValid =
+                uppercaseRegex.test(this.password) &&
+                lowercaseRegex.test(this.password) &&
+                numberRegex.test(this.password) &&
+                specialCharRegex.test(this.password);
+        }
     }
 }
 </script>

@@ -34,7 +34,7 @@ class AutentificareEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Welcome to Our Application')
+        return $this->subject('Creare cont Ink&Paper')
             ->markdown('emails.welcome', [
                 'user' => $this->user,
                 'url' => $this->url

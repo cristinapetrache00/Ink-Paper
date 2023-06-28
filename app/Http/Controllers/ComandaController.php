@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ConfirmOrder;
+use App\Models\Carte;
+use App\Models\CarteComanda;
+use App\Models\CarteCos;
 use App\Models\Comanda;
+use App\Models\Discount;
+use App\Models\User;
 use App\Services\ComandaService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ComandaController extends Controller
 {
@@ -30,7 +38,14 @@ class ComandaController extends Controller
      */
     public function index(): JsonResponse
     {
-        $data = Comanda::all();
+        if (Auth::check()) {
+            $user = User::find(Auth::id());
+            $client = $user->client;
+        } else {
+            return response()->json(['message' => 'Nu sunteti logat'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $data = Comanda::where('id_client', '=', $client->id)->get();
         return response()->json($data, Response::HTTP_OK);
     }
 
@@ -301,11 +316,109 @@ class ComandaController extends Controller
      *    )
      * )
      */
-    public function carti($id): JsonResponse
+    public function carti(): JsonResponse
     {
-        $data = Comanda::where('id', '=', $id)->firstOrFail();
-        $data = $data->carti()->get();
+        if (Auth::check()) {
+            $user = User::find(Auth::id());
+            $client = $user->client;
+        } else {
+            return response()->json(['message' => 'Nu sunteti logat'], Response::HTTP_UNAUTHORIZED);
+        }
+        $data = Comanda::where('id_client', '=', $client->id)->select('id')->get();
+        $cartiComanda = [];
 
-        return response()->json($data, Response::HTTP_OK);
+        foreach ($data as $comanda) {
+            $cartiComanda[] = CarteComanda::where('id_comanda', '=', $comanda->id)->get();
+        }
+
+        $cartiId = [];
+
+        foreach ($cartiComanda as $carteComanda) {
+            foreach ($carteComanda as $carte) {
+                $cartiId[] = $carte->id_carte;
+            }
+        }
+
+        $carti = Carte::whereIn('id', $cartiId)->distinct()->get();
+
+        return response()->json($carti, Response::HTTP_OK);
+    }
+
+    /**
+     * @param int $id_comanda
+     * @return JsonResponse
+     */
+    public function cartiComanda(int $id_comanda): JsonResponse
+    {
+        if (Auth::check()) {
+            $user = User::find(Auth::id());
+            $client = $user->client;
+        } else {
+            return response()->json(['message' => 'Nu sunteti logat'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $cartiComanda = CarteComanda::where('id_comanda', '=', $id_comanda)->get();
+
+        $cartiId = [];
+
+        foreach ($cartiComanda as $carteComanda) {
+                $cartiId[] = $carteComanda->id_carte;
+
+        }
+
+        $carti = Carte::whereIn('id', $cartiId)->distinct()->get();
+
+        return response()->json($carti, Response::HTTP_OK);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function checkout(Request $request)
+    {
+        $data = new Comanda;
+        $this->comandaService->setProperties($data, $request->all());
+        $data->save();
+
+        $discounts = Discount::all();
+
+        foreach ($request->input('carti') as $carte) {
+            $carteComanda = new CarteComanda;
+
+            $carteComanda->id_comanda = $data->id;
+            $carteComanda->id_carte = $carte['id'];
+            $carteComanda->cantitate = $carte['cos'];
+
+            $checkDiscount = 0;
+            foreach ($discounts as $discount) {
+                if ($discount->id_carte == $carte['id']) {
+                    $checkDiscount = 1;
+                    $carteComanda->subtotal = ($carte['pret'] * $carte['cos']) - ($carte['pret'] * $carte['cos']) * $discount->discount / 100;
+                    break;
+                }
+            }
+
+            if ($checkDiscount == 0) {
+                $carteComanda->subtotal = $carte['pret'] * $carte['cos'];
+            }
+
+            $carteComanda->save();
+
+            if ($request->input('id_client') == 0) {
+                $carteCos = CarteCos::where('id_carte', '=', $carte['id'])
+                    ->first();
+                $carteCos->delete();
+            } else {
+                    $carteCos = CarteCos::where('id_carte', '=', $carte['id'])
+                    ->where('id_client', '=', $request->input('id_client'))
+                    ->first();
+                $carteCos->delete();
+            }
+        }
+
+        Mail::to($request->input('email'))->send(new ConfirmOrder($data->id));
+
+        return response()->json("DONE", Response::HTTP_OK);
     }
 }

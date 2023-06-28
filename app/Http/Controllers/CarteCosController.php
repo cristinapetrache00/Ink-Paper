@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CarteComanda;
+use App\Models\Carte;
 use App\Models\CarteCos;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -49,18 +49,30 @@ class CarteCosController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        if (Auth::check()) {
-            $user = User::findOrFail(Auth::user()->id);
-        } else {
-            return response()->json('User-ul nu este autentificat', Response::HTTP_UNAUTHORIZED);
-        }
-
-        $client = $user->client()->get();
-
         $data = new CarteCos;
 
+        if (Auth::check()) {
+            $user = User::findOrFail(Auth::user()->id);
+            $client = $user->client;
+            $data->id_client = $client->id;
+            $carteCos = CarteCos::where('id_carte', '=', $request->input('id_carte'))
+                ->where('id_client', '=', $client->id)
+                ->first();
+        } else {
+            $data->id_client = null;
+            $carteCos = CarteCos::where('id_carte', '=', $request->input('id_carte'))->first();
+        }
+
+
+        if (!empty($carteCos)) {
+            $carteCos->cantitate += $request->get('cantitate');
+            $carteCos->subtotal += $request->get('subtotal');
+            $carteCos->save();
+            return response()->json($carteCos, Response::HTTP_OK);
+        }
+
+
         $data->id_carte = $request->get('id_carte');
-        $data->id_client = $client->id;
         $data->cantitate = $request->get('cantitate');
         $data->subtotal = $request->get('subtotal');
 
@@ -95,12 +107,14 @@ class CarteCosController extends Controller
     {
         if (Auth::check()) {
             $user = User::findOrFail(Auth::user()->id);
+            $client = $user->client;
+            $carteCos = CarteCos::where('id_carte', '=', $request->input('id_carte'))
+                ->where('id_client', '=', $client->id)
+                ->first();
         } else {
-            return response()->json('User-ul nu este autentificat', Response::HTTP_UNAUTHORIZED);
+            $carteCos = CarteCos::where('id_carte', '=', $request->input('id_carte'))
+                ->first();
         }
-
-        $client = $user->client()->get();
-        $carteCos = $client->cartiCos()->where('id_carte', '=', $request->input('id_carte'))->first();
 
         $carteCos->cantitate = $request->get('cantitate');
 
@@ -134,14 +148,60 @@ class CarteCosController extends Controller
     {
         if (Auth::check()) {
             $user = User::findOrFail(Auth::user()->id);
+            $client = $user->client;
+            $carteCos = CarteCos::where('id_carte', '=', $id)
+                ->where('id_client', '=', $client->id)
+                ->first();
         } else {
-            return response()->json('User-ul nu este autentificat', Response::HTTP_UNAUTHORIZED);
+            $carteCos = CarteCos::where('id_carte', '=', $id)->first();
         }
-
-        $client = $user->client()->get();
-        $carteCos = $client->cartiCos()->where('id_carte', '=', $id)->first();
 
         $carteCos->delete();
         return response()->json("DELETED", Response::HTTP_OK);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function index(): JsonResponse
+    {
+        $userLogged = Auth::user();
+        $data = [];
+        if (!empty($userLogged)) {
+            $user = User::findOrFail($userLogged->id);
+            $client = $user->client;
+            $cartiId = CarteCos::where('id_client', '=', $client->id)->get();
+            foreach ($cartiId as $carteCos) {
+                $carte = Carte::where('id', '=', $carteCos->id_carte)->first();
+
+                $data[] = [
+                    'titlu' => $carte->titlu,
+                    'imagine' => $carte->imagine,
+                    'autor' => $carte->autor,
+                    'pret' => $carte->pret,
+                    'id' => $carte->id,
+                    'cantitate' => $carte->cantitate,
+                    'cos' => $carteCos->cantitate,
+                ];
+            }
+
+        } else {
+            $cartiId = CarteCos::where('id_client', '=', null)->get();
+            foreach ($cartiId as $carteCos) {
+                $carte = Carte::where('id', '=', $carteCos->id_carte)->first();
+
+                $data[] = [
+                    'titlu' => $carte->titlu,
+                    'imagine' => $carte->imagine,
+                    'autor' => $carte->autor,
+                    'pret' => $carte->pret,
+                    'id' => $carte->id,
+                    'cantitate' => $carte->cantitate,
+                    'cos' => $carteCos->cantitate,
+                ];
+            }
+        }
+
+        return response()->json($data, Response::HTTP_OK);
     }
 }

@@ -34,5 +34,5 @@ class CarteComanda extends Model
         ]
     ];
 
-    protected $primaryKey = ['id_carte','id_comanda'];
+    protected $primaryKey = 'id';
 }

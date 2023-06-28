@@ -11,7 +11,11 @@
 <body>
 <div id="app">
     <navigation class="padding-main"></navigation>
-    <profile class="margin-main" style="margin-top: 100px"></profile>
+    @if (!empty($ref))
+        <profile class="margin-main" style="margin-top: 100px" :ref1="{{ $ref }}"></profile>
+    @else
+        <profile class="margin-main" style="margin-top: 100px" :ref1="null"></profile>
+    @endif
 </div>
 </body>
 
@@ -22,7 +26,7 @@
     export default {
         data() {
                 return {
-            emittedData: null
+                    emittedData: null
                 };
         },
         methods: {
@@ -36,13 +40,37 @@
 <style>
     body{
         padding: 0;
+        font-family: 'Lora',serif;
+        background: #FAFAFA;
     }
     .margin-main {
         margin-left: calc(50% - 675px);
         margin-right: calc(50% - 675px);
     }
     .padding-main {
-        padding-left: calc(50% - 645px);
-        padding-right: calc(50% - 655px);
+        padding-left: calc(50% - 675px);
+        padding-right: calc(50% - 675px);
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: #F0F1F2;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #00A896;
+        border: 3px solid #00A896;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #00A896;
+    }
+
+    ::-webkit-scrollbar-corner {
+        background-color: #00A896;
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
     }
 </style>

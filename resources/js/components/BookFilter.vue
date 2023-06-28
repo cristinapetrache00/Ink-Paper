@@ -163,28 +163,24 @@ export default {
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #22223b;
+    background-color: #F0F1F2;
     border-radius: 10px;
 }
 
-/* This styles the scrollbar thumb */
 ::-webkit-scrollbar-thumb {
-    background-color: #aaa;
+    background-color: #FFB6B9;
     border-radius: 10px;
-    border: 3px solid #888888;
+    border: 3px solid #FFB6B9;
 }
 
-/* This styles the scrollbar thumb when it's being hovered over */
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #888888;
+    background-color: #FFB6B9;
 }
 
-/* This styles the scrollbar corner */
 ::-webkit-scrollbar-corner {
-    background-color: #0a53be;
+    background-color: #FFB6B9;
 }
 
-/* This styles the scrollbar when it's in a horizontal orientation */
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;

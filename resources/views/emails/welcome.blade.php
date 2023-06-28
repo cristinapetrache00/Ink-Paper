@@ -1,19 +1,20 @@
 @component('mail::message')
-    # Welcome to Our Application
+    # Bine ati venit pe site-ul nostru!
 
-    Thank you for registering with us! We are excited to have you on board.
+    Va multumim pentru inregistrarea pe site-ul nostru! Suntem incantati sa va avem alaturi de noi.
 
-    Here are your registration details:
+    Acestea sunt detaliile inregistrarii:
 
-    {{ $user->name }}
     {{ $user->email }}
 
-    Verify your email address by accessing the link below.
+    Pentru confirmarea contului, va rugam sa accesati link-ul de mai jos:
 
     {{ $url }}
 
-    If you have any questions or need assistance, feel free to reach out to our support team.
 
-    Thanks,
-    The Application Team
+    Daca aveti intrebari sau aveti nevoie de asistenta, nu ezitati sa ne contactati.
+
+    Multumim,
+    Echipa Ink&Paper
 @endcomponent
+

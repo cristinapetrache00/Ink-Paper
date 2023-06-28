@@ -5,19 +5,19 @@
                 <div v-show="step===1">
                     <h2>Informatii donator</h2>
                     <div class="donation-input">
-                        <input type="text" name="" required title="">
+                        <input type="text" v-model="nume" required title="">
                         <label>Nume</label>
                     </div>
                     <div class="donation-input">
-                        <input type="text" name="" required="">
+                        <input type="text" v-model="prenume" required="">
                         <label>Prenume</label>
                     </div>
                     <div class="donation-input">
-                        <input type="email" name="" required="">
-                        <label>Email</label>
+                        <input type="email" v-model="email" required="">
+                        <label>E-mail</label>
                     </div>
                     <div class="donation-input">
-                        <input type="tel" name="" required="">
+                        <input type="tel" v-model="telefon" required="">
                         <label>Telefon</label>
                     </div>
                     <button type="button" class="donation-button-next" @click="nextStep()">Continua</button>
@@ -28,15 +28,15 @@
                     <div v-for="(book, index) in books" :key="index">
                         <div class="donation-details">
                             <div class="donation-input">
-                                <input type="text" name=""  required title="">
+                                <input type="text" v-model="book.titlu"  required title="">
                                 <label>Titlu</label>
                             </div>
                             <div class="donation-input">
-                                <input type="text" name="" required="">
+                                <input type="text" v-model="book.autor" required="">
                                 <label>Autor</label>
                             </div>
                             <div class="donation-input">
-                                <input type="text" name="" required="">
+                                <input type="text" v-model="book.isbn" required="">
                                 <label>ISBN</label>
                             </div>
                             <div class="buttons-container">
@@ -49,6 +49,23 @@
                         <button type="button" class="donation-button-next-prev" @click="prevStep()">Inapoi</button>
                         <button type="button" class="donation-button-next-prev" @click="nextStep()">Continua</button>
                     </div>
+                </div>
+
+                <div v-show="step===3">
+                    <h2>Adresa preluare</h2>
+                    <div class="donation-input">
+                        <input type="text" v-model="adresa" required title="">
+                        <label>Adresa</label>
+                    </div>
+                    <div class="donation-input">
+                        <input type="text" v-model="localitate" required="">
+                        <label>Localitate</label>
+                    </div>
+                    <div class="donation-input">
+                        <input type="text" v-model="judet" required="">
+                        <label>Judet</label>
+                    </div>
+                    <button type="button" class="donation-button-next" @click="send()">Trimite</button>
                 </div>
 
             </form>
@@ -67,6 +84,13 @@ export default {
     name: "DonationForm",
     data() {
         return {
+            nume: '',
+            prenume: '',
+            email: '',
+            telefon: '',
+            adresa: '',
+            localitate: '',
+            judet: '',
             step: 1,
             books: [
                 { titlu: '', autor: '', isbn: '' }
@@ -85,8 +109,25 @@ export default {
         },
         removeBook(index) {
             this.books.splice(index,1);
-            }
+        },
+        send() {
+            axios.post('/donatie', {
+                nume: this.nume,
+                prenume: this.prenume,
+                email: this.email,
+                nr_telefon: this.telefon,
+                adresa_ridicare: this.adresa,
+                oras_ridicare: this.localitate,
+                judet_ridicare: this.judet,
+                books: this.books
+            })
+                .then((response) => {
+                    window.location.href = '/';
+                }, (error) => {
+                    console.log(error);
+                });
         }
+    },
 }
 </script>
 
