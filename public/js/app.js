@@ -5986,6 +5986,7 @@ var csrfToken = document.querySelector('meta[name="csrf-token"]').content;
         carti: this.carti,
         id_client: this.client.id,
         tip: 'comanda',
+        email: this.user.email,
         pret_comanda: this.total + 15.00,
         adresa_livrare: this.client.adresa,
         oras_livrare: this.client.oras,
@@ -6861,6 +6862,10 @@ var csrfToken = document.querySelector('meta[name="csrf-token"]').content;
   },
   methods: {
     reset: function reset() {
+      if (!this.parolaValidata) {
+        alert('Parola trebuie sa contina cel putin o litera mare, o litera mica, un numar si un caracter special!');
+        return;
+      }
       if (this.parola !== this.confirmare_parola) {
         alert('Parolele nu coincid!');
         return;
@@ -6873,6 +6878,13 @@ var csrfToken = document.querySelector('meta[name="csrf-token"]').content;
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    validatePassword: function validatePassword() {
+      var uppercaseRegex = /[A-Z]/;
+      var lowercaseRegex = /[a-z]/;
+      var numberRegex = /[0-9]/;
+      var specialCharRegex = /[-!$%^&*()_+|~=`{}[\]:";'<>?,.\/]/;
+      this.parolaValidata = uppercaseRegex.test(this.parola) && lowercaseRegex.test(this.parola) && numberRegex.test(this.parola) && specialCharRegex.test(this.parola);
     }
   }
 });
@@ -9844,10 +9856,10 @@ var render = function render() {
       value: _vm.parola
     },
     on: {
-      input: function input($event) {
+      input: [function ($event) {
         if ($event.target.composing) return;
         _vm.parola = $event.target.value;
-      }
+      }, _vm.validatePassword]
     }
   }), _vm._v(" "), _c("label", [_vm._v("Parola noua")])]), _vm._v(" "), _c("div", {
     staticClass: "sign-up-input"

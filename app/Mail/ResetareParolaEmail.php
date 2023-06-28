@@ -35,7 +35,7 @@ class ResetareParolaEmail extends Mailable
     public function build()
     {
         return $this->subject('Resetare parola Ink&Paper')
-            ->markdown('emails.welcome', [
+            ->markdown('emails.password-reset', [
                 'user' => $this->user,
                 'url' => $this->url
             ]);

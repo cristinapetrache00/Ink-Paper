@@ -312,6 +312,7 @@ export default {
                 carti: this.carti,
                 id_client: this.client.id,
                 tip: 'comanda',
+                email: this.user.email,
                 pret_comanda: this.total + 15.00,
                 adresa_livrare: this.client.adresa,
                 oras_livrare: this.client.oras,

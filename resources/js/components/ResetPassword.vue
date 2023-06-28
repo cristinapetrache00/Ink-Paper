@@ -4,7 +4,7 @@
         <h2>Reseteaza parola</h2>
         <form @submit.prevent="reset">
             <div class="sign-up-input">
-                <input type="password" v-model="parola" required="">
+                <input type="password" v-model="parola" @input="validatePassword" required="">
                 <label>Parola noua</label>
             </div>
             <div class="sign-up-input">
@@ -40,6 +40,10 @@ export default {
     },
     methods: {
         reset() {
+            if (!this.parolaValidata) {
+                alert('Parola trebuie sa contina cel putin o litera mare, o litera mica, un numar si un caracter special!');
+                return;
+            }
             if (this.parola !== this.confirmare_parola) {
                 alert('Parolele nu coincid!');
                 return;
@@ -54,6 +58,18 @@ export default {
                 .catch(error => {
                     console.log(error);
             })
+        },
+        validatePassword() {
+            const uppercaseRegex = /[A-Z]/;
+            const lowercaseRegex = /[a-z]/;
+            const numberRegex = /[0-9]/;
+            const specialCharRegex = /[-!$%^&*()_+|~=`{}[\]:";'<>?,.\/]/;
+
+            this.parolaValidata =
+                uppercaseRegex.test(this.parola) &&
+                lowercaseRegex.test(this.parola) &&
+                numberRegex.test(this.parola) &&
+                specialCharRegex.test(this.parola);
         }
     }
 }
