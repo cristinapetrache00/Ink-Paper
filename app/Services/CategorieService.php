@@ -18,11 +18,7 @@ class CategorieService
         }
 
         if (!empty($properties['parent_id'])) {
-//            $categorie->parent_id = $properties['parent_id'];
-            $parentCategorie = Categorie::find($properties['parent_id']);
-            $categorie->parent()->associate($parentCategorie);
-            $categorie->save();
-
+            $categorie->parent_id = $properties['parent_id'];
         }
     }
 }

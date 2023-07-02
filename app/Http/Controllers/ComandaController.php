@@ -50,6 +50,15 @@ class ComandaController extends Controller
     }
 
     /**
+     * @return JsonResponse
+     */
+    public function adminIndex()
+    {
+        $data = Comanda::all();
+        return response()->json($data, Response::HTTP_OK);
+    }
+
+    /**
      * @OA\Get(
      *    path="/comenzi/{id}",
      *    summary="Returneaza comanda cu id-ul dat",

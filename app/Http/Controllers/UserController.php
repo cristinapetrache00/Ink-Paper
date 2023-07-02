@@ -31,6 +31,18 @@ class UserController
         $this->userService = $userService;
     }
 
+    /**
+     * @return JsonResponse
+     */
+    public function index()
+    {
+        $data = User::all();
+        return response()->json($data, Response::HTTP_OK);
+    }
+
+    /**
+     * @return JsonResponse
+     */
     public function show()
     {
         $user = Auth::user();
@@ -158,12 +170,6 @@ class UserController
         return response()->json('Token-ul nu exista!', Response::HTTP_NOT_FOUND);
     }
 
-    public function sendMail()
-    {
-        $user = User::where('email', '=', 'teodor.20@hotmail.com')->first();
-        Mail::to($user->email)->send(new AutentificareEmail($user));
-    }
-
     /**
      * @OA\Put(
      *    path="/user/parola",
@@ -203,6 +209,17 @@ class UserController
 
         $user->save();
         return response()->json("Parola schimbata!", Response::HTTP_OK);
+    }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function destroy(int $id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return response()->json('User sters cu succes!', Response::HTTP_OK);
     }
 
     /**

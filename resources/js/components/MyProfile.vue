@@ -62,6 +62,9 @@
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Salveaza</button>
         </div>
+        <div v-if="user.email === 'inkpaper2023@hotmail.com'" class="col-12">
+            <button type="button" class="btn btn-primary" @click="redirectAdmin()">Pagina admin</button>
+        </div>
     </form>
 </template>
 
@@ -174,6 +177,9 @@ export default {
                 lowercaseRegex.test(this.password) &&
                 numberRegex.test(this.password) &&
                 specialCharRegex.test(this.password);
+        },
+        redirectAdmin() {
+            window.location.href = '/admin';
         }
     }
 }
@@ -201,6 +207,11 @@ export default {
 .btn-primary {
     display: block;
     background-color: #00A896;
+    border: none;
+}
+
+.btn-secondary {
+    display: block;
     border: none;
 }
 </style>

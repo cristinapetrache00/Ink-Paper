@@ -4,7 +4,7 @@
             <h2>Autentificare</h2>
             <form @submit.prevent="login()">
                 <div class="log-in-input">
-                    <input type="email" v-model="email" required="">
+                    <input type="text" v-model="email" required="">
                     <label>E-mail</label>
                 </div>
                 <div class="log-in-input">
@@ -55,6 +55,11 @@ export default {
     },
     methods: {
         login() {
+            const specialCharRegex = /@/;
+            if (!specialCharRegex.test(this.email)) {
+                alert('E-mail invalid');
+                return;
+            }
             axios.post('/login', {
                 email: this.email,
                 password: this.password

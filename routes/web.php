@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarteCategorieController;
 use App\Http\Controllers\CarteComandaController;
 use App\Http\Controllers\CarteController;
 use App\Http\Controllers\CarteCosController;
@@ -47,6 +48,9 @@ Route::get('/profil', function () {
 Route::get('/cart', function () {
     return view('pagina-cos');
 });
+Route::get('/admin', function () {
+    return view('pagina-admin');
+});
 
 Route::group(['middleware' => ['auth:api']], function () {
 
@@ -60,7 +64,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::prefix('comenzi')->group(function () {
         Route::get('/', [ComandaController::class, 'index']);
         Route::get('/{id}', [ComandaController::class, 'show']);
-        Route::put('/', [ComandaController::class, 'update']);
         Route::post('/', [ComandaController::class, 'store']);
         Route::delete('/{id}', [ComandaController::class, 'destroy']);
     });
@@ -83,7 +86,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/comanda-carti/{id_comanda}', [ComandaController::class, 'cartiComanda']);
 });
 
-Route::post('/donatie', [DonatieController::class, 'store']);
 Route::get('/profil/{ref}', [UserController::class, 'getProfileRef']);
 Route::get('/carte/{isbn}', [CarteController::class, 'getBookByIsbn']);
 Route::get('/cautare', [CarteController::class, 'paginaCautare'])->name('search');
@@ -93,7 +95,6 @@ Route::post('/mail', [UserController::class, 'sendMail']);
 Route::get('/verify/{token}', [UserController::class, 'verifyMail']);
 Route::get('/reset/{token}', [UserController::class, 'resetPasswordRedirect']);
 Route::post('/login', [UserController::class, 'login']);
-Route::post('/user', [UserController::class, 'store']);
 Route::post('/reset-request', [UserController::class, 'sendPasswordRequest']);
 Route::put('/reset-password', [UserController::class, 'resetPassword']);
 Route::post('/search', [CarteController::class, 'search']);
@@ -103,6 +104,19 @@ Route::get('/discounted', [CarteController::class, 'getDiscountedCarti']);
 Route::get('/discounts', [DiscountController::class, 'index']);
 Route::post('/returnari', [CategorieController::class, 'store']);
 Route::post('/donatii', [CategorieController::class, 'store']);
+
+Route::prefix('carte-categorie')->group(function () {
+    Route::get('/', [CarteCategorieController::class, 'index']);
+    Route::post('/', [CarteCategorieController::class, 'store']);
+    Route::put('/', [CarteCategorieController::class, 'update']);
+    Route::delete('/{id}', [CarteCategorieController::class, 'destroy']);
+});
+
+Route::prefix('user')->group(function () {
+    Route::post('/', [UserController::class, 'store']);
+    Route::get('/index', [UserController::class, 'index']);
+    Route::delete('/{id}', [UserController::class, 'destroy']);
+});
 
 Route::prefix('filtre')->group(function () {
     Route::get('/', [CarteController::class, 'getFilters']);
@@ -125,16 +139,19 @@ Route::prefix('reviewuri')->group(function () {
     Route::get('/', [ReviewController::class, 'index']);
     Route::get('/carte/{id}', [ReviewController::class, 'getByBookId']);
     Route::get('/{id}', [ReviewController::class, 'show']);
+    Route::put('/', [ReviewController::class, 'update']);
     Route::post('/', [ReviewController::class, 'store']);
+    Route::delete('/{id}', [ReviewController::class, 'destroy']);
 });
 
+Route::get('/carte', [CarteController::class, 'index']);
+Route::put('/carte', [CarteController::class, 'update']);
+Route::post('/carte', [CarteController::class, 'store']);
+Route::delete('/carte/{id}', [CarteController::class, 'destroy']);
+
 Route::prefix('carti')->group(function () {
-    Route::get('/', [CarteController::class, 'index']);
     Route::get('/recomandari/{id}', [CarteController::class, 'getRecommandations']);
     Route::get('/{id}', [CarteController::class, 'show']);
-    Route::put('/', [CarteController::class, 'update']);
-    Route::post('/', [CarteController::class, 'store']);
-    Route::delete('/{id}', [CarteController::class, 'destroy']);
     Route::get('/categorii/{id}', [CarteController::class, 'categorii']);
     Route::get('/reviewuri/{id}', [CarteController::class, 'reviewuri']);
 });
@@ -152,7 +169,7 @@ Route::prefix('categorii')->group(function () {
     Route::get('/{id}', [CategorieController::class, 'show']);
     Route::put('/', [CategorieController::class, 'update']);
     Route::post('/', [CategorieController::class, 'store']);
-    Route::delete('/{id}', [CategorieController::class, 'destroy']);
+    Route::put('/{id}', [CategorieController::class, 'destroy']);
     Route::get('/carti/{id}', [CategorieController::class, 'carti']);
 });
 
@@ -169,4 +186,15 @@ Route::prefix('import')->group(function () {
     Route::get('/useri', [ImportController::class, 'importUseri']);
     Route::get('/reviews', [ImportController::class, 'importReviews']);
     Route::get('/discounts', [ImportController::class, 'importDiscounts']);
+});
+
+Route::prefix('admin-comenzi')->group(function () {
+    Route::get('/', [ComandaController::class, 'adminIndex']);
+    Route::put('/', [ComandaController::class, 'update']);
+});
+
+Route::prefix('donatie')->group(function () {
+    Route::get('/', [DonatieController::class, 'index']);
+    Route::post('/', [DonatieController::class, 'store']);
+    Route::delete('/{id}', [DonatieController::class, 'destroy']);
 });

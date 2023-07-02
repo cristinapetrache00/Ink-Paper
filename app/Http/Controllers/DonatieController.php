@@ -110,4 +110,24 @@ class DonatieController extends Controller
 
         return response()->json("DONE", Response::HTTP_OK);
     }
+
+    /**
+     * @return JsonResponse
+     */
+    public function index()
+    {
+        $data = Donatie::all();
+        return response()->json($data, Response::HTTP_OK);
+    }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function destroy(int $id)
+    {
+        $data = Donatie::where('id', '=', $id)->first();
+        $data->delete();
+        return response()->json("DELETED", Response::HTTP_OK);
+    }
 }

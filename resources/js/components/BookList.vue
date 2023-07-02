@@ -121,7 +121,7 @@ export default {
             window.location.href = '/carte/' + carte.isbn;
         },
         addToCart(book) {
-            if (this.isAuthenticated) {
+            if (this.token) {
                 axios.post('/cos', {
                         id_carte: book.id,
                         cantitate: 1,
@@ -129,7 +129,7 @@ export default {
                     },
                     {
                         headers: {
-                            'Authorization': 'Bearer ' + this.isAuthenticated
+                            'Authorization': 'Bearer ' + this.token
                         }
                     })
                     .then(response => {
@@ -137,7 +137,8 @@ export default {
                     })
                     .catch(error => {
                         console.log(error);
-                    })            } else {
+                    })
+            } else {
                 axios.post('/cos', {
                     id_carte: book.id,
                     cantitate: 1,

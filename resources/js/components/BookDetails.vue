@@ -18,10 +18,10 @@
                         <p class="card-text">Autor: {{ book.autor}} </p>
                         <p class="card-text">Editura: {{ book.editura }} </p>
                         <div class="container d-flex align-content-center" style="padding-left: 0">
-                            <p class="card-text">Categorie:&nbsp</p>
-                            <p class="card-text" v-for="(categorie) in categorii"> {{ categorie.nume }},&nbsp</p>
+                            <p class="card-text">Categorie:&nbsp <span class="card-text" v-for="(categorie) in categorii"> {{ categorie.nume }}</span></p>
+
                         </div>
-                        <p class="card-text">Anul aparitiei: {{ book.an_aparitie }} </p>
+                        <p class="card-text" style="margin-top: 10px">Anul aparitiei: {{ book.an_aparitie }} </p>
                         <p class="card-text">Numar pagini: {{ book.nr_pg }} </p>
                         <p class="card-text">ISBN: {{ book.isbn }} </p>
                         <p class="card-text">Tip coperta: {{ book.tip_coperta }} </p>

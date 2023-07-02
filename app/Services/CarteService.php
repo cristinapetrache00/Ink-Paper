@@ -63,13 +63,5 @@ class CarteService
         }
 
         $carte->save();
-
-        foreach (explode(',', $properties['categorie']) as $categorie) {
-            if (count(explode(',', $properties['categorie'])) > 1) {
-                $categorie = ltrim($categorie);
-            }
-            $carte->categorii()->attach(Categorie::where('nume', $categorie)->first());
-            $carte->save();
-        }
     }
 }

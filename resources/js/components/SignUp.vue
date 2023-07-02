@@ -4,7 +4,7 @@
         <h2>Creeaza cont</h2>
         <form @submit.prevent="signUp">
             <div class="sign-up-input">
-                <input type="text" v-model="nume" required title="">
+                <input type="text" v-model="nume" required="">
                 <label>Nume</label>
             </div>
             <div class="sign-up-input">
@@ -12,7 +12,7 @@
                 <label>Prenume</label>
             </div>
             <div class="sign-up-input">
-                <input type="email" v-model="email" required="">
+                <input type="text" v-model="email" required="">
                 <label>E-mail</label>
             </div>
             <div class="sign-up-input">
@@ -75,6 +75,11 @@ export default {
     },
     methods: {
         signUp() {
+            const specialCharRegex = /@/;
+            if (!specialCharRegex.test(this.email)) {
+                alert('E-mail invalid');
+                return;
+            }
             if (this.parola !== this.confirmare_parola) {
                 alert('Parolele nu coincid!');
                 return;

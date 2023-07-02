@@ -270,7 +270,7 @@ class ReviewController extends Controller
             ];
         }
 
-        $carte->rating = count($data) != 0 ? $avg / count($data) : 0;
+        $carte->rating = count($data) != 0 ? $avg / count($data) : 0.00;
         $carte->save();
 
         return response()->json(['reviews' => $reviews, 'statistics' => $count], Response::HTTP_OK);

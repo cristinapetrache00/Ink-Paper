@@ -1,11 +1,11 @@
 <template>
     <div class="donation-container">
-        <div class="donation" :class="{ 'donation-step1': step === 1, 'donation-step2': step === 2 }">
+        <div class="donation" :class="{ 'donation-step1': step === 1, 'donation-step2': step === 2, 'donation-step3': step ===3 }">
             <form action="">
                 <div v-show="step===1">
                     <h2>Informatii donator</h2>
                     <div class="donation-input">
-                        <input type="text" v-model="nume" required title="">
+                        <input type="text" v-model="nume" required="">
                         <label>Nume</label>
                     </div>
                     <div class="donation-input">
@@ -13,7 +13,7 @@
                         <label>Prenume</label>
                     </div>
                     <div class="donation-input">
-                        <input type="email" v-model="email" required="">
+                        <input type="text" v-model="email" required="">
                         <label>E-mail</label>
                     </div>
                     <div class="donation-input">
@@ -65,7 +65,10 @@
                         <input type="text" v-model="judet" required="">
                         <label>Judet</label>
                     </div>
-                    <button type="button" class="donation-button-next" @click="send()">Trimite</button>
+                    <div class="navigation-buttons-container">
+                    <button type="button" class="donation-button-next-prev" @click="prevStep()">Inapoi</button>
+                    <button type="button" class="donation-button-next-prev" @click="send()">Trimite</button>
+                    </div>
                 </div>
 
             </form>
@@ -99,7 +102,22 @@ export default {
     },
     methods: {
         nextStep() {
-            this.step++;
+            if (this.step === 1 && this.nume && this.prenume && this.email && this.telefon) {
+                const specialCharRegex = /@/;
+                if (!specialCharRegex.test(this.email)) {
+                    alert('E-mail invalid');
+                    return;
+                }
+                this.step++;
+                return;
+            } else {
+                if (this.step === 2 || this.step === 3) {
+                    this.step++;
+                } else {
+                    alert('Completati toate campurile');
+                    return;
+                }
+            }
         },
         prevStep() {
             this.step--;
@@ -158,6 +176,10 @@ export default {
     width: 950px;
 }
 
+.donation-step3 {
+    width: 420px;
+}
+
 .donation-details{
     display:flex;
     flex-direction: row;
@@ -181,6 +203,9 @@ export default {
     border: none;
     border-radius: 2px;
     background-color: #FFB6B9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     /*border-width: 1px;*/
     /*border-color: white;*/
 }
@@ -191,6 +216,9 @@ export default {
     border: none;
     border-radius: 2px;
     background-color: #FFB6B9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .donation h2 {
@@ -239,7 +267,7 @@ export default {
     display: flex;
     justify-content: space-between;
     margin-left: 0;
-    right: 0;
+    margin-right: 0;
 }
 
 .donation-button-next {

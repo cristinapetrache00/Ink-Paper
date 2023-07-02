@@ -48,6 +48,14 @@ Vue.component('cos', require('./components/Cos.vue').default);
 Vue.component('my-orders', require('./components/MyOrders.vue').default);
 Vue.component('my-products', require('./components/MyProducts.vue').default);
 
+// Admin components
+Vue.component('admin-user-table', require('./components/admin/UserTable.vue').default);
+Vue.component('admin-carte-table', require('./components/admin/CarteTable.vue').default);
+Vue.component('admin-categorie-table', require('./components/admin/CategorieTable.vue').default);
+Vue.component('admin-comanda-table', require('./components/admin/ComandaTable.vue').default);
+Vue.component('admin-donatie-table', require('./components/admin/DonatieTable.vue').default);
+Vue.component('admin-review-table', require('./components/admin/ReviewTable.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

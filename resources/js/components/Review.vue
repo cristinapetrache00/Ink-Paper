@@ -184,6 +184,7 @@ export default {
                 })
                 .then(response => {
                     this.closePopup();
+                    this.getReview();
                     window.location.reload()
                 })
                 .catch(error => {
