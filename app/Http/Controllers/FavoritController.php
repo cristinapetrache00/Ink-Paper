@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carte;
 use App\Models\Favorit;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class FavoritController extends Controller
 {
@@ -44,15 +46,51 @@ class FavoritController extends Controller
     {
         if (!Auth::check()) {
             return response()->json('User-ul nu este autentificat', Response::HTTP_UNAUTHORIZED);
+        } else {
+            $userLogged = Auth::user();
+            $user = User::findOrFail($userLogged->id);
+        }
+
+        if (Favorit::where('id_carte', $request->get('id_carte'))
+            ->where('id_client', $user->client->id)
+            ->exists()) {
+            $this->destroy($request->get('id_carte'));
+            return response()->json('Cartea a fost stearsa din favorite', Response::HTTP_OK);
         }
 
         $data = new Favorit;
 
-        $data->id_carte = $request->get('id_carte');
-        $data->id_client = $request->get('id_client');
+        $carte = Carte::find($request->get('id_carte'));
+
+        $data->id_carte = $carte->id;
+        $data->id_client = $user->client->id;
 
         $data->save();
         return response()->json($data, Response::HTTP_OK);
+    }
+
+    public function index()
+    {
+        $userLogged = Auth::user();
+        $user = User::findOrFail($userLogged->id);
+
+        $data = Favorit::where('id_client', $user->client->id)->get();
+        return response()->json($data, Response::HTTP_OK);
+    }
+
+    public function show($id_carte): JsonResponse
+    {
+        $userLogged = Auth::user();
+        $user = User::findOrFail($userLogged->id);
+
+        $data = Favorit::where('id_carte', $id_carte)
+            ->where('id_client', $user->client->id)
+            ->first();
+        if (!empty($data)) {
+            return response()->json(['data' => true], Response::HTTP_OK);
+        } else {
+            return response()->json(['data' => false], Response::HTTP_OK);
+        }
     }
 
     /**
@@ -85,10 +123,10 @@ class FavoritController extends Controller
             return response()->json('User-ul nu este autentificat', Response::HTTP_UNAUTHORIZED);
         }
 
-        $client = $user->client()->get();
+        $client = $user->client;
         $favorite = $client->favorite()->where('id_carte', '=', $id)->first();
-
         $favorite->delete();
+
         return response()->json("DELETED", Response::HTTP_OK);
     }
 }

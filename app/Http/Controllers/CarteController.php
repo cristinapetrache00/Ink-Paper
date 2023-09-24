@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carte;
+use App\Models\Discount;
 use App\Services\CarteService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -360,21 +361,38 @@ class CarteController extends Controller
         return response()->json($data, Response::HTTP_OK);
     }
 
+    /**
+     * @param Request $request
+     * @return string
+     */
     public function search(Request $request)
     {
         $validatedData = $request->validate([
-            'titlu' => 'required',
+            'search' => 'required',
         ]);
-        $carti = Carte::where('titlu', 'like', '%' . $validatedData['titlu'] . '%')->get();
+
+        $carti = Carte::where('titlu', 'like', '%' . $validatedData['search'] . '%')
+            ->orWhere('autor', 'like', '%' . $validatedData['search'] . '%')
+            ->orWhere('isbn', 'like', '%' . $validatedData['search'] . '%')
+            ->get();
 
         $data = [];
         foreach ($carti as $carte) {
             $data[] = [
                 'titlu' => $carte->titlu,
+                'imagine' => $carte->imagine,
                 'autor' => $carte->autor,
+                'isbn'  => $carte->isbn,
+                'pret' => $carte->pret,
+                'id' => $carte->id,
+                'cantitate' => $carte->cantitate,
+                'nr_reviewuri' => $carte->nr_reviewuri,
+                'rating' => number_format($carte->rating, 2, '.', ''),
             ];
         }
+
         $data = json_encode($data);
+
         return route('search', ['data' => $data]);
     }
 
@@ -385,6 +403,11 @@ class CarteController extends Controller
     public function paginaCautare(Request $request)
     {
         $data = $request->input('data');
+
+        if (empty($data)) {
+            $data = Carte::all();
+        }
+
         return view('pagina-cautare', compact('data'));
     }
 
@@ -424,8 +447,10 @@ class CarteController extends Controller
         if ($validatedData['categorie'] != null) {
             $query->join('carte_categorie', 'carte.id', '=', 'carte_categorie.id_carte')
                 ->join('categorie', 'carte_categorie.id_categorie', '=', 'categorie.id')
-                ->whereIn('categorie.nume', $validatedData['categorie']);
+                ->whereIn('categorie.nume', $validatedData['categorie'])
+                ->select('carte.*');
         }
+
 
         if ($validatedData['ordine'] != null) {
             if ($validatedData['ordine'] === 'pret_crescator') {
@@ -435,17 +460,58 @@ class CarteController extends Controller
                     $query->orderBy('pret', 'desc');
                 } else {
                     if ($validatedData['ordine'] === 'alfabetic_crescator') {
-                        $query->orderBy('nume', 'asc');
+                        $query->orderBy('titlu', 'asc');
                     } else {
                         if ($validatedData['ordine'] === 'alfabetic_descrescator') {
-                            $query->orderBy('nume', 'desc');
+                            $query->orderBy('titlu', 'desc');
                         }
                     }
                 }
             }
         }
 
-        $results = $query->get();
+        $results = $query->distinct()->get();
+        $carte_ids = [];
+
+        if (!empty($results)) {
+            foreach ($results as $carte) {
+
+                if (empty($carte_ids)) {
+                    $carte_ids[] = $carte->id;
+                } else {
+                    if (array_search($carte->id, $carte_ids)) {
+                        $results->forget($carte);
+                        continue;
+                    }
+                }
+
+                $reviews = DB::table('review')->where('id_carte', '=', $carte->id)->get();
+                if (!empty($reviews)) {
+                    $carte->nr_reviewuri = count($reviews);
+
+                    $carte->rating = 0;
+                    foreach ($reviews as $review) {
+                        $carte->rating += $review->rating;
+                    }
+
+                    if ($carte->nr_reviewuri != 0) {
+                        $carte->rating = $carte->rating / $carte->nr_reviewuri;
+                    } else {
+                        $carte->rating = 0.00;
+                    }
+                } else {
+                    $carte->nr_reviewuri = 0;
+                    $carte->rating = 0.00;
+                }
+
+                DB::table('carte')
+                    ->where('id', $carte->id)
+                    ->update([
+                        'nr_reviewuri' => $carte->nr_reviewuri,
+                        'rating' => $carte->rating,
+                    ]);
+            }
+        }
 
         return response()->json($results, Response::HTTP_OK);
     }
@@ -468,5 +534,60 @@ class CarteController extends Controller
         ];
 
         return response()->json($data, Response::HTTP_OK);
+    }
+
+    /**
+     * @param $isbn
+     * @return Application|Factory|View
+     */
+    public function getBookByIsbn($isbn)
+    {
+        $data = Carte::where('isbn', '=', $isbn)->firstOrFail();
+
+        return view('pagina-carte', compact('data'));
+    }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function getRecommandations(int $id)
+    {
+        $carte = Carte::find($id);
+
+        $categorieIds = $carte->categorii()->pluck('id')->toArray();
+
+        $recommandations = Carte::where('autor', $carte->autor)
+            ->orWhereHas('categorii', function ($query) use ($categorieIds) {
+                $query->whereIn('id', $categorieIds);
+            })
+            ->get();
+
+        $recommandations = $recommandations->reject(function ($recommandation) use ($carte) {
+            return $recommandation->titlu === $carte->titlu;
+        });
+
+        return response()->json($recommandations, Response::HTTP_OK);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function getLatestCarti()
+    {
+        $latest = Carte::orderBy('created_at', 'desc')->take(20)->get();
+
+        return response()->json($latest, Response::HTTP_OK);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function getDiscountedCarti()
+    {
+        $cartiId = Discount::select('id_carte')->get();
+         $carti = Carte::whereIn('id', $cartiId)->get();
+
+         return response()->json($carti, Response::HTTP_OK);
     }
 }

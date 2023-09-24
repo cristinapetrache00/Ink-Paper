@@ -1,81 +1,75 @@
 <template>
-    <div class="book-filter">
-        <div class="category-title d-flex justify-content-between align-items-center">
+    <div class="container-fluid">
+
+        <div class="ctg-title" style="margin-top: 0; padding-top: 20px">
             <span>Sorteaza</span>
         </div>
-        <div class="items" v-for="order in orders">
-            <input type="checkbox" :value="order.order" v-model="selectedOrder" @change="applyFilters">
-            <label :for="order.id">{{ order.name }}</label>
+        <div class="container-fluid ctg" :style="{ height: 120 + 'px' }">
+            <div class="items" v-for="order in orders">
+                <input type="radio" :value="order.order" v-model="selectedOrder" @change="applyFilters">
+                <label :for="order.id">{{ order.name }}</label>
+            </div>
         </div>
-        <div class="category-title d-flex justify-content-between align-items-center">
+
+        <div class="ctg-title">
             <span>Pret</span>
-            <svg @click="shrinkPrice" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
-                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-            </svg>
-            <svg @click="expandPrice" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-            </svg>
         </div>
-        <div v-if="priceExpanded" class="items" v-for="price in prices">
-            <input type="checkbox" :value="price.pret" v-model="selectedPrice" @change="applyFilters">
-            <label :for="price.id">{{ price.interval }}</label>
+        <div class="container-fluid ctg" :style="{ height: 90 + 'px' }">
+            <div class="items" v-for="price in prices">
+                <input type="radio" :value="price.pret" v-model="selectedPrice" @change="applyFilters">
+                <label :for="price.id">{{ price.interval }}</label>
+            </div>
         </div>
-        <div class="category-title d-flex justify-content-between align-items-center">
+
+        <div class="ctg-title">
             <span>Categorii</span>
-            <svg @click="shrinkCategory" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
-                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-            </svg>
-            <svg @click="expandCategory" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-            </svg>
         </div>
-        <div v-if="categoriesExpanded" class="items" v-for="category in categories">
-            <input type="checkbox" :value="category.nume" v-model="selectedCategories" @change="applyFilters">
-            <label :for="category.id">{{ category.nume }}</label>
+        <div class="container-fluid ctg" :style="{ height: 300 + 'px' }">
+            <div class="items" v-for="category in categories">
+                <input type="checkbox" :value="category.nume" v-model="selectedCategories" @change="applyFilters">
+                <label :for="category.id">{{ category.nume }}</label>
+            </div>
         </div>
-        <div class="category-title d-flex justify-content-between align-items-center">
+
+        <div class="ctg-title">
             <span>Autori</span>
-            <svg @click="shrinkAuthor" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
-                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-            </svg>
-            <svg @click="expandAuthor" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-            </svg>
         </div>
-        <div v-if="authorsExpanded" class="items" v-for="author in authors">
-            <input type="checkbox" :value="author.autor" v-model="selectedAuthors" @change="applyFilters">
-            <label :for="author.id">{{ author.autor }}</label>
+        <div class="container-fluid ctg" :style="{ height: 300 + 'px' }">
+            <div class="items" v-for="author in authors">
+                <input type="checkbox" :value="author.autor" v-model="selectedAuthors" @change="applyFilters">
+                <label :for="author.id">{{ author.autor }}</label>
+            </div>
         </div>
-        <div class="category-title d-flex justify-content-between align-items-center">
+
+        <div class="ctg-title">
             <span>Edituri</span>
-            <svg @click="shrinkPublishing" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
-                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-            </svg>
-            <svg @click="expandPublishing" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-            </svg>
         </div>
-        <div v-if="publishingExpanded" class="items" v-for="publish in publishing">
-            <input type="checkbox" :value="publish.editura" v-model="selectedPublishing" @change="applyFilters">
-            <label :for="publish.id">{{ publish.editura }}</label>
+        <div class="container-fluid ctg" :style="{ height: 300 + 'px' }">
+            <div class="items" v-for="publish in publishing">
+                <input type="checkbox" :value="publish.editura" v-model="selectedPublishing" @change="applyFilters">
+                <label :for="publish.id">{{ publish.editura }}</label>
+            </div>
         </div>
-        <div class="category-title d-flex justify-content-between align-items-center">
+
+        <div class="ctg-title">
             <span>Limbi</span>
-            <svg @click="shrinkLanguage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
-                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-            </svg>
-            <svg @click="expandLanguage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-            </svg>
         </div>
-        <div v-if="languageExpanded" class="items" v-for="language in languages">
-            <input type="checkbox" :value="language.limba" v-model="selectedLanguages" @change="applyFilters">
-            <label :for="language.id">{{ language.limba }}</label>
+        <div class="container-fluid ctg" :style="{ height: 90 + 'px' }">
+            <div class="items" v-for="language in languages">
+                <input type="checkbox" :value="language.limba" v-model="selectedLanguages" @change="applyFilters">
+                <label :for="language.id">{{ language.limba }}</label>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-CSRF-TOKEN': csrfToken
+};
 export default {
     name: "BookFilter",
     data() {
@@ -108,12 +102,15 @@ export default {
             {id: 3, interval: '100 - 150', pret: [100, 150]},
         ];
         this.orders = [
-            {id: 1, name: 'Pret crescator', order: 'pret_creascator'},
+            {id: 1, name: 'Pret crescator', order: 'pret_crescator'},
             {id: 2, name: 'Pret descrescator', order: 'pret_descrescator'},
-            {id: 3, name: 'Alfabetic crescator', oreder: 'alfabetic_crescator'},
+            {id: 3, name: 'Alfabetic crescator', order: 'alfabetic_crescator'},
             {id: 4, name: 'Alfabetic descrescator', order: 'alfabetic_descrescator'},
         ]
         this.getFilters();
+    },
+    beforeUnmount() {
+        window.removeEventListener('resize', this.getWindowDimensions);
     },
     methods: {
         getFilters() {
@@ -130,6 +127,7 @@ export default {
         },
 
         applyFilters() {
+            console.log(this.selectedOrder)
             axios.post('/filtre', {
                 autor: this.selectedAuthors,
                 categorie: this.selectedCategories,
@@ -140,41 +138,11 @@ export default {
             })
                 .then(response => {
                     console.log(response.data);
+                    this.$emit('filtered', response.data);
                 })
                 .catch(error => {
                     console.log(error);
                 });
-        },
-
-        expandCategory() {
-            this.categoriesExpanded = true;
-        },
-        shrinkCategory() {
-            this.categoriesExpanded = false;
-        },
-        expandAuthor() {
-            this.authorsExpanded = true;
-        },
-        shrinkAuthor() {
-            this.authorsExpanded = false;
-        },
-        expandPublishing() {
-            this.publishingExpanded = true;
-        },
-        shrinkPublishing() {
-            this.publishingExpanded = false;
-        },
-        expandLanguage() {
-            this.languageExpanded = true;
-        },
-        shrinkLanguage() {
-            this.languageExpanded = false;
-        },
-        expandPrice() {
-            this.priceExpanded = true;
-        },
-        shrinkPrice() {
-            this.priceExpanded = false;
         },
     },
 };
@@ -182,48 +150,54 @@ export default {
 </script>
 
 <style scoped>
+
 @font-face {
     font-family: 'Lora';
     src: url('/Fonts/static/Lora-Regular.ttf');
+}
+
+.ctg {
+    overflow-y: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #F0F1F2;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #FFB6B9;
+    border-radius: 10px;
+    border: 3px solid #FFB6B9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #FFB6B9;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: #FFB6B9;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.ctg-title {
+    font-family: "Lora",serif;
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 20px;
+    margin-top: 20px;
 }
 
 .items {
     font-family: "Lora",serif;
     display: flex;
     font-size: 14px;
-    padding-top: 8px;
-}
-
-.book-filter {
-    overflow: auto;
-    position: fixed;
-    font-size: 16px;
-    /*font-weight: bold;*/
-    top: 70px;
-    bottom: 0;
-    width: 380px;
-    background-color: #FAFAFA;
-    /*background-color: red;*/
-    padding-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.category-title {
-    font-family: "Lora",serif;
-    font-size: 16px;
-    font-weight: bold;
-    /*margin-bottom: 0px;*/
-    margin-left: -23px;
-;
-}
-
-.category {
-    font-family: "Lora",serif;
-    display: flex;
-    font-size: 14px;
-    margin-left: -23px;
     padding-top: 8px;
 }
 </style>

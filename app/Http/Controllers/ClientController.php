@@ -237,31 +237,31 @@ class ClientController extends Controller
      *    )
      * )
      */
-    public function getUserData(): JsonResponse
-    {
-        $user = auth()->user();
-        $client = $user->client()->get();
-        return response()->json($client, Response::HTTP_OK);
-    }
+//    public function getUserData(): JsonResponse
+//    {
+//        $user = auth()->user();
+//        $client = $user->client()->get();
+//        return response()->json($client, Response::HTTP_OK);
+//    }
 
-    public function addFavoriteBook(Request $request)
-    {
-        if (Auth::check()) {
-            $user = User::findOrFail(Auth::user()->id);
-        } else {
-            return redirect()->intended(route('login'));
-        }
-
-        $carte = Carte::where('id', '=', $request->get('id_carte'))
-            ->select('titlu', 'autor','imagine','pret')
-            ->first();
-
-        $client = $user->client();
-        $client->favorite[] = $carte;
-        $client->save();
-
-        return response()->json("Carte adaugata", Response::HTTP_OK);
-    }
+//    public function addFavoriteBook(Request $request)
+//    {
+//        if (Auth::check()) {
+//            $user = User::findOrFail(Auth::user()->id);
+//        } else {
+//            return redirect()->intended(route('login'));
+//        }
+//
+//        $carte = Carte::where('id', '=', $request->get('id_carte'))
+//            ->select('titlu', 'autor','imagine','pret')
+//            ->first();
+//
+//        $client = $user->client();
+//        $client->favorite[] = $carte;
+//        $client->save();
+//
+//        return response()->json("Carte adaugata", Response::HTTP_OK);
+//    }
 
     /**
      * @OA\Get(
@@ -285,17 +285,17 @@ class ClientController extends Controller
      *    )
      * )
      */
-    public function comenzi($id): JsonResponse
-    {
-        if (Auth::check()) {
-            $user = User::findOrFail(Auth::user()->id);
-        } else {
-            return response()->json('User-ul nu este autentificat', Response::HTTP_UNAUTHORIZED);
-        }
-        $data = $user->client()->comenzi()->get();
-
-        return response()->json($data, Response::HTTP_OK);
-    }
+//    public function comenzi($id): JsonResponse
+//    {
+//        if (Auth::check()) {
+//            $user = User::findOrFail(Auth::user()->id);
+//        } else {
+//            return response()->json('User-ul nu este autentificat', Response::HTTP_UNAUTHORIZED);
+//        }
+//        $data = $user->client()->comenzi()->get();
+//
+//        return response()->json($data, Response::HTTP_OK);
+//    }
 
     /**
      * @OA\Get(
@@ -319,17 +319,17 @@ class ClientController extends Controller
      *    )
      * )
      */
-    public function favorite($id): JsonResponse
-    {
-        if (Auth::check()) {
-            $user = User::findOrFail(Auth::user()->id);
-        } else {
-            return response()->json('User-ul nu este autentificat', Response::HTTP_UNAUTHORIZED);
-        }
-        $data = $user->client()->favorite()->get();
-
-        return response()->json($data, Response::HTTP_OK);
-    }
+//    public function favorite($id): JsonResponse
+//    {
+//        if (Auth::check()) {
+//            $user = User::findOrFail(Auth::user()->id);
+//        } else {
+//            return response()->json('User-ul nu este autentificat', Response::HTTP_UNAUTHORIZED);
+//        }
+//        $data = $user->client()->favorite()->get();
+//
+//        return response()->json($data, Response::HTTP_OK);
+//    }
 
     /**
      * @OA\Get(
@@ -353,17 +353,17 @@ class ClientController extends Controller
      *    )
      * )
      */
-    public function cos($id): JsonResponse
-    {
-        if (Auth::check()) {
-            $user = User::findOrFail(Auth::user()->id);
-        } else {
-            return response()->json('User-ul nu este autentificat', Response::HTTP_UNAUTHORIZED);
-        }
-        $data = $user->client()->cartiCos()->get();
-
-        return response()->json($data, Response::HTTP_OK);
-    }
+//    public function cos($id): JsonResponse
+//    {
+//        if (Auth::check()) {
+//            $user = User::findOrFail(Auth::user()->id);
+//        } else {
+//            return response()->json('User-ul nu este autentificat', Response::HTTP_UNAUTHORIZED);
+//        }
+//        $data = $user->client()->cartiCos()->get();
+//
+//        return response()->json($data, Response::HTTP_OK);
+//    }
 
     /**
      * @OA\Get(
@@ -387,19 +387,19 @@ class ClientController extends Controller
      *    )
      * )
      */
-    public function userData(): JsonResponse
-    {
-        if (Auth::check()) {
-            $user = User::findOrFail(Auth::user()->id);
-        } else {
-            return response()->json('User-ul nu este autentificat', Response::HTTP_UNAUTHORIZED);
-        }
-
-        $data = $user->client()->get();
-
-        $data->email = $user->email;
-
-        return response()->json($data, Response::HTTP_OK);
-    }
+//    public function userData(): JsonResponse
+//    {
+//        if (Auth::check()) {
+//            $user = User::findOrFail(Auth::user()->id);
+//        } else {
+//            return response()->json('User-ul nu este autentificat', Response::HTTP_UNAUTHORIZED);
+//        }
+//
+//        $data = $user->client()->get();
+//
+//        $data->email = $user->email;
+//
+//        return response()->json($data, Response::HTTP_OK);
+//    }
 }
 

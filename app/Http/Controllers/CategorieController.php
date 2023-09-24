@@ -58,7 +58,7 @@ class CategorieController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $data = Categorie::where('id', '=', $id)->firstOrFail();
+        $data = Categorie::where('id', '=', $id)->first();
         return response()->json($data, Response::HTTP_OK);
     }
 
@@ -99,7 +99,7 @@ class CategorieController extends Controller
      */
     public function update(Request $request): JsonResponse
     {
-        $data = Categorie::where('id', '=', $request['id'])->firstOrFail();
+        $data = Categorie::where('id', '=', $request['id'])->first();
         $this->categorieService->setProperties($data, $request->all());
         $data->save();
         return response()->json($data, Response::HTTP_OK);
@@ -166,7 +166,7 @@ class CategorieController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        $data = Categorie::where('id', '=', $id)->firstOrFail();
+        $data = Categorie::where('id', '=', $id)->first();
         $data->delete();
         return response()->json("DELETED", Response::HTTP_OK);
     }
@@ -195,7 +195,7 @@ class CategorieController extends Controller
      */
     public function carti($id): JsonResponse
     {
-        $data = Categorie::where('id', '=', $id)->firstOrFail();
+        $data = Categorie::where('id', '=', $id)->first();
         $data = $data->carti()->get();
 
         return response()->json($data, Response::HTTP_OK);

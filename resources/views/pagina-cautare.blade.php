@@ -9,8 +9,8 @@
 </head>
 <body>
 <div id="app">
-    <navigation></navigation>
-    <book-list :books="{{ $data }}"></book-list>
+    <navigation class="padding-main"></navigation>
+    <books class="margin-main" :books="{{ $data }}"></books>
 </div>
 </body>
 
@@ -18,7 +18,39 @@
 
 <style>
     body{
-        margin:0;
         padding: 0;
+        font-family: 'Lora',serif;
+        background: #FAFAFA;
+    }
+    .margin-main {
+        margin-left: calc(50% - 675px);
+        margin-right: calc(50% - 675px);
+        margin-top: 100px;
+    }
+    .padding-main {
+        padding-left: calc(50% - 645px);
+        padding-right: calc(50% - 655px);
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: #F0F1F2;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #00A896;
+        border: 3px solid #00A896;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #00A896;
+    }
+
+    ::-webkit-scrollbar-corner {
+        background-color: #00A896;
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
     }
 </style>

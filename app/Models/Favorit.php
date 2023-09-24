@@ -28,7 +28,7 @@ class Favorit extends Model
         ]
     ];
 
-    protected $primaryKey = ['id_carte','id_client'];
+    protected $primaryKey = 'id_carte';
 
     public function carti(): HasMany
     {

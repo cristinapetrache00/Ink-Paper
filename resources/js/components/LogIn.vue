@@ -2,30 +2,100 @@
     <div class="log-in-container">
         <div class="log-in">
             <h2>Autentificare</h2>
-            <form action="">
+            <form @submit.prevent="login()">
                 <div class="log-in-input">
-                    <input type="email" name="" required="">
-                    <label>Email</label>
+                    <input type="text" v-model="email" required="">
+                    <label>E-mail</label>
                 </div>
                 <div class="log-in-input">
-                    <input type="password" name="" required="">
+                    <input type="password" v-model="password" required="">
                     <label>Parola</label>
                 </div>
                 <span class="forget-password-switch">
-                    <a href="/pagina-inregistrare">Ti-ai uitat parola?</a>
+                    <a @click="openPopup">Ti-ai uitat parola?</a>
                 </span>
+                <div v-if="showPopup" class="popup-container">
+                    <div class="popup-content" :style="{ width: 600 + 'px' }">
+                        <form>
+                            <div class="mb-3">
+                                <label for="pass" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="pass" v-model="resetMail">
+                            </div>
+                            <div class="d-flex justify-content-end" style="margin-top: 30px">
+                                <button type="button" class="btn btn-primary" @click="sendRequest" style="margin-right: 10px">Submit</button>
+                                <button type="button" class="btn btn-secondary" @click="closePopup">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <button type="submit" class="log-in-button">Conectare</button>
-                <span class="log-in-switch">
-            Nu ai cont? <a href="/pagina-inregistrare">Creeaza unul</a>
-        </span>
+                <span class="log-in-switch">Nu ai cont? <a href="/inregistrare">Creeaza unul</a>
+                </span>
             </form>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-CSRF-TOKEN': csrfToken
+};
 export default {
-    name: "LogIn"
+    name: "LogIn",
+    data() {
+        return {
+            email: null,
+            password: null,
+            showPopup: false,
+            resetMail: null,
+        }
+    },
+    methods: {
+        login() {
+            const specialCharRegex = /@/;
+            if (!specialCharRegex.test(this.email)) {
+                alert('E-mail invalid');
+                return;
+            }
+            axios.post('/login', {
+                email: this.email,
+                password: this.password
+            })
+                .then(response => {
+                    const token = response.data.token;
+
+                    this.$store.commit('setToken', token);
+                    localStorage.setItem('token', token);
+
+                    window.location.href = '/cautare';
+                })
+                .catch(error => {
+                    alert('Datele introduse nu sunt corecte!')
+                    console.error(error);
+                });
+        },
+        openPopup() {
+            this.showPopup = true;
+        },
+        closePopup() {
+            this.showPopup = false;
+        },
+        sendRequest() {
+            axios.post('/reset-request', {
+                email: this.resetMail
+            })
+                .then(response => {
+                    console.log(response.data);
+                    this.closePopup();
+                })
+                .catch(error => {
+                    console.error(error);
+            })
+        }
+    }
 }
 </script>
 
@@ -138,6 +208,31 @@ export default {
 
 .log-in-switch a:hover {
     text-decoration: underline;
+}
+
+.popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.btn-primary {
+    display: block;
+    background-color: #00A896;
+    border: none;
+    width: auto;
 }
 </style>
 

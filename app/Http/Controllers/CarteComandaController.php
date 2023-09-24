@@ -7,6 +7,7 @@ use App\Services\CarteComandaService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class CarteComandaController extends Controller
 {
@@ -58,7 +59,7 @@ class CarteComandaController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $data = CarteComanda::where('id', '=', $id)->firstOrFail();
+        $data = CarteComanda::where('id', '=', $id)->first();
         return response()->json($data, Response::HTTP_OK);
     }
 
@@ -186,6 +187,26 @@ class CarteComandaController extends Controller
     {
         $data = CarteComanda::where('id', '=', $id)->firstOrFail();
         $data->delete();
-        return response()->json("DELETED", Response::HTTP_OK);
+        return response()->json(['message' => 'Sters'], Response::HTTP_OK);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function returnOrder(Request $request): JsonResponse
+    {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Neautorizat'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $carteComanda = CarteComanda::where('id_comanda', '=', $request['id_comanda'])
+            ->where('id_carte', '=', $request['id_carte'])
+            ->first();
+
+        $carteComanda->status = 'returnata';
+        $carteComanda->save();
+
+        return response()->json(['message' => 'Salvat'], Response::HTTP_OK);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Comanda;
+use Illuminate\Support\Carbon;
 
 class ComandaService
 {
@@ -18,20 +19,17 @@ class ComandaService
         }
 
         if (!empty($properties['tip'])) {
-            $comanda->status = $properties['tip'];
+            $comanda->tip = $properties['tip'];
         }
 
-        if (!empty($properties['data_plasare'])) {
-            $comanda->data_plasare = $properties['data_plasare'];
-        }
+        $currentDate = Carbon::now();
+        $futureDate = $currentDate->addDays(7)->format('Y-m-d');
 
-        if (!empty($properties['data_livrare'])) {
-            $comanda->data_livrare = $properties['data_livrare'];
-        }
+        $comanda->data_plasare = Carbon::now()->format('Y-m-d');
 
-        if (!empty($properties['data_predare'])) {
-            $comanda->data_plasare = $properties['data_predare'];
-        }
+        $comanda->data_livrare = $futureDate;
+
+        $comanda->data_predare = $futureDate;
 
         if (!empty($properties['pret_comanda'])) {
             $comanda->pret_comanda = $properties['pret_comanda'];

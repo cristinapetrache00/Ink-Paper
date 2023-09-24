@@ -53,4 +53,30 @@ class ImportController extends Controller
             return response()->json(['message' => $e->getMessage()]);
         }
     }
+
+    /**
+     * @return JsonResponse
+     */
+    public function importReviews(): JsonResponse
+    {
+        try {
+            $this->importService->import('review.csv');
+            return response()->json(['message' => 'Importul a fost realizat cu succes!']);
+        } catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function importDiscounts(): JsonResponse
+    {
+        try {
+            $this->importService->import('promotii.csv');
+            return response()->json(['message' => 'Importul a fost realizat cu succes!']);
+        } catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage()]);
+        }
+    }
 }

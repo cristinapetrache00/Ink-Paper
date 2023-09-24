@@ -1,12 +1,19 @@
 <?php
 
+use App\Http\Controllers\CarteCategorieController;
 use App\Http\Controllers\CarteComandaController;
 use App\Http\Controllers\CarteController;
+use App\Http\Controllers\CarteCosController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ComandaController;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\DonatieController;
+use App\Http\Controllers\FavoritController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,110 +28,173 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/principala');
 });
-
-Route::get('/pagina-principala', function () {
-    return view('pagina-principala');
-});
-
-Route::get('/pagina-inregistrare', function () {
+Route::get('/inregistrare', function () {
     return view('pagina-inregistrare');
 });
-
-Route::get('/pagina-autentificare', function () {
+Route::get('/autentificare', function () {
     return view('pagina-autentificare');
-})->name('login');
-
-Route::get('/pagina-donare', function () {
+});
+Route::get('/donare', function () {
     return view('pagina-donare');
 });
-
-Route::get('/pagina-cautare', [CarteController::class, 'paginaCautare'])->name('search');
-
-Route::get('/filtre', [CarteController::class, 'getFilters']);
-Route::post('/filtre', [CarteController::class, 'queryBuilder']);
-
-Route::post('/search', [CarteController::class, 'search']);
-
-Route::group(['middleware' => 'auth'], function () {
-
+Route::get('/principala', function () {
+    return view('pagina-principala');
+});
+Route::get('/profil', function () {
+    return view('pagina-profil');
+});
+Route::get('/cart', function () {
+    return view('pagina-cos');
+});
+Route::get('/admin', function () {
+    return view('pagina-admin');
 });
 
-//Client
-Route::get('/clienti', [ClientController::class, 'index']);
-Route::get('/clienti/{id}', [ClientController::class, 'show']);
-Route::put('/clienti', [ClientController::class, 'update']);
-Route::post('/clienti', [ClientController::class, 'store']);
-Route::delete('/clienti/{id}', [ClientController::class, 'destroy']);
-Route::get('/clienti/user', [ClientController::class, 'userData']);
-Route::get('/clienti/comenzi', [ClientController::class, 'comenzi']);
-Route::get('/clienti/favorite', [ClientController::class, 'favorite']);
-Route::get('/clienti/cos', [ClientController::class, 'userData']);
+Route::group(['middleware' => ['auth:api']], function () {
 
+    Route::prefix('favorite')->group(function () {
+        Route::get('/{id}', [FavoritController::class, 'show']);
+        Route::get('/', [FavoritController::class, 'index']);
+        Route::post('/', [FavoritController::class, 'store']);
+        Route::delete('/{id}', [FavoritController::class, 'destroy']);
+    });
+
+    Route::prefix('comenzi')->group(function () {
+        Route::get('/', [ComandaController::class, 'index']);
+        Route::get('/{id}', [ComandaController::class, 'show']);
+        Route::post('/', [ComandaController::class, 'store']);
+        Route::delete('/{id}', [ComandaController::class, 'destroy']);
+    });
+
+    Route::prefix('reviewuri')->group(function () {
+        Route::put('/', [ReviewController::class, 'update']);
+        Route::post('/', [ReviewController::class, 'store']);
+        Route::delete('/{id}', [ReviewController::class, 'destroy']);
+    });
+
+    Route::prefix('user')->group(function () {
+        Route::get('/', [UserController::class, 'show']);
+        Route::put('/parola', [UserController::class, 'changePassword']);
+        Route::put('/', [UserController::class, 'update']);
+        Route::post('/logout', [UserController::class, 'logout']);
+    });
+
+    Route::get('/comenzi-carti', [ComandaController::class, 'carti']);
+    Route::post('/retur', [CarteComandaController::class, 'returnOrder']);
+    Route::get('/comanda-carti/{id_comanda}', [ComandaController::class, 'cartiComanda']);
+});
+
+Route::get('/profil/{ref}', [UserController::class, 'getProfileRef']);
+Route::get('/carte/{isbn}', [CarteController::class, 'getBookByIsbn']);
+Route::get('/cautare', [CarteController::class, 'paginaCautare'])->name('search');
+Route::post('/contact', [Controller::class, 'sendContactMail']);
+Route::post('/checkout', [ComandaController::class, 'checkout']);
+Route::post('/mail', [UserController::class, 'sendMail']);
+Route::get('/verify/{token}', [UserController::class, 'verifyMail']);
+Route::get('/reset/{token}', [UserController::class, 'resetPasswordRedirect']);
+Route::post('/login', [UserController::class, 'login']);
+Route::post('/reset-request', [UserController::class, 'sendPasswordRequest']);
+Route::put('/reset-password', [UserController::class, 'resetPassword']);
+Route::post('/search', [CarteController::class, 'search']);
 Route::get('/client-autentificat', [ClientController::class, 'getUserData']);
-
-//Comanda
-Route::get('/comenzi', [ComandaController::class, 'index']);
-Route::get('/comenzi/{id}', [ComandaController::class, 'show']);
-Route::put('/comenzi', [ComandaController::class, 'update']);
-Route::post('/comenzi', [ComandaController::class, 'store']);
-Route::delete('/comenzi/{id}', [ComandaController::class, 'destroy']);
-Route::get('/comenzi/carti/{id}', [ComandaController::class, 'carti']);
-
-//Review
-Route::get('/reviewuri', [ReviewController::class, 'index']);
-Route::get('/reviewuri/{id}', [ReviewController::class, 'show']);
-Route::put('/reviewuri', [ReviewController::class, 'update']);
-Route::post('/reviewuri', [ReviewController::class, 'store']);
-Route::delete('/reviewuri/{id}', [ReviewController::class, 'destroy']);
-
-//Carte
-Route::get('/carti', [CarteController::class, 'index']);
-Route::get('/carti/{id}', [CarteController::class, 'show']);
-Route::put('/carti', [CarteController::class, 'update']);
-Route::post('/carti', [CarteController::class, 'store']);
-Route::delete('/carti/{id}', [CarteController::class, 'destroy']);
-Route::get('/carti/categorii/{id}', [CarteController::class, 'categorii']);
-Route::get('/carti/reviewuri/{id}', [CarteController::class, 'reviewuri']);
-
-//CarteComanda
-Route::get('/carti-comanda', [CarteComandaController::class, 'index']);
-Route::get('/carti-comanda/{id}', [CarteComandaController::class, 'show']);
-Route::put('/carti-comanda', [CarteComandaController::class, 'update']);
-Route::post('/carti-comanda', [CarteComandaController::class, 'store']);
-Route::delete('/carti-comanda/{id}', [CarteComandaController::class, 'destroy']);
-
-//Categorie
-Route::get('/categorii', [CategorieController::class, 'index']);
-Route::get('/categorii/{id}', [CategorieController::class, 'show']);
-Route::put('/categorii', [CategorieController::class, 'update']);
-Route::post('/categorii', [CategorieController::class, 'store']);
-Route::delete('/categorii/{id}', [CategorieController::class, 'destroy']);
-Route::get('/categorie/carti/{id}', [CategorieController::class, 'carti']);
-
-//User
-Route::post('/user', [CategorieController::class, 'store']);
-Route::put('/user/parola', [CategorieController::class, 'changePassword']);
-Route::put('/user', [CategorieController::class, 'update']);
-
-//Returnari
+Route::get('/latest', [CarteController::class, 'getLatestCarti']);
+Route::get('/discounted', [CarteController::class, 'getDiscountedCarti']);
+Route::get('/discounts', [DiscountController::class, 'index']);
 Route::post('/returnari', [CategorieController::class, 'store']);
-
-//Donatii
 Route::post('/donatii', [CategorieController::class, 'store']);
 
-//Favorite
-Route::post('/favorite', [CategorieController::class, 'store']);
-Route::delete('/favorit/{id}', [ReviewController::class, 'destroy']);
+Route::prefix('carte-categorie')->group(function () {
+    Route::get('/', [CarteCategorieController::class, 'index']);
+    Route::post('/', [CarteCategorieController::class, 'store']);
+    Route::put('/', [CarteCategorieController::class, 'update']);
+    Route::delete('/{id}', [CarteCategorieController::class, 'destroy']);
+});
 
-//CarteCos
-Route::post('/cos', [CategorieController::class, 'store']);
-Route::put('/cos', [CategorieController::class, 'put']);
-Route::delete('/cos/{id}', [ReviewController::class, 'destroy']);
+Route::prefix('user')->group(function () {
+    Route::post('/', [UserController::class, 'store']);
+    Route::get('/index', [UserController::class, 'index']);
+    Route::delete('/{id}', [UserController::class, 'destroy']);
+});
+
+Route::prefix('filtre')->group(function () {
+    Route::get('/', [CarteController::class, 'getFilters']);
+    Route::post('/', [CarteController::class, 'queryBuilder']);
+});
+
+Route::prefix('clienti')->group(function () {
+    Route::get('/', [ClientController::class, 'index']);
+    Route::get('/{id}', [ClientController::class, 'show']);
+    Route::put('/', [ClientController::class, 'update']);
+    Route::post('/', [ClientController::class, 'store']);
+    Route::delete('/{id}', [ClientController::class, 'destroy']);
+    Route::get('/user', [ClientController::class, 'userData']);
+    Route::get('/comenzi', [ClientController::class, 'comenzi']);
+    Route::get('/favorite', [ClientController::class, 'favorite']);
+    Route::get('/cos', [ClientController::class, 'userData']);
+});
+
+Route::prefix('reviewuri')->group(function () {
+    Route::get('/', [ReviewController::class, 'index']);
+    Route::get('/carte/{id}', [ReviewController::class, 'getByBookId']);
+    Route::get('/{id}', [ReviewController::class, 'show']);
+    Route::put('/', [ReviewController::class, 'update']);
+    Route::post('/', [ReviewController::class, 'store']);
+    Route::delete('/{id}', [ReviewController::class, 'destroy']);
+});
+
+Route::get('/carte', [CarteController::class, 'index']);
+Route::put('/carte', [CarteController::class, 'update']);
+Route::post('/carte', [CarteController::class, 'store']);
+Route::delete('/carte/{id}', [CarteController::class, 'destroy']);
+
+Route::prefix('carti')->group(function () {
+    Route::get('/recomandari/{id}', [CarteController::class, 'getRecommandations']);
+    Route::get('/{id}', [CarteController::class, 'show']);
+    Route::get('/categorii/{id}', [CarteController::class, 'categorii']);
+    Route::get('/reviewuri/{id}', [CarteController::class, 'reviewuri']);
+});
+
+Route::prefix('carti-comanda')->group(function () {
+    Route::get('/', [CarteComandaController::class, 'index']);
+    Route::get('/{id}', [CarteComandaController::class, 'show']);
+    Route::put('/', [CarteComandaController::class, 'update']);
+    Route::post('/', [CarteComandaController::class, 'store']);
+    Route::delete('/{id}', [CarteComandaController::class, 'destroy']);
+});
+
+Route::prefix('categorii')->group(function () {
+    Route::get('/', [CategorieController::class, 'index']);
+    Route::get('/{id}', [CategorieController::class, 'show']);
+    Route::put('/', [CategorieController::class, 'update']);
+    Route::post('/', [CategorieController::class, 'store']);
+    Route::put('/{id}', [CategorieController::class, 'destroy']);
+    Route::get('/carti/{id}', [CategorieController::class, 'carti']);
+});
+
+Route::prefix('cos')->group(function () {
+    Route::post('/', [CarteCosController::class, 'store']);
+    Route::put('/', [CarteCosController::class, 'update']);
+    Route::delete('/{id}', [CarteCosController::class, 'destroy']);
+    Route::get('/', [CarteCosController::class, 'index']);
+});
 
 Route::prefix('import')->group(function () {
     Route::get('/carti', [ImportController::class, 'importCarti']);
     Route::get('/categorii', [ImportController::class, 'importCategorii']);
     Route::get('/useri', [ImportController::class, 'importUseri']);
+    Route::get('/reviews', [ImportController::class, 'importReviews']);
+    Route::get('/discounts', [ImportController::class, 'importDiscounts']);
+});
+
+Route::prefix('admin-comenzi')->group(function () {
+    Route::get('/', [ComandaController::class, 'adminIndex']);
+    Route::put('/', [ComandaController::class, 'update']);
+});
+
+Route::prefix('donatie')->group(function () {
+    Route::get('/', [DonatieController::class, 'index']);
+    Route::post('/', [DonatieController::class, 'store']);
+    Route::delete('/{id}', [DonatieController::class, 'destroy']);
 });
