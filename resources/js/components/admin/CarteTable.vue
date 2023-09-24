@@ -385,6 +385,8 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: auto;
+    padding-top: 400px;
 }
 
 .popup-content {

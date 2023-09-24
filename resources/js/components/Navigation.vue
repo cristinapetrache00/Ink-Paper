@@ -22,7 +22,7 @@
                         </ul>
                         <ul v-else class="dropdown-menu" v-show="isDropdownOpen" @click="closeDropdown">
                             <li><a class="dropdown-item" @click="login">Login</a></li>
-                            <li><a class="dropdown-item" @click="register">Autentificare</a></li>
+                            <li><a class="dropdown-item" @click="register">Inregistrare</a></li>
                         </ul>
                     </div>
                 </li>
@@ -85,7 +85,7 @@ export default {
                 .then(response => {
                     this.$store.commit('setToken', null);
                     localStorage.removeItem('token');
-                    window.location.href = '/cautare';
+                    window.location.href = '/principala';
                 })
                 .catch(error => {
                     console.error(error);

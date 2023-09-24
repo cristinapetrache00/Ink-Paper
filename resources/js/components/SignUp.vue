@@ -88,7 +88,7 @@ export default {
                 alert('Parola trebuie sa contina cel putin o litera mare, o litera mica, un numar si un caracter special!');
                 return;
             }
-            console.log("ADS")
+
             axios.post('/user', {
                 nume: this.nume,
                 prenume: this.prenume,
@@ -104,7 +104,7 @@ export default {
 
                     this.$store.commit('setToken', token);
                     localStorage.setItem('token', token);
-                    window.location.href = '/cautare';
+                    window.location.href = '/principala';
                 })
                 .catch(error => {
                     console.log(error);

@@ -158,8 +158,8 @@ export default {
             this.comenzi.forEach(comanda => {
                 comanda.carti = [];
                 this.carti_comenzi.forEach(carte_comanda => {
-                    if (comanda.id === carte_comanda.id) {
-                        comanda.carti.push(carte_comanda.id);
+                    if (comanda.id === carte_comanda.id_comanda) {
+                        comanda.carti.push(carte_comanda.id_carte);
                     }
                 })
             })

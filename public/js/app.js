@@ -6622,7 +6622,7 @@ var csrfToken = document.querySelector('meta[name="csrf-token"]').content;
         alert('Parolele nu coincid!');
         return;
       }
-      if (!this.parolaValidata) {
+      if (!this.isPasswordValid) {
         alert('Parola trebuie sa contina cel putin o litera mare, o litera mica, un numar si un caracter special!');
         return;
       }
@@ -6718,7 +6718,7 @@ var csrfToken = document.querySelector('meta[name="csrf-token"]').content;
       }).then(function (response) {
         _this.$store.commit('setToken', null);
         localStorage.removeItem('token');
-        window.location.href = '/cautare';
+        window.location.href = '/principala';
       })["catch"](function (error) {
         console.error(error);
       });
@@ -7064,7 +7064,6 @@ var csrfToken = document.querySelector('meta[name="csrf-token"]').content;
         alert('Parola trebuie sa contina cel putin o litera mare, o litera mica, un numar si un caracter special!');
         return;
       }
-      console.log("ADS");
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('/user', {
         nume: this.nume,
         prenume: this.prenume,
@@ -7078,7 +7077,7 @@ var csrfToken = document.querySelector('meta[name="csrf-token"]').content;
         var token = response.data.token;
         _this.$store.commit('setToken', token);
         localStorage.setItem('token', token);
-        window.location.href = '/cautare';
+        window.location.href = '/principala';
       })["catch"](function (error) {
         console.log(error);
       });
@@ -7719,8 +7718,8 @@ var csrfToken = document.querySelector('meta[name="csrf-token"]').content;
       this.comenzi.forEach(function (comanda) {
         comanda.carti = [];
         _this5.carti_comenzi.forEach(function (carte_comanda) {
-          if (comanda.id === carte_comanda.id) {
-            comanda.carti.push(carte_comanda.id);
+          if (comanda.id === carte_comanda.id_comanda) {
+            comanda.carti.push(carte_comanda.id_carte);
           }
         });
       });
@@ -10902,7 +10901,7 @@ var render = function render() {
     on: {
       click: _vm.register
     }
-  }, [_vm._v("Autentificare")])])])])]), _vm._v(" "), _c("li", {
+  }, [_vm._v("Inregistrare")])])])])]), _vm._v(" "), _c("li", {
     staticClass: "item"
   }, [_c("a", {
     attrs: {
@@ -18819,7 +18818,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n@font-face {\r\n    font-family: 'Lora';\r\n    src: url('/Fonts/static/Lora-Regular.ttf');\n}\n.navigation[data-v-d456e682] {\r\n    background-color: #008b7a;\r\n    height: 70px;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\n}\n.left-section[data-v-d456e682] {\r\n    width: 480px;\n}\n.right-section ul[data-v-d456e682] {\r\n    font-family: \"Lora\",serif;\r\n    display: flex;\r\n    padding-top: 10px\n}\n.right-section ul li[data-v-d456e682] {\r\n    list-style: none;\n}\n.right-section ul li a[data-v-d456e682] {\r\n    font-size: 17px;\r\n    font-weight: 700;\r\n    text-decoration: none;\r\n    padding: 10px;\r\n    transition: 0.5s ease;\n}\n.search-container[data-v-d456e682]{\r\n    position: absolute;\r\n    left: 35%;\r\n    top: 15px;\n}\n.search[data-v-d456e682] {\r\n    height: 40px;\r\n    width: 510px;\r\n    background-color: #FAFAFA;\r\n    font-family: \"Lora\", serif;\r\n    font-size: 14px;\r\n    border: none;\r\n    border-radius: 8px;\r\n    padding-left: 40px;\r\n    background-image: url(\"/icons/magnifying-glass-solid.svg\");\r\n    background-size: 16px 16px;\r\n    background-position-y: center;\r\n    background-position-x: 12px;\r\n    background-repeat: no-repeat;\r\n    outline: none;\r\n    box-shadow: 0 0 0 2px #008b7a;\n}\n.dropdown-menu[data-v-d456e682] {\r\n    display: none;\r\n    position: absolute;\r\n    z-index: 1000;\r\n    min-width: 10rem;\r\n    padding: 0.5rem 0;\r\n    margin: 0.125rem 0 0;\r\n    font-size: 1rem;\r\n    color: #212529;\r\n    text-align: left;\r\n    list-style: none;\r\n    background-color: #fff;\r\n    background-clip: padding-box;\r\n    border: 1px solid rgba(0, 0, 0, 0.15);\r\n    border-radius: 0.25rem;\r\n    -moz-column-count: 1;\r\n         column-count: 1; /* Display items in a single column */\r\n    -moz-column-gap: 0;\r\n         column-gap: 0;\n}\n.dropdown-menu li[data-v-d456e682] {\r\n    padding: 0.25rem 1.5rem;\n}\n.dropdown-menu li[data-v-d456e682]:hover {\r\n    background-color: #fff;\n}\n.dropdown-menu li a[data-v-d456e682] {\r\n    color: #000000;\r\n    text-decoration: none;\n}\n.dropdown-menu .dropdown-divider[data-v-d456e682] {\r\n    margin: 0.5rem 0;\r\n    border: none;\r\n    border-top: 1px solid rgba(0, 0, 0, 0.15);\n}\n.dropdown-item[data-v-d456e682] {\r\n    color: #000000;\n}\n.item[data-v-d456e682] {\r\n    padding-left: 8px;\r\n    padding-right: 8px;\r\n    border-right: 1px solid rgba(0, 0, 0, 0.15);\n}\n.item-last[data-v-d456e682] {\r\n    padding-left: 8px;\r\n    padding-right: 8px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n@font-face {\n    font-family: 'Lora';\n    src: url('/Fonts/static/Lora-Regular.ttf');\n}\n.navigation[data-v-d456e682] {\n    background-color: #008b7a;\n    height: 70px;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.left-section[data-v-d456e682] {\n    width: 480px;\n}\n.right-section ul[data-v-d456e682] {\n    font-family: \"Lora\",serif;\n    display: flex;\n    padding-top: 10px\n}\n.right-section ul li[data-v-d456e682] {\n    list-style: none;\n}\n.right-section ul li a[data-v-d456e682] {\n    font-size: 17px;\n    font-weight: 700;\n    text-decoration: none;\n    padding: 10px;\n    transition: 0.5s ease;\n}\n.search-container[data-v-d456e682]{\n    position: absolute;\n    left: 35%;\n    top: 15px;\n}\n.search[data-v-d456e682] {\n    height: 40px;\n    width: 510px;\n    background-color: #FAFAFA;\n    font-family: \"Lora\", serif;\n    font-size: 14px;\n    border: none;\n    border-radius: 8px;\n    padding-left: 40px;\n    background-image: url(\"/icons/magnifying-glass-solid.svg\");\n    background-size: 16px 16px;\n    background-position-y: center;\n    background-position-x: 12px;\n    background-repeat: no-repeat;\n    outline: none;\n    box-shadow: 0 0 0 2px #008b7a;\n}\n.dropdown-menu[data-v-d456e682] {\n    display: none;\n    position: absolute;\n    z-index: 1000;\n    min-width: 10rem;\n    padding: 0.5rem 0;\n    margin: 0.125rem 0 0;\n    font-size: 1rem;\n    color: #212529;\n    text-align: left;\n    list-style: none;\n    background-color: #fff;\n    background-clip: padding-box;\n    border: 1px solid rgba(0, 0, 0, 0.15);\n    border-radius: 0.25rem;\n    -moz-column-count: 1;\n         column-count: 1; /* Display items in a single column */\n    -moz-column-gap: 0;\n         column-gap: 0;\n}\n.dropdown-menu li[data-v-d456e682] {\n    padding: 0.25rem 1.5rem;\n}\n.dropdown-menu li[data-v-d456e682]:hover {\n    background-color: #fff;\n}\n.dropdown-menu li a[data-v-d456e682] {\n    color: #000000;\n    text-decoration: none;\n}\n.dropdown-menu .dropdown-divider[data-v-d456e682] {\n    margin: 0.5rem 0;\n    border: none;\n    border-top: 1px solid rgba(0, 0, 0, 0.15);\n}\n.dropdown-item[data-v-d456e682] {\n    color: #000000;\n}\n.item[data-v-d456e682] {\n    padding-left: 8px;\n    padding-right: 8px;\n    border-right: 1px solid rgba(0, 0, 0, 0.15);\n}\n.item-last[data-v-d456e682] {\n    padding-left: 8px;\n    padding-right: 8px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -18963,7 +18962,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.table[data-v-47423a34] {\n    width: 100%;\n}\n.btn-primary[data-v-47423a34] {\n    display: block;\n    background-color: #00A896;\n    border: none;\n    margin-bottom: 10px;\n}\n.popup-container[data-v-47423a34] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5);\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.popup-content[data-v-47423a34] {\n    background-color: #fff;\n    padding: 20px;\n    border-radius: 4px;\n}\n.container[data-v-47423a34] {\n    padding-left: 0;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.table[data-v-47423a34] {\n    width: 100%;\n}\n.btn-primary[data-v-47423a34] {\n    display: block;\n    background-color: #00A896;\n    border: none;\n    margin-bottom: 10px;\n}\n.popup-container[data-v-47423a34] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5);\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    overflow: auto;\n    padding-top: 400px;\n}\n.popup-content[data-v-47423a34] {\n    background-color: #fff;\n    padding: 20px;\n    border-radius: 4px;\n}\n.container[data-v-47423a34] {\n    padding-left: 0;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

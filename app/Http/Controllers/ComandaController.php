@@ -416,6 +416,7 @@ class ComandaController extends Controller
 
             if ($request->input('id_client') == 0) {
                 $carteCos = CarteCos::where('id_carte', '=', $carte['id'])
+                    ->where('id_client', '=', 'null')
                     ->first();
                 $carteCos->delete();
             } else {

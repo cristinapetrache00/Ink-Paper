@@ -146,7 +146,7 @@ export default {
                 alert('Parolele nu coincid!');
                 return;
             }
-            if (!this.parolaValidata) {
+            if (!this.isPasswordValid) {
                 alert('Parola trebuie sa contina cel putin o litera mare, o litera mica, un numar si un caracter special!');
                 return;
             }
